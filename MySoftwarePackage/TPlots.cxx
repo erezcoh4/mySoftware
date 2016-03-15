@@ -1,12 +1,6 @@
-//
 //  TPlots.cpp
-//
-//
 //  Created by Erez Cohen on 2/24/15.
-//
-//
 #include "TPlots.h" // my mac
-//#include "/u/home/cohen/Software/include/TPlots.h" // JLAB farm
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

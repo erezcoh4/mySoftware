@@ -20,6 +20,7 @@
 
 // nucleons
 #define Mp 0.938
+#define Mp2 0.938*0.938
 #define Mn 0.939
 
 

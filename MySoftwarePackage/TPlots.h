@@ -213,6 +213,8 @@ public:
     TString PercentPrint(float x)   {return PercentPrint((double)x);};
     TString PercentStr(double x)  {return Form("%.1f%%",100.*x);};      // to screen...
     TString PercentStr(float x)   {return PercentPrint((double)x);};
+    void PrintPercentStr(double x)  {Printf("[%s]",PercentStr(x).Data());};
+    
     
     
     

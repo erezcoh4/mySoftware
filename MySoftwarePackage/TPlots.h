@@ -70,6 +70,7 @@ using namespace std;
 #define PrintLine() std::cout << "-------------------------------" << std::endl;
 #define SHOW(a) std::cout << #a << ": " << (a) << std::endl
 #define SHOWstdTVector3(v) { std::cout << #v << " ( " << v.size() << " entries ):\t";     for (std::vector<TVector3>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << "(" << it -> X() << ","  << it -> Y() << "," << it -> Z() << ")\t"; std::cout << '\n';}
+#define SHOWvectorTLorentzVector(v) { std::cout << #v << " ( " << v.size() << " entries ):\t";     for (std::vector<TLorentzVector>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << "(" << it -> Px() << ","  << it -> Py() << "," << it -> Pz()  << "," << it -> E() << ")\t"; std::cout << '\n';}
 
 class TPlots{
     

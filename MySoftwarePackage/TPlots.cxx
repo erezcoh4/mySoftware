@@ -701,31 +701,6 @@ void TPlots::PrintOutMatrix(char * name , const int N , const int M , double **m
 
 
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::PlotGraphDataToFile(char * FileName,const int N,double X[N],double Xerr[N],double Y[N],double Yerr[N]){
-    ofstream OutFile;
-    OutFile.open(FileName);
-    for (int i = 0; i < N; i++)
-        OutFile << X[i] << " " << Xerr[i] << " " << Y[i] << " " << Yerr[i] << std::endl;
-    OutFile.close();
-}
-
-
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::ReadGraphDataFromFile(char * FileName,const int N,double X[N],double Xerr[N],double Y[N],double Yerr[N]){
-    ifstream InFile;
-    InFile.open(FileName);
-    for (int i = 0; i < N; i++)
-        InFile >> X[i] >> Xerr[i] >> Y[i] >> Yerr[i];
-    InFile.close();
-}
-
-
-
-
-
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TH1F * TPlots::ReScaleAxis(TH1F * h, double XMin, double XMax)

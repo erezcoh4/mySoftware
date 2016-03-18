@@ -629,3 +629,64 @@ TH1F* TAnalysis::GetPartOfHistogram(char * name, TH1F * h, double Xlow, double X
 
 
 
+
+
+
+
+
+
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void TAnalysis::PlotGraphDataToFile(TString FileName,const int N,double X[N],double Xerr[N],double Y[N],double Yerr[N]){
+    ofstream OutFile;
+    OutFile.open(FileName);
+    for (int i = 0; i < N; i++)
+    OutFile << X[i] << " " << Xerr[i] << " " << Y[i] << " " << Yerr[i] << std::endl;
+    OutFile.close();
+}
+
+
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void TAnalysis::ReadGraphDataFromFile(TString FileName,const int N,double X[N],double Xerr[N],double Y[N],double Yerr[N]){
+    ifstream InFile;
+    InFile.open(FileName);
+    for (int i = 0; i < N; i++){
+        InFile >> X[i] >> Xerr[i] >> Y[i] >> Yerr[i];
+    }
+    InFile.close();
+}
+
+
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void TAnalysis::ReadGraphFromFile(TString FileName,const int N,double X[N],double Y[N]){
+    ifstream InFile;
+    InFile.open(FileName);
+    cout << "reading "<< FileName << endl;
+    for (int i = 0; i < N; i++){
+        InFile >> X[i] >>  Y[i] ;
+        //        Printf("point %i: (%.3f , %.3f)",i,X[i],Y[i]);
+    }
+    InFile.close();
+}
+
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+TGraph * TAnalysis::ReadGraphFromFile(TString FileName,const int N){
+    double X[N], Y[N];
+    ReadGraphFromFile(FileName, N , X ,  Y );
+    TGraph * g = new TGraph( N , X , Y  );
+    return g;
+}
+
+
+
+
+
+
+

@@ -83,6 +83,13 @@ public:
     double * SubtractBackground (TH2F *, double , float Bkg2SigBox= 1, float x0 = 0, float y0 = 0);
     
     
+    
+  
+    void       PlotGraphDataToFile (TString,const int,double*,double*,double*,double*);
+    void     ReadGraphDataFromFile (TString,const int,double*,double*,double*,double*);
+    void         ReadGraphFromFile (TString,const int,double*,double*);
+    TGraph     * ReadGraphFromFile (TString,const int);
+    
 };
 
 

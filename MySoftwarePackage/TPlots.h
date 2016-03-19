@@ -70,13 +70,13 @@ using namespace std;
 #define PrintLine() std::cout << "-------------------------------" << std::endl;
 
 #define SHOW(a) std::cout << #a << ": " << (a) << std::endl
-#define SHOWTLorentzVector(v) std::cout << #v << ": " << "\t(" << setprecision(2) << v.Px() << ","  << v.Py() << "," << v.Pz()  << "," << v.E() << ")" << ", P = " << v.P() << ", M = " << v.M() << std::endl
+#define SHOWTLorentzVector(v) std::cout << #v << ": " << "\t(" << setprecision(2) << fixed << v.Px() << ","  << v.Py() << "," << v.Pz()  << "," << v.E() << ")" << ", P = " << v.P() << ", M = " << v.M() << std::endl
 
-#define SHOWvectorFloat_t(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<Float_t>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << setprecision(2) << "\n\t" << *it ; std::cout << '\n';}
+#define SHOWvectorFloat_t(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<Float_t>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << setprecision(2)  << fixed << "\n\t" << *it ; std::cout << '\n';}
 
-#define SHOWstdTVector3(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<TVector3>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << setprecision(2) << "\n\t(" << it -> X() << ","  << it -> Y() << "," << it -> Z() << ")\t"; std::cout << '\n';}
+#define SHOWstdTVector3(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<TVector3>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << setprecision(2) << fixed << "\n\t(" << it -> X() << ","  << it -> Y() << "," << it -> Z() << ")\t"; std::cout << '\n';}
 
-#define SHOWvectorTLorentzVector(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<TLorentzVector>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << setprecision(2) << "\n\t(" << it -> Px() << ","  << it -> Py() << "," << it -> Pz()  << "," << it -> E() << ")" << ", P = " << it -> P() << ", M = " << it -> M(); std::cout << '\n';}
+#define SHOWvectorTLorentzVector(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<TLorentzVector>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << setprecision(2) << fixed << "\n\t(" << it -> Px() << ","  << it -> Py() << "," << it -> Pz()  << "," << it -> E() << ")" << ", P = " << it -> P() << ", M = " << it -> M(); std::cout << '\n';}
 
 class TPlots{
     

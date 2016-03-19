@@ -69,7 +69,8 @@ using namespace std;
 // important prints....
 #define PrintLine() std::cout << "-------------------------------" << std::endl;
 
-#define SHOW(a) std::cout << #a << ": " << (a) << std::endl
+#define SHOW(a) std::cout  << setprecision(2) << fixed << #a << ": " << (a) << std::endl
+
 #define SHOWTLorentzVector(v) std::cout << #v << ": " << "\t(" << setprecision(2) << fixed << v.Px() << ","  << v.Py() << "," << v.Pz()  << "," << v.E() << ")" << ", P = " << v.P() << ", M = " << v.M() << std::endl
 
 #define SHOWvectorFloat_t(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<Float_t>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << setprecision(2)  << fixed << "\n\t" << *it ; std::cout << '\n';}

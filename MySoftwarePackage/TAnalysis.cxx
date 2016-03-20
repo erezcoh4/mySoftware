@@ -689,4 +689,53 @@ TGraph * TAnalysis::ReadGraphFromFile(TString FileName,const int N){
 
 
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+TH2F* TAnalysis::Assymetry(TTree * Tree , TString vZ
+                           , TString vX , int NbinsX , Float_t XMin, Float_t XMax
+                           , TString vY , int NbinsY , Float_t YMin, Float_t YMax
+                           , TString Weight
+                           , bool DoPrint ){
+    // read all entries from the variable "var" and bin them in NbinsX of vX and NbinsY of vY
+    Printf("For VariableIn2DBins, the branches type must be Double_t...");
+    TH2F * h2 = new TH2F(vZ+"_binnedin_"+vX+"_and_"+vY,vZ+" binned in "+vX+" and "+vY,NbinsX,XMin,XMax,NbinsY,YMin,YMax);
+    TH2F * Nforw = new TH2F("Nforw","Nforw",NbinsX,XMin,XMax,NbinsY,YMin,YMax);
+    TH2F * NBack = new TH2F("NBack","NBack",NbinsX,XMin,XMax,NbinsY,YMin,YMax);
+    
+    TLorentzVector *X = 0 , *Y = 0 , *Z = 0;
+    Double_t weight;
+//    Tree -> SetBranchAddress( vX , &X );
+    Tree -> SetBranchAddress( vY , &Y );
+    Tree -> SetBranchAddress( vZ , &Z );
+    Tree -> SetBranchAddress( Weight , &weight );
+    
+    for (int i = 0 ; i < Tree -> GetEntries() ; i++ ) {
+        Tree -> GetEntry(i);
+        if(DoPrint) Printf(" n.Pz() = %f", Z->Pz());
+        if ( Z->Pz() > 0) {
+            Nforw -> Fill( Z->P() , Y->E() , weight ); // change this for special usage or FIXME - make it modular
+            if(DoPrint) printf("filling Nforw");
+        }
+        else {
+            NBack -> Fill( Z->P() , Y->E() , weight );
+            if(DoPrint) printf("filling NBack");
+        }
+        if(DoPrint) Printf(" in binx=%d ,biny=%d with weight %f "
+               ,NBack -> GetXaxis() -> FindBin(Z->P()) , NBack -> GetYaxis() -> FindBin(Y->E()),weight);
+        
+    }
+    
+    for (int binX = 1;binX < NbinsX ; binX++ ) {
+        for (int binY = 1 ;binY < NbinsY ; binY++ ) {
+            h2 -> SetBinContent( binX , binY
+                                , (NBack->GetBinContent( binX , binY ) - Nforw->GetBinContent( binX , binY ))
+                                / (NBack->GetBinContent( binX , binY ) + Nforw->GetBinContent( binX , binY )));
+        }
+    }
+    delete Nforw;
+    delete NBack;
+    
+    return h2;
+}
+
+
 

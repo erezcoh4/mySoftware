@@ -90,6 +90,12 @@ public:
     void         ReadGraphFromFile (TString,const int,double*,double*);
     TGraph     * ReadGraphFromFile (TString,const int);
     
+    
+    
+    TH2F               * Assymetry (TTree * , TString , TString , int , Float_t, Float_t, TString , int , Float_t, Float_t , TString, bool DoPrint = false);
+    
+    
+    
 };
 
 

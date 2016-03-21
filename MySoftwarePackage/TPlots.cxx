@@ -756,15 +756,28 @@ float TPlots::GetBranchSum(TString v1,TCut cut){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 // March-20,2016
-void TPlots::Draw1DVarAndCut(TCanvas * c  , int i , TString varX , TString varY,
-                                        int NbinsX , float Xmin , float Xmax,
-                                        int NbinsY , float Ymin , float Ymax,
-                                        TString Title , TString XTitle , TString YTitle , TCut cut , bool DoAddLegend ){
+void TPlots::Draw1DVarAndCut(TCanvas * c  , int i , TString varX ,
+                             int NbinsX , float Xmin , float Xmax,
+                             TString Title , TString XTitle , TCut cut , bool DoAddLegend ){
     c -> cd(i);
-    TH1F * hNoCut = H1(varX,"","",NbinsX,Xmin,Xmax,Title,XTitle,YTitle,1,48);
-    TH1F * hCut   = H1(varX,cut,"colz same",NbinsX,Xmin,Xmax,Title,XTitle,YTitle,1,38);
+    TH1F * hNoCut = H1(varX,"","",NbinsX,Xmin,Xmax,Title,XTitle,"",1,48);
+    TH1F * hCut   = H1(varX,cut,"colz same",NbinsX,Xmin,Xmax,Title,XTitle,"",1,38);
     if (DoAddLegend) {
-        AddLegend(varX,hNoCut,"no cut",hCut,(TString)cut);
+        AddLegend(varX,hNoCut,"no cut",hCut,(TString)cut,"F");
+    }
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+// March-20,2016
+void TPlots::Draw2DVarAndCut(TCanvas * c  , int i , TString varX , TString varY,
+                             int NbinsX , float Xmin , float Xmax,
+                             int NbinsY , float Ymin , float Ymax,
+                             TString Title , TString XTitle , TString YTitle , TCut cut , bool DoAddLegend ){
+    c -> cd(i);
+    TH1F * hNoCut = H1(varX,"","",NbinsX,Xmin,Xmax,Title,XTitle,YTitle,48);
+    TH1F * hCut   = H1(varX,cut,"colz same",NbinsX,Xmin,Xmax,Title,XTitle,YTitle,38);
+    if (DoAddLegend) {
+        AddLegend(varX+" vs. " + varY,hNoCut,"no cut",hCut,(TString)cut,"p");
     }
 }
 

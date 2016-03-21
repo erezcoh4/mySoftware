@@ -124,7 +124,7 @@ public:
     TCanvas * CreateCanvas(TString Title, TString DoDivide="NoDivision", int Nx=4, int Ny=2, float w=800, float h=800);
     
     TH1F *  H1 ( TString, TCut, TString, int Nbins=10, double Xlow=0, double Xup=1
-                , TString T="",  TString XT="", TString YT="", int c=1, int fc=0,int fStyle=3004);
+                , TString T="",  TString XT="", TString YT="", int c=1, int fc=38,int fStyle=3001);
     TH2F *  H2 ( TString, TString, TCut, TString, int NbinX=6, double Xlow=-3, double Xup=3, int NbinY=4, double Ylow=0, double Yup=4
                 , TString Title="", TString XTitle="", TString YTitle=""
                 , int color=1, int style=7, float Alpha=0.9, double mSize=1. );

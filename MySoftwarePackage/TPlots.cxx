@@ -774,7 +774,7 @@ void TPlots::Draw2DVarAndCut(TCanvas * c  , int i , TString varX , TString varY,
                              int NbinsY , float Ymin , float Ymax,
                              TString Title , TString XTitle , TString YTitle , TCut cut , bool DoAddLegend ){
     c -> cd(i);
-    TH2F * hNoCut = H2(varX,varY,"","colz",NbinsX,Xmin,Xmax,NbinsY,Ymin,Ymax,Title,XTitle,YTitle,48);
+    TH2F * hNoCut = H2(varX,varY,"","",NbinsX,Xmin,Xmax,NbinsY,Ymin,Ymax,Title,XTitle,YTitle,48);
     TH2F * hCut   = H2(varX,varY,cut,"colz same",NbinsX,Xmin,Xmax,NbinsY,Ymin,Ymax,Title,XTitle,YTitle,38);
     if (DoAddLegend) {
         AddLegend(varX+" vs. " + varY,hNoCut,"no cut",hCut,(TString)cut,"p");

@@ -760,8 +760,8 @@ void TPlots::Draw1DVarAndCut(TCanvas * c  , int i , TString varX ,
                              int NbinsX , float Xmin , float Xmax,
                              TString Title , TString XTitle , TCut cut , bool DoAddLegend ){
     c -> cd(i);
-    TH1F * hNoCut = H1(varX,"","",NbinsX,Xmin,Xmax,Title,XTitle,"",1,48);
-    TH1F * hCut   = H1(varX,cut,"colz same",NbinsX,Xmin,Xmax,Title,XTitle,"",1,38);
+    TH1F * hNoCut = H1(varX,"","BAR",NbinsX,Xmin,Xmax,Title,XTitle,"",1,48);
+    TH1F * hCut   = H1(varX,cut,"BAR same",NbinsX,Xmin,Xmax,Title,XTitle,"",1,38);
     if (DoAddLegend) {
         AddLegend(varX,hNoCut,"no cut",hCut,(TString)cut,"F");
     }
@@ -774,8 +774,8 @@ void TPlots::Draw2DVarAndCut(TCanvas * c  , int i , TString varX , TString varY,
                              int NbinsY , float Ymin , float Ymax,
                              TString Title , TString XTitle , TString YTitle , TCut cut , bool DoAddLegend ){
     c -> cd(i);
-    TH1F * hNoCut = H1(varX,"","",NbinsX,Xmin,Xmax,Title,XTitle,YTitle,48);
-    TH1F * hCut   = H1(varX,cut,"colz same",NbinsX,Xmin,Xmax,Title,XTitle,YTitle,38);
+    TH2F * hNoCut = H2(varX,varY,"","colz",NbinsX,Xmin,Xmax,NbinsY,Ymin,Ymax,Title,XTitle,YTitle,48);
+    TH2F * hCut   = H2(varX,varY,cut,"colz same",NbinsX,Xmin,Xmax,NbinsY,Ymin,Ymax,Title,XTitle,YTitle,38);
     if (DoAddLegend) {
         AddLegend(varX+" vs. " + varY,hNoCut,"no cut",hCut,(TString)cut,"p");
     }

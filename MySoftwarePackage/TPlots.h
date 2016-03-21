@@ -243,6 +243,8 @@ public:
     void SetAlias       (TString v1,TString v2) {Tree->SetAlias(v1,v2);};
     
     
+    // drawing with TCuts
+    void Draw1DVarAndCut (TCanvas * , int, TString , TString, int, float, float, int, float, float, TString, TString, TString, TCut, bool DoAddLegend = false);
     
 };
 

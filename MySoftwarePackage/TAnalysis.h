@@ -46,10 +46,6 @@ public:
     TAnalysis                   ();
     ~TAnalysis                  (){};
     
-    //    //RooFit 1d Histogram
-    //    RooPlot * RooFitHistogram   ( TH1F * , double & , double & , double & , double & , TString  , bool PlotFit = true);
-    //
-    //
     //    //Unbinned RooFit of 1d Histogram
     //    RooPlot * RooFit1D          ( TTree * , TString , Double_t *  , Double_t * , Double_t * , TString , bool PlotFit = true , bool DoWeight = false );
     Double_t Kolmogorov1D       (Int_t, Double_t*, Int_t, Double_t*, Option_t* option="");
@@ -92,7 +88,8 @@ public:
     
     
     
-    TH2F               * Assymetry (TTree * , TString , TString , int , Float_t, Float_t, TString , int , Float_t, Float_t , TString, bool DoPrint = false);
+    TH2F               * Assymetry (TTree *, TString, TString, int, Float_t, Float_t, TString , int , Float_t, Float_t , TString, bool DoPrint = false);
+    RooPlot             * RooFit1D (TTree *, TString, TCut, Double_t*, Double_t*, bool Plot = false );
     
     
     

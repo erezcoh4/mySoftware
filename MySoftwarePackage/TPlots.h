@@ -75,6 +75,8 @@ using namespace std;
 
 #define SHOWvectorFloat_t(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<Float_t>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << setprecision(2)  << fixed << "\n\t" << *it ; std::cout << '\n';}
 
+#define SHOWvectorInt_t(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<Int_t>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << "\n\t" << *it ; std::cout << '\n';}
+
 #define SHOWstdTVector3(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<TVector3>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << setprecision(2) << fixed << "\n\t(" << it -> X() << ","  << it -> Y() << "," << it -> Z() << ")\t"; std::cout << '\n';}
 
 #define SHOWvectorTLorentzVector(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<TLorentzVector>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << setprecision(2) << fixed << "\n\t(" << it -> Px() << ","  << it -> Py() << "," << it -> Pz()  << "," << it -> E() << ")" << ", P = " << it -> P() << ", M = " << it -> M(); std::cout << '\n';}

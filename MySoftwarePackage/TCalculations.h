@@ -77,7 +77,7 @@ public:
     Double_t ppMmissHe3             (TLorentzVector , TVector3 , TVector3);
     TString TargetAsString          (int);
     void    TargetMassAndDeltaE     (int , float * , float *);
-    
+   
     
     Float_t DistanceFromPointToLine (Double_t , Double_t , Double_t , Double_t );
     Float_t Chi2FitStraightLine     (const int ,Double_t* ,Double_t* ,Double_t* ,Double_t* ,Double_t* );
@@ -90,7 +90,12 @@ public:
     float InversefmToInverseGeV     (float x) {return x * 0.1972;}; // 1 / fm = 0.1972 1 / GeV
     float fmToGeV                   (float x) {return x * 5.070 ;}; // 1 fm = 5.070 GeV/c, 1 / fm = 0.1972 / GeV
     float TwoIdenticalSpheresOverlapVolume(float R, float d);
+
     
+    void    SwitchV1V2     (Float_t         , Float_t );
+    void    SwitchV1V2     (Int_t           , Int_t );
+    void    SwitchV1V2     (TLorentzVector  , TLorentzVector );
+    void    SwitchV1V2     (TVector3        , TVector3 );
 };
 
 

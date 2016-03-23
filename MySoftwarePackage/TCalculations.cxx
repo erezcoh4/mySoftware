@@ -175,3 +175,28 @@ float TCalculations::TwoIdenticalSpheresOverlapVolume(float R, float d){
 
 
 
+
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void TCalculations::SwitchV1V2(Float_t v1 , Float_t v2){ //March - 22
+    auto tmp = v1;    v1 = v2;    v2 = tmp;
+}
+
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void TCalculations::SwitchV1V2(Int_t v1 , Int_t v2){ //March - 22
+    auto tmp = v1;    v1 = v2;    v2 = tmp;
+}
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void TCalculations::SwitchV1V2(TLorentzVector v1 , TLorentzVector v2){ //March - 22
+    auto tmp = v1;    v1 = v2;    v2 = tmp;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void TCalculations::SwitchV1V2(TVector3 v1 , TVector3 v2){ //March - 22
+    auto tmp = v1;    v1 = v2;    v2 = tmp;
+}

@@ -4,91 +4,95 @@
 #include "TCalculations.h"
 
 
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-TVector3 TCalculations::EnergyLossCorrrection(TVector3 p){ // following Or Hen Analysis
-    Double_t Pmeasured = p.Mag();
-    Double_t CorrFactor= sqrt( pow((0.00135272 + 0.000845728/(pow((0.0746518+Pmeasured),2))+sqrt(pow(p.Mag(),2)+pow(Mp,2))),2)-pow(Mp,2))/p.Mag();
-    return (CorrFactor*p);
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-TVector3 TCalculations::CoulombCorrection(TVector3 p , Float_t CoulombDeltaE){
-    // following Or Hen Analysis : p' = p x √(√((m^2+p^2)^2+∆E^2) - m^2)
-    return (sqrt(pow(sqrt(pow(Mp,2)+pow(p.Mag(),2))+CoulombDeltaE,2) - pow(Mp,2))/p.Mag())*p;
-}
-
-
-// Missing Mass....
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-Double_t TCalculations::MmissNpNn(TLorentzVector q, TVector3 Plead , int Np , int Nn){
-    // If the electron scatters from a group of N protons and N neutrons at rest (i.e., Pc.m. = 0) the missing mass of the (e,e'p) reaction is
-    TLorentzVector  pLead4Vec , TargetRest , miss4Vec;
-    pLead4Vec       .SetVectM( Plead            , Mp );                     // struck proton
-    TargetRest      .SetVectM( TVector3(0,0,0)  , Np*Mp + Nn*Mn );          // target at rest
-    miss4Vec        = q + TargetRest - pLead4Vec;
-    return miss4Vec.Mag();
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-Double_t TCalculations::ppMmissHe3(TLorentzVector q, TVector3 Plead , TVector3 Precoil){
-    // If the electron scatters from a group of N protons and N neutrons at rest (i.e., Pc.m. = 0) the missing mass of the (e,e'p) reaction is
-    TLorentzVector  pLead4Vec , pRec4Vec , He3AtRest , miss4Vec;
-    pLead4Vec       .SetVectM( Plead            , Mp );                     // struck proton
-    pRec4Vec        .SetVectM( Precoil          , Mp );                     // recoiling proton
-    He3AtRest       .SetVectM( TVector3(0,0,0)  , 2*Mp + 1*Mn );            // target at rest
-    miss4Vec        = q + He3AtRest - pLead4Vec - pRec4Vec;
-    return miss4Vec.Mag();
-}
-
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-TString TCalculations::TargetAsString(int A){
-    switch (A) {
-        case 12:
-            return "C12";
-            break;
-        case 27:
-            return "Al27";
-            break;
-        case 56:
-            return "Fe56";
-            break;
-        case 208:
-            return "Pb208";
-            break;
-        default:
-            return "No Target Found";
-            break;
-    }
-}
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TCalculations::TargetMassAndDeltaE(int A , float *mA , float *CoulombDeltaE){
-    // return MassDE[0] = mass and MassDE[1] = DeltaE
-    switch (A) {
-        case 12:            // carbon (C12)
-            *mA              = 12.0107*0.931494;
-            *CoulombDeltaE   = 0.0029;
-            break;
-        case 27:            // Aluminium (Al27)
-            *mA              = 26.982*0.931494;
-            *CoulombDeltaE   = 0.0056;
-            break;
-        case 56:            // iron (Fe56)
-            *mA              = 55.9349375*0.93149;
-            *CoulombDeltaE   = 0.0094;
-            break;
-        default:            // lead (Pb208)
-            *mA              = 207.2*0.93149;
-            *CoulombDeltaE   = 0.0203;
-            break;
-    }
-}
-
+//
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//TVector3 TCalculations::EnergyLossCorrrection(TVector3 p){ // following Or Hen Analysis
+//    Double_t Pmeasured = p.Mag();
+//    Double_t CorrFactor= sqrt( pow((0.00135272 + 0.000845728/(pow((0.0746518+Pmeasured),2))+sqrt(pow(p.Mag(),2)+pow(Mp,2))),2)-pow(Mp,2))/p.Mag();
+//    return (CorrFactor*p);
+//}
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//TVector3 TCalculations::CoulombCorrection(TVector3 p , Float_t CoulombDeltaE){
+//    // following Or Hen Analysis : p' = p x √(√((m^2+p^2)^2+∆E^2) - m^2)
+//    return (sqrt(pow(sqrt(pow(Mp,2)+pow(p.Mag(),2))+CoulombDeltaE,2) - pow(Mp,2))/p.Mag())*p;
+//}
+//
+//
+//// Missing Mass....
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//Double_t TCalculations::MmissNpNn(TLorentzVector q, TVector3 Plead , int Np , int Nn){
+//    // If the electron scatters from a group of N protons and N neutrons at rest (i.e., Pc.m. = 0) the missing mass of the (e,e'p) reaction is
+//    TLorentzVector  pLead4Vec , TargetRest , miss4Vec;
+//    pLead4Vec       .SetVectM( Plead            , Mp );                     // struck proton
+//    TargetRest      .SetVectM( TVector3(0,0,0)  , Np*Mp + Nn*Mn );          // target at rest
+//    miss4Vec        = q + TargetRest - pLead4Vec;
+//    return miss4Vec.Mag();
+//}
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//Double_t TCalculations::ppMmissHe3(TLorentzVector q, TVector3 Plead , TVector3 Precoil){
+//    // If the electron scatters from a group of N protons and N neutrons at rest (i.e., Pc.m. = 0) the missing mass of the (e,e'p) reaction is
+//    TLorentzVector  pLead4Vec , pRec4Vec , He3AtRest , miss4Vec;
+//    pLead4Vec       .SetVectM( Plead            , Mp );                     // struck proton
+//    pRec4Vec        .SetVectM( Precoil          , Mp );                     // recoiling proton
+//    He3AtRest       .SetVectM( TVector3(0,0,0)  , 2*Mp + 1*Mn );            // target at rest
+//    miss4Vec        = q + He3AtRest - pLead4Vec - pRec4Vec;
+//    return miss4Vec.Mag();
+//}
+//
+//
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//TString TCalculations::TargetAsString(int A){
+//    switch (A) {
+//        case 12:
+//            return "C12";
+//            break;
+//        case 27:
+//            return "Al27";
+//            break;
+//        case 56:
+//            return "Fe56";
+//            break;
+//        case 208:
+//            return "Pb208";
+//            break;
+//        default:
+//            return "No Target Found";
+//            break;
+//    }
+//}
+//
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TCalculations::TargetMassAndDeltaE(int A , float *mA , float *CoulombDeltaE){
+//    // return MassDE[0] = mass and MassDE[1] = DeltaE
+//    switch (A) {
+//        case 12:            // carbon (C12)
+//            *mA              = 12.0107*0.931494;
+//            *CoulombDeltaE   = 0.0029;
+//            break;
+//        case 27:            // Aluminium (Al27)
+//            *mA              = 26.982*0.931494;
+//            *CoulombDeltaE   = 0.0056;
+//            break;
+//        case 56:            // iron (Fe56)
+//            *mA              = 55.9349375*0.93149;
+//            *CoulombDeltaE   = 0.0094;
+//            break;
+//        default:            // lead (Pb208)
+//            *mA              = 207.2*0.93149;
+//            *CoulombDeltaE   = 0.0203;
+//            break;
+//    }
+//}
+//
+//
+//
+//
+//
 
 
 
@@ -174,29 +178,3 @@ float TCalculations::TwoIdenticalSpheresOverlapVolume(float R, float d){
 
 
 
-
-
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TCalculations::SwitchV1V2(Float_t v1 , Float_t v2){ //March - 22
-    auto tmp = v1;    v1 = v2;    v2 = tmp;
-}
-
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TCalculations::SwitchV1V2(Int_t v1 , Int_t v2){ //March - 22
-    auto tmp = v1;    v1 = v2;    v2 = tmp;
-}
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TCalculations::SwitchV1V2(TLorentzVector v1 , TLorentzVector v2){ //March - 22
-    auto tmp = v1;    v1 = v2;    v2 = tmp;
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TCalculations::SwitchV1V2(TVector3 v1 , TVector3 v2){ //March - 22
-    auto tmp = v1;    v1 = v2;    v2 = tmp;
-}

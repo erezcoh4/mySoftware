@@ -9,54 +9,6 @@ using namespace RooFit ;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TAnalysis::TAnalysis(){    i_ana = 0;   }
 
-//
-////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-////----------- unbinned RooFit of 1d Gaussian ----------------------//
-//RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString VarName , Double_t Xlim[2] , Double_t Par[2] , Double_t ParErr[2] , TString fTitle
-//                              , bool PlotFit , bool DoWeight){
-//    // Par are input initial parameters (Par[0]=mean,Par[1]=sigma) and are returned as the results
-//    // To get Or' results:
-//    RooRealVar variable (VarName.Data(),VarName.Data()  ,-1     ,1) ;
-//    RooRealVar  fMean   ("mean"     ,"mean"     , 0             ,-0.5   ,0.8        ) ;
-//    RooRealVar  fSigma  ("sigma"    ,"sigma"    , 0.16          , 0.0   ,0.7        ) ;
-//    RooGaussian fGauss  ("gauss"    ,"gauss"    , variable      ,fMean  ,fSigma     ) ;
-//    
-//    // And something more robust:
-//    //    RooRealVar  variable (VarName.Data(),VarName.Data()  ,Xlim[0]  ,Xlim[1]) ;
-//    //    RooRealVar  fMean   ("mean"     ,"mean"     ,Par[0]         ,Xlim[0]    ,Xlim[1]        ) ;
-//    //    RooRealVar  fSigma  ("sigma"    ,"sigma"    ,Par[1]         ,Xlim[0]    ,Xlim[1]        ) ;
-//    //    RooGaussian fGauss  ("gauss"    ,"gauss"    ,variable       ,fMean      ,fSigma          ) ;
-//    
-//    RooPlot* frame = variable.frame(Bins(20), Name(VarName.Data()),Title(fTitle)) ;
-//    
-//    if (DoWeight){
-//        Printf("Doing Weight!!");
-//        RooRealVar fWeight   ("rooWeight","rooWeight"      , -100000      ,1000000 ) ;
-//        RooArgSet VarSet(variable,fWeight);
-//        RooDataSet DataSet("DataSet","Data Set",VarSet,Import(*Tree)) ;
-//        DataSet.Print();
-//        if (PlotFit)    DataSet.plotOn(frame) ;
-//        fGauss.fitTo(DataSet) ;
-//    } else {
-//        RooArgSet VarSet(variable);
-//        RooDataSet DataSet("DataSet","Data Set",VarSet,Import(*Tree)) ;
-//        DataSet.Print();
-//        if (PlotFit)    DataSet.plotOn(frame) ;
-//        fGauss.fitTo(DataSet) ;
-//    }
-//    fGauss.plotOn(frame,LineColor(kRed)) ;
-//    Par[0]      = fMean.getValV();
-//    Par[1]      = fSigma.getValV();
-//    ParErr[0]   = fMean.getError();
-//    ParErr[1]   = fSigma.getError();
-//    
-//    if (PlotFit)    frame -> Draw();
-//    return frame;
-//}
-
-
-
-
 
 
 
@@ -441,7 +393,7 @@ Double_t TAnalysis::ETestHisto3D(TH3F* hD, TH3F* hMC/*, const int Nx*/){
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-Double_t TAnalysis::IntegralH2D(TH2F * h, Double_t Xlow, Double_t Ylow, Double_t Xup, Double_t Yup, bool DoDrawBox){
+Double_t TAnalysis::IntegralH2D(TH2F * h, Double_t Xlow, Double_t Ylow, Double_t Xup, Double_t Yup, bool DoDrawBox, int color){
     // integrate [Xlow,Ylow]->[Xup,Yup]
     int binX , binY;
     float integral = 0;
@@ -451,8 +403,8 @@ Double_t TAnalysis::IntegralH2D(TH2F * h, Double_t Xlow, Double_t Ylow, Double_t
         }
     }
     if (DoDrawBox){
-        Printf("∫(%.1f,%.1f)->(%.1f,%.1f)=%.1f",Xlow ,Ylow,Xup,Yup,integral);
-        //        TPlots::Box(Xlow ,Ylow,Xup,Yup,1,0.1);
+        Printf("∫%s(%.1f,%.1f)->(%.1f,%.1f)=%.1f",h->GetName(),Xlow ,Ylow,Xup,Yup,integral);
+        plot.Box(Xlow ,Ylow,Xup,Yup,color,0.3);
     }
     
     return integral;
@@ -550,25 +502,53 @@ float TAnalysis::GetS2N(TH1 * hSignal, TH1 * hNoise){
 
 
 
-// signal on background (2d)
+
+
+// signal on background (2d) - last editted March 24
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-double * TAnalysis::SubtractBackground(TH2F * h2, double a, float Bkg2SigBox, float x0, float y0){
-    SHOW(a);
-    // reutrns Nrealevents and NrealErr, where "real" events are the signal inside an a-side size ....
-//    float N             = h2 -> Integral();
-    float Nsignal       = IntegralH2D(h2,x0-a/2     ,y0-a/2     ,x0+a/2     ,y0+a/2     , true);
-    float Nbackground   = 0;
-    Nbackground        += IntegralH2D(h2,x0-(Bkg2SigBox+2)*a/2  ,y0-Bkg2SigBox*a/2      ,x0-Bkg2SigBox*a/2      ,y0+Bkg2SigBox*a/2      , true);
-    Nbackground        += IntegralH2D(h2,x0-Bkg2SigBox*a/2      ,y0-(Bkg2SigBox+2)*a/2  ,x0+Bkg2SigBox*a/2      ,y0-Bkg2SigBox*a/2      , true);
-    Nbackground        += IntegralH2D(h2,x0+Bkg2SigBox*a/2      ,y0-Bkg2SigBox*a/2      ,x0+(Bkg2SigBox+2)*a/2  ,y0+Bkg2SigBox*a/2      , true);
-    Nbackground        += IntegralH2D(h2,x0-Bkg2SigBox*a/2      ,y0+Bkg2SigBox*a/2      ,x0+Bkg2SigBox*a/2      ,y0+(Bkg2SigBox+2)*a/2  , true);
-    double NReal        = Nsignal - (float)Nbackground/(4*Bkg2SigBox);
-    double NRealErr     = sqrt(Nsignal + (float)Nbackground/(4*Bkg2SigBox));
-    double NRealEvents[2] = {NReal , NRealErr};
-    //    TPlots::Text( x0-7*a/2 , 1.*(y0+6*a/2) , Form("Signal = %.0f+/-%.0f",Nsignal,sqrt(Nsignal)) );
-    //    TPlots::Text( x0-7*a/2 , 0.8*(y0+6*a/2) , Form("Background = %.0f+/-%.0f",Nbackground,sqrt(Nbackground)) );
-    //    TPlots::Text( x0-7*a/2 , 0.6*(y0+6*a/2) , Form("Real events = %.0f+/-%.0f",NReal,NRealErr) );
-    return NRealEvents;
+RooRealVar TAnalysis::SubtractBackground(TH2F * h, float aSig, float axBkg , bool DoPlot){
+    // reutrns "real" events - the signal inside an [aSig x aSig] size box
+    float ayBkg     = aSig;
+    float VSig      = aSig * aSig   ,   VBkg    = axBkg * ayBkg;
+
+    float Peak      = IntegralH2D(h, -aSig/2.       , -aSig/2.          ,  aSig/2.          ,  aSig/2.      , DoPlot , 4)
+    , PeakErr    = sqrt(Peak);
+    
+    float BkgLeft   = IntegralH2D(h, -axBkg-aSig/2. , -ayBkg/2.         , -aSig/2.          ,  ayBkg/2.     , DoPlot , 1)
+    , BkgLeftErr = sqrt(BkgLeft);
+    
+    float BkgBottom = IntegralH2D(h, -aSig/2.       , -axBkg-aSig/2.    ,  aSig/2.          , -aSig/2.      , DoPlot , 1)
+    , BkgBottomErr = sqrt(BkgBottom);
+    
+    float BkgRight  = IntegralH2D(h,  aSig/2.       , -ayBkg/2.         ,  axBkg+aSig/2.    ,  ayBkg/2.     , DoPlot , 1)
+    , BkgRightErr= sqrt(BkgRight);
+    
+    float BkgTop    = IntegralH2D(h, -aSig/2.       ,  aSig/2.          ,  aSig/2.          ,  axBkg+aSig/2., DoPlot , 1)
+    , BkgTopErr  = sqrt(BkgTop);
+    
+    float BkgAvg    = (BkgLeft + BkgBottom + BkgRight + BkgTop) / 4.
+    , BkgAvgErr = sqrt(BkgLeftErr*BkgLeftErr + BkgBottomErr*BkgBottomErr + BkgRightErr*BkgRightErr + BkgTopErr*BkgTopErr) / 4. ;
+    
+    float Bkg       = BkgAvg    * ( VSig / VBkg );
+    float BkgErr    = BkgAvgErr * ( VSig / VBkg );
+    
+    if(DoPlot) {
+        plot.Text(-15 , 14, Form("Peak: %.1f  #pm  %.1f",Peak   ,PeakErr),2);
+        plot.Text(-15 , 12, Form("Bkgd: %.1f  #pm  %.1f",Bkg    ,BkgErr) ,1);
+    }
+    Printf("average background %.1f ± %.1f in (%.0fx%.0f) box, and %.1f ± %.1f in (%.0fx%.0f) box"
+           , BkgAvg,BkgAvgErr,aSig,axBkg,Bkg,BkgErr,aSig,aSig);
+    
+    Printf("BkgLeft - BkgAvg = %.1f ± %.1f"     , BkgLeft-BkgAvg , sqrt(BkgLeftErr*BkgLeftErr + BkgAvgErr*BkgAvgErr));
+    Printf("BkgBottom - BkgAvg = %.1f ± %.1f"   , BkgBottom-BkgAvg , sqrt(BkgBottomErr*BkgBottomErr + BkgAvgErr*BkgAvgErr));
+    Printf("BkgRight - BkgAvg = %.1f ± %.1f"    , BkgRight-BkgAvg , sqrt(BkgRightErr*BkgRightErr + BkgAvgErr*BkgAvgErr));
+    Printf("BkgTop - BkgAvg = %.1f ± %.1f"      , BkgTop-BkgAvg , sqrt(BkgTopErr*BkgTopErr + BkgAvgErr*BkgAvgErr));
+    
+    RooRealVar signal("signal","signal", Peak - Bkg , -1e5 , 1e5 , "");
+    signal.setError(sqrt(PeakErr*PeakErr + BkgErr*BkgErr));
+    return signal;
+
+
 }
 
 

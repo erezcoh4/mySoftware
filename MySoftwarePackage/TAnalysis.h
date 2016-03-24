@@ -40,7 +40,8 @@ private:
     
 public:
     
-    int i_ana;
+    int     i_ana;
+    TPlots  plot;
     
     // constructor
     TAnalysis                   ();
@@ -65,7 +66,7 @@ public:
     Double_t ETestHisto3D       (TH3F*, TH3F*/*, const int*/);
     //    Double_t EtestPsi           (int i1, int i2, int i3, int j1,int j2, int j3, double);
     
-    Double_t IntegralH2D        (TH2F * h,Double_t Xlow, Double_t Ylow, Double_t Xup, Double_t Yup,bool DoDrawBox=false);
+    Double_t IntegralH2D        (TH2F * h,Double_t Xlow, Double_t Ylow, Double_t Xup, Double_t Yup,bool DoDrawBox=false, int color = 1);
     Double_t IntegralH1D        (TH1F * h,Double_t Xlow, Double_t Xup);
     Double_t TH1Frac            (TH1F * histo , Double_t Xlow, Double_t Xup);
     
@@ -76,7 +77,6 @@ public:
     TH1F* GetPartOfHistogram    (char *, TH1F *, double, double);
     void NormalizeHistogram     (TH1F *);
     float GetS2N                (TH1 *, TH1 *);
-    double * SubtractBackground (TH2F *, double , float Bkg2SigBox= 1, float x0 = 0, float y0 = 0);
     
     
     
@@ -90,7 +90,8 @@ public:
     
     TH2F               * Assymetry (TTree *, TString, TString, int, Float_t, Float_t, TString , int , Float_t, Float_t , TString, bool DoPrint = false);
     RooPlot             * RooFit1D (TTree *, TString, TCut, Double_t*, Double_t*, bool Plot = false );
-    
+    RooRealVar  SubtractBackground (TH2F *, float aSig, float axBkg, bool DoPlot = false);
+   
     
     
 };

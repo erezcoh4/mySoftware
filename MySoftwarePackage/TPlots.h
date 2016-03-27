@@ -117,7 +117,7 @@ public:
     // methods
     TFile * GetFile (){ return File; };
     TTree * GetTree (){ return Tree; };
-    int GetEntries ( TCut cut ){ return (int)Tree->GetEntries(cut); };
+    int GetEntries ( TCut cut = "" ){ return (int)Tree->GetEntries(cut); };
     
     
     void MergeFiles ( TString, const int N, char ** fName, char *, char *);

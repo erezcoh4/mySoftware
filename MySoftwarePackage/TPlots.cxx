@@ -758,12 +758,12 @@ float TPlots::GetBranchSum(TString v1,TCut cut){
 // March-20,2016
 void TPlots::Draw1DVarAndCut(TCanvas * c  , int i , TString varX ,
                              int NbinsX , float Xmin , float Xmax,
-                             TString Title , TString XTitle , TCut cut , bool DoAddLegend ){
+                             TString Title , TString XTitle , TCut cut , bool DoAddLegend , TString CutName){
     c -> cd(i);
     TH1F * hNoCut = H1(varX,"","BAR",NbinsX,Xmin,Xmax,Title,XTitle,"",1,48);
     TH1F * hCut   = H1(varX,cut,"BAR same",NbinsX,Xmin,Xmax,Title,XTitle,"",1,38);
     if (DoAddLegend) {
-        AddLegend(varX,hNoCut,"no cut",hCut,(TString)cut,"F");
+        AddLegend(varX,hNoCut,Form("no cut (%d)",(int)hNoCut->GetEntries()),hCut,Form("%s cut (%d)",CutName.Data(),(int)hCut->GetEntries()),"F");
     }
 }
 

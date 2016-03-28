@@ -243,7 +243,7 @@ public:
     
     
     // drawing with TCuts
-    void Draw1DVarAndCut (TCanvas * , int, TString , int, float, float, TString, TString, TCut, bool DoAddLegend = false);
+    void Draw1DVarAndCut (TCanvas * , int, TString , int, float, float, TString, TString, TCut, bool DoAddLegend = false, TString CutName = "");
     void Draw2DVarAndCut (TCanvas * , int, TString , TString, int, float, float, int, float, float, TString, TString, TString, TCut, bool DoAddLegend = false);
 
     

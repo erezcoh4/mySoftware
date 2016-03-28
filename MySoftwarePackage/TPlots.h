@@ -91,6 +91,7 @@ private:
     
     
 public:
+    
     //date
     TTimeStamp ts;
     TString fName;
@@ -115,9 +116,6 @@ public:
     
     
     // methods
-    TFile * GetFile (){ return File; };
-    TTree * GetTree (){ return Tree; };
-    int GetEntries ( TCut cut ){ return (int)Tree->GetEntries(cut); };
     
     
     void MergeFiles ( TString, const int N, char ** fName, char *, char *);
@@ -249,6 +247,15 @@ public:
     void Draw1DVarAndCut (TCanvas * , int, TString , int, float, float, TString, TString, TCut, bool DoAddLegend = false);
     void Draw2DVarAndCut (TCanvas * , int, TString , TString, int, float, float, int, float, float, TString, TString, TString, TCut, bool DoAddLegend = false);
     
+    
+    
+    //    GETs
+    
+    TFile *           GetFile (){ return File; };
+    TTree *           GetTree (){ return Tree; };
+    int            GetEntries ( TCut cut = "" ){ return (int)Tree->GetEntries(cut); };
+    TString       GetFileName (){return (TString)(File->GetName());};
+
 };
 
 

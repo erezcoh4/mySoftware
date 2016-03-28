@@ -252,7 +252,7 @@ public:
     TFile *     GetFile (){ return File; };
     TTree *     GetTree (){ return Tree; };
     int      GetEntries ( TCut cut = "" ){ return (int)Tree->GetEntries(cut); };
-    TString GetFileName (){return (TString)(InFile->GetName());};
+    TString GetFileName (){return (TString)(File->GetName());};
 
 };
 

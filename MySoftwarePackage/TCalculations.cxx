@@ -52,19 +52,6 @@ Double_t TCalculations::Sum( const int N , Double_t n[N] , Double_t x , Double_t
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-Double_t TCalculations::Distance(TVector3 v1 , TVector3 v2 , bool PrintOutResults){
-    if(PrintOutResults){
-        plot->PrintOut3Vector(v1,"v1");
-        plot->PrintOut3Vector(v2,"v2");
-        Printf("distance = %g",(v2-v1).Mag());
-    }
-    return (v2-v1).Mag();
-}
-
-
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 float TCalculations::RadiationLength(int Z, int A, float density){
     // approximate formula for a given material consisting of a single type of nuclei
     float RL    = (716.4*A

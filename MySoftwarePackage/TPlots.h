@@ -215,10 +215,10 @@ public:
     
     
     // prints
-    void PrintOut3Vector(  TVector3 , TString );
-    void Print4Momentum ( TLorentzVector Vec4 , TString Name );
-    void PrintstdTVector3(char * , std::vector<TVector3>);
-    void PrintOutMatrix (char *, const int N, const int M, double **mat);
+//    void PrintOut3Vector(  TVector3 , TString );
+//    void Print4Momentum ( TLorentzVector Vec4 , TString Name );
+//    void PrintstdTVector3(char * , std::vector<TVector3>);
+//    void PrintOutMatrix (char *, const int N, const int M, double **mat);
     TString PercentPrint(double x)  {return Form("%.1f\\%%",100.*x);};      // to Latex...
     TString PercentPrint(float x)   {return PercentPrint((double)x);};
     TString PercentStr(double x)  {return Form("%.1f%%",100.*x);};      // to screen...

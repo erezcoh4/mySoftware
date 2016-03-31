@@ -73,7 +73,7 @@ public:
     TH1F* RatioOfHistograms     (TString, TH1F *, TH1F *,TString,TString,int col = 38);
     void PlotHRefAndHRatios     (TString, TH1F *, int, const int, TH1F **, TString, TString, int*);
     TH1F* CombineHistograms     (char *, TH1F *, TH1F *,TString,TString,int col = 38);
-    TH1F* GetHistoFromAFile     (char *, char *);
+    TH1F* GetHistoFromAFile     (TString, TString);
     TH1F* GetPartOfHistogram    (char *, TH1F *, double, double);
     void NormalizeHistogram     (TH1F *);
     float GetS2N                (TH1 *, TH1 *);

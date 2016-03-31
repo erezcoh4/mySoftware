@@ -482,7 +482,7 @@ TH1F* TAnalysis::CombineHistograms(char * name, TH1F * hNum, TH1F * hDen,TString
 TH1F * TAnalysis::GetHistoFromAFile(TString filename , TString histoname){
     TFile * File = new TFile(filename);
     TH1F* histo =  (TH1F*)File->Get(histoname);
-    File -> Close();
+//    File -> Close();
     return histo;
 }
 

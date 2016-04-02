@@ -37,7 +37,7 @@ void TPlots::MergeFiles( TString TreeName, const int N, char * FileName[N], char
     TFile * OutFile = new TFile(Form("%s.root",NewFileName));
     chain = new TChain(TreeName);
     for (int j = 0; j < N; j++)
-        chain -> Add(Form("%s/%s",Path,FileName[j]));
+    chain -> Add(Form("%s/%s",Path,FileName[j]));
     chain -> Merge(Form("%s/%s.root",Path,NewFileName));
     OutFile -> Write();
     OutFile -> Close();
@@ -53,9 +53,9 @@ TPlots::TPlots( TString TreeName , TString FileName1 , TString FileName2 , TStri
     chain -> Add(Form("%s/%s",Path.Data(),FileName2.Data()));
     chain -> Merge(Form("%s/%s.root",Path.Data(),NewFileName.Data()));
     if (!QuietMode)
-        std::cout << Form("at date %d and time %d ",ts.GetDate(),ts.GetTime())
-        << ", Generated\n"
-        << Form("%s/%s.root",Path.Data(),NewFileName.Data()) << std::endl;
+    std::cout << Form("at date %d and time %d ",ts.GetDate(),ts.GetTime())
+    << ", Generated\n"
+    << Form("%s/%s.root",Path.Data(),NewFileName.Data()) << std::endl;
     i_plot = 0;
     File = new TFile( Form("%s/%s.root",Path.Data(),NewFileName.Data()) );
     Tree = (TTree*)File -> Get( TreeName );
@@ -70,9 +70,9 @@ TCanvas * TPlots::CreateCanvas(TString Title, TString DoDivide, int Nx, int Ny, 
     i_plot++;
     TCanvas * c = new TCanvas(Form("c%s%s%d",fName.Data(),Title.Data(),i_plot),Title.Data(),w,h);
     if (DoDivide=="Divide")
-        c -> Divide(Nx , Ny);
+    c -> Divide(Nx , Ny);
     else if (DoDivide=="DivideSquare")
-        c -> DivideSquare(Nx);
+    c -> DivideSquare(Nx);
     return c;
 }
 
@@ -87,9 +87,9 @@ TH1F * TPlots::H1(TString  Var, TCut cut, TString option
     h[i_plot] = (TH1F *)gROOT->FindObject(Form("h%s%d",fName.Data(),i_plot));
     SetFrame( h[i_plot] , Title , XTitle , YTitle , color , FillColor , FillStyle);
     if (option!="goff")
-        h[i_plot] -> Draw(Form("%s",option.Data()));
+    h[i_plot] -> Draw(Form("%s",option.Data()));
     if (!QuietMode)
-        std::cout << Form("%s %s with %d entries",fName.Data(),Var.Data(),(int)h[i_plot]->GetEntries()) << std::endl;
+    std::cout << Form("%s %s with %d entries",fName.Data(),Var.Data(),(int)h[i_plot]->GetEntries()) << std::endl;
     return h[i_plot];
 }
 
@@ -116,9 +116,9 @@ TH2F * TPlots::H2( TString VarX, TString VarY, TCut cut, TString option
     h2[i_plot] = (TH2F *)gROOT->FindObject(Form("h2%s%d",fName.Data(),i_plot));
     SetFrame( h2[i_plot] , Form("%s",Title.Data()) , XTitle , YTitle , color , style , mSize , Alpha );
     if (option!="goff")
-        h2[i_plot] -> Draw(Form("%s",option.Data()));
+    h2[i_plot] -> Draw(Form("%s",option.Data()));
     if (!QuietMode)
-        std::cout << Form("%s %s vs. %s with %d entries",fName.Data(),VarX.Data(),VarY.Data(),(int)h2[i_plot]->GetEntries()) << std::endl;
+    std::cout << Form("%s %s vs. %s with %d entries",fName.Data(),VarX.Data(),VarY.Data(),(int)h2[i_plot]->GetEntries()) << std::endl;
     return h2[i_plot];
 }
 
@@ -140,9 +140,9 @@ TH3F * TPlots::H3( TString VX, TString VY, TString VZ, TCut cut, TString option
     h3[i_plot] = (TH3F *)gROOT->FindObject(Form("h%s%d",fName.Data(),i_plot));
     SetFrame( h3[i_plot] , Form("%s",Title.Data()), XTitle, YTitle, ZTitle, color , style , mSize , Alpha );
     if (option!="goff")
-        h3[i_plot] -> Draw(Form("%s",option.Data()));
+    h3[i_plot] -> Draw(Form("%s",option.Data()));
     if (!QuietMode)
-        std::cout << Form("%s %s vs. %s vs. %s with %d entries",fName.Data(),VZ.Data(),VY.Data(),VX.Data(),(int)h3[i_plot]->GetEntries()) << std::endl;
+    std::cout << Form("%s %s vs. %s vs. %s with %d entries",fName.Data(),VZ.Data(),VY.Data(),VX.Data(),(int)h3[i_plot]->GetEntries()) << std::endl;
     return h3[i_plot];
 }
 
@@ -157,7 +157,7 @@ TPie * TPlots::Pie(TString Name, TString Title, const int N, Float_t vals[N] , I
     pie -> SetLabelsOffset(0.05);
     float sumofvals = 0;
     for ( int i = 0 ; i < N ;  i++ )
-        sumofvals += vals[i];
+    sumofvals += vals[i];
     for ( int i = 0 ; i < N ;  i++ ) {
         pie -> SetEntryRadiusOffset( i, 0.1);
         pie -> SetEntryLabel(i, Form("%s(%.1f%%)",labels[i].Data(),100*vals[i]/sumofvals));
@@ -244,9 +244,9 @@ void TPlots::AddLegend(TString Title , const int N , TH1F * h[N], TString * Labe
     leg -> SetTextSize(0.04);
     for (int i = 0 ; i < N ; i++){
         if (mean)
-            leg -> AddEntry ( h[i] , Form("%s, #mu=%.3f",Labels[i].Data(),h[i]->GetMean()) , option );
+        leg -> AddEntry ( h[i] , Form("%s, #mu=%.3f",Labels[i].Data(),h[i]->GetMean()) , option );
         else
-            leg -> AddEntry ( h[i] , Labels[i] , option );
+        leg -> AddEntry ( h[i] , Labels[i] , option );
     }
     leg -> Draw();
 }
@@ -280,6 +280,13 @@ void TPlots::AddLegend(TString Title, TH3F * h1, TString l1, TH3F * h2, TString 
 }
 
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void TPlots::AddLegend(TString Title, TH1F * h1, TString l1, TH1F * h2, TString l2, TH1F * h3, TString l3, Option_t * option){
+    TH1F * h[3] = {h1,h2,h3};
+    TString Labels[3] = {l1,l2,l3};
+    AddLegend( Title ,  3 , h , Labels , 1 , option);
+}
+
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void TPlots::AddLegend(TString Title , const int N , TGraphErrors * g[N] ,  TString * Labels, int Ncol , Option_t * option){
@@ -289,7 +296,7 @@ void TPlots::AddLegend(TString Title , const int N , TGraphErrors * g[N] ,  TStr
     leg -> SetTextSize (0.04);
     leg-> SetNColumns(Ncol);
     for (int i = 0 ; i < N ; i++)
-        leg -> AddEntry ( g[i] , Labels[i] , option );
+    leg -> AddEntry ( g[i] , Labels[i] , option );
     leg -> Draw();
 }
 
@@ -308,9 +315,9 @@ TGraphErrors * TPlots::Graph( TString Name, const int N , double X[N] , double Y
     g -> SetMarkerStyle(mStyle);
     g -> SetMarkerSize(mSize);
     if (option=="goff")
-        return g;
+    return g;
     else
-        g -> Draw(option);
+    g -> Draw(option);
     return g;
 }
 
@@ -357,10 +364,10 @@ void TPlots::Graphs( const int N, TGraphErrors ** g, TString * Labels, int PolRa
                 chi2red[i]      =  f[i]->GetChisquare()/f[i]->GetNDF();
                 if ( chi2red[i] > 1) FitParErr[i][0] *= sqrt(chi2red[i]);
                 if (AddFitToLegend)
-                    newLabels[i] = Form("%s, y = %.3f(%.0f) {chi2/ndf=%.1f}"
-                                        ,Labels[i].Data(),FitPar[i][0]
-                                        ,1000*FitParErr[i][0]
-                                        ,chi2red[i]);
+                newLabels[i] = Form("%s, y = %.3f(%.0f) {chi2/ndf=%.1f}"
+                                    ,Labels[i].Data(),FitPar[i][0]
+                                    ,1000*FitParErr[i][0]
+                                    ,chi2red[i]);
             }
             else if (PolRank[i]==1){
                 for (int j = 0 ; j < 2 ; j++){
@@ -370,49 +377,37 @@ void TPlots::Graphs( const int N, TGraphErrors ** g, TString * Labels, int PolRa
                 chi2red[i]  =  f[i]->GetChisquare()/f[i]->GetNDF();
                 if ( chi2red[i] > 1) {FitPar[i][0] *= sqrt(chi2red[i]); FitPar[i][1] *= sqrt(chi2red[i]);}
                 if (AddFitToLegend)
-                    newLabels[i] = Form("%s, y = %.3f(%.0f) + %.3f(%.0f)x {chi2/ndf=%.1f}"
-                                        ,Labels[i].Data()
-                                        ,FitPar[i][0],1000*FitParErr[i][0]
-                                        ,FitPar[i][1],1000*FitParErr[i][1]
-                                        ,chi2red[i]);
+                newLabels[i] = Form("%s, y = %.3f(%.0f) + %.3f(%.0f)x {chi2/ndf=%.1f}"
+                                    ,Labels[i].Data()
+                                    ,FitPar[i][0],1000*FitParErr[i][0]
+                                    ,FitPar[i][1],1000*FitParErr[i][1]
+                                    ,chi2red[i]);
             }
         } else
-            newLabels[i] = Labels[i];
+        newLabels[i] = Labels[i];
     }
     if (DoAddLegend)
-        AddLegend("" , N , g , newLabels , 1 , "lp");
+    AddLegend("" , N , g , newLabels , 1 , "lp");
 }
+//
+//
+//
 ////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//void TPlots::Graphs( const int N, TGraphErrors * g[N], TString * Labels,  TString Title, TString XTitle, TString YTitle, double mSize, int mStyle
-//                    , double Xmin, double Xmax, double YMin, double YMax , int LineColors[N] , bool DoAddLegend ){
-//    int PolRank[N];
-//    double xFitMin[N] , xFitMax[N];
-//    double FitPar[N][3] , FitParErr[N][3], chi2red[N];
-//    for (int i=0;i<N;i++) PolRank[i]=xFitMin[i]=xFitMax[i]=0;
-//    Graphs( N, g , Labels ,PolRank , xFitMin , xFitMax,FitPar,FitParErr,chi2red
-//           ,Title, XTitle, YTitle, mSize, mStyle
-//           ,Xmin ,Xmax , YMin, YMax
-//           , false , LineColors ,DoAddLegend );
+//void TPlots::Histograms( const int NHist , TH1F * h[NHist]  , TString * Labels, TString Title , TString XTitle , TString YTitle , double XMin , double XMax , double YMax , bool DoMean ){
+//
+//    TH1F *frame = new TH1F("frame","",100, XMin , XMax);
+//    frame -> SetMaximum(YMax);
+//    SetFrame( frame ,Title , XTitle , YTitle );
+//    frame -> Draw();
+//    for (int i = 0 ; i < NHist ; i++ ){
+//        h[i] -> SetLineColor(5*i+31);
+//        h[i] -> SetLineWidth(3);
+//        h[i] -> Draw("same");
+//    }
+//    AddLegend("Legend" , NHist , h , Labels  , 1 , "l" , DoMean);
 //}
-
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::Histograms( const int NHist , TH1F * h[NHist]  , TString * Labels, TString Title , TString XTitle , TString YTitle , double XMin , double XMax , double YMax , bool DoMean ){
-    
-    TH1F *frame = new TH1F("frame","",100, XMin , XMax);
-    frame -> SetMaximum(YMax);
-    SetFrame( frame ,Title , XTitle , YTitle );
-    frame -> Draw();
-    for (int i = 0 ; i < NHist ; i++ ){
-        h[i] -> SetLineColor(5*i+31);
-        h[i] -> SetLineWidth(3);
-        h[i] -> Draw("same");
-    }
-    AddLegend("Legend" , NHist , h , Labels  , 1 , "l" , DoMean);
-}
-
-
+//
+//
 
 
 
@@ -535,10 +530,10 @@ Float_t TPlots::CalculateRatioOfEvents2D( TH2F* hA , TH2F* hB , Float_t XMin , F
     int binXMinB = hB -> GetXaxis() -> FindBin(XMin) ,   binXMaxB = hB -> GetXaxis() -> FindBin(XMax);
     int binYMinB = hB -> GetYaxis() -> FindBin(YMin) ,   binYMaxB = hB -> GetYaxis() -> FindBin(YMax);
     if (!QuietMode)
-        std:: cout << Form("binsA: %d,%d -> %d,%d,\t hA = %.2f,\t hB = %.2f"
-                           ,binXMinA,binYMinA,binXMaxA,binYMaxA
-                           ,hA->Integral(binXMinA,binXMaxA,binYMinA,binYMaxA)
-                           ,hB->Integral(binXMinB,binXMaxB,binYMinB,binYMaxB)) << std::endl;
+    std:: cout << Form("binsA: %d,%d -> %d,%d,\t hA = %.2f,\t hB = %.2f"
+                       ,binXMinA,binYMinA,binXMaxA,binYMaxA
+                       ,hA->Integral(binXMinA,binXMaxA,binYMinA,binYMaxA)
+                       ,hB->Integral(binXMinB,binXMaxB,binYMinB,binYMaxB)) << std::endl;
     return (hA->Integral(binXMinA,binXMaxA,binYMinA,binYMaxA) / hB->Integral(binXMinB,binXMaxB,binYMinB,binYMaxB));
 }
 
@@ -659,41 +654,41 @@ void TPlots::Frame3D(TString Title){
 
 
 
+//
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TPlots::PrintOut3Vector( TVector3 v , TString name){
+//    Printf("%12s: (%5.2f,%5.2f,%5.2f) |%s|=%5.2f",name.Data(),v.x(),v.y(),v.z(),name.Data(),v.Mag());
+//}
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TPlots::Print4Momentum( TLorentzVector Vec4 , TString Name ){
+//    printf("%12s: ( ( %5.2f , %5.2f , %5.2f ) , %5.2f ) ||%s-4 vec||=%5.2f |%s-3 vec|=%5.2f\n"
+//           , Name.Data() , Vec4.Vect().x() , Vec4.Vect().y() , Vec4.Vect().z(), Vec4.Energy(), Name.Data(), Vec4.Mag(), Name.Data(), Vec4.Vect().Mag());
+//}
 
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::PrintOut3Vector( TVector3 v , TString name){
-    Printf("%12s: (%5.2f,%5.2f,%5.2f) |%s|=%5.2f",name.Data(),v.x(),v.y(),v.z(),name.Data(),v.Mag());
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::Print4Momentum( TLorentzVector Vec4 , TString Name ){
-    printf("%12s: ( ( %5.2f , %5.2f , %5.2f ) , %5.2f ) ||%s-4 vec||=%5.2f |%s-3 vec|=%5.2f\n"
-           , Name.Data() , Vec4.Vect().x() , Vec4.Vect().y() , Vec4.Vect().z(), Vec4.Energy(), Name.Data(), Vec4.Mag(), Name.Data(), Vec4.Vect().Mag());
-}
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::PrintstdTVector3(char * name , std::vector<TVector3> v){
-    std::cout << v.size() << " entries of " << name << ":" << '\n';
-    for (std::vector<TVector3>::iterator it=v.begin(); it!=v.end(); ++it)
-        std::cout << "(" << it -> X() << "," << it -> Y() << "," << it -> Z() << ")\n" ;
-    std::cout << "----------\n";
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::PrintOutMatrix(char * name , const int N , const int M , double **mat){
-    Printf("%s:\n------------------",name);
-    for (int i = 0 ; i < N ; i++ ){
-        printf("|");
-        for (int j = 0 ; j < M ; j++){
-            printf("%10.2f",mat[i][j]);
-        }
-        printf("|\n");
-    }
-    Printf("------------------");
-}
-
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TPlots::PrintstdTVector3(char * name , std::vector<TVector3> v){
+//    std::cout << v.size() << " entries of " << name << ":" << '\n';
+//    for (std::vector<TVector3>::iterator it=v.begin(); it!=v.end(); ++it)
+//        std::cout << "(" << it -> X() << "," << it -> Y() << "," << it -> Z() << ")\n" ;
+//    std::cout << "----------\n";
+//}
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TPlots::PrintOutMatrix(char * name , const int N , const int M , double **mat){
+//    Printf("%s:\n------------------",name);
+//    for (int i = 0 ; i < N ; i++ ){
+//        printf("|");
+//        for (int j = 0 ; j < M ; j++){
+//            printf("%10.2f",mat[i][j]);
+//        }
+//        printf("|\n");
+//    }
+//    Printf("------------------");
+//}
+//
 
 
 
@@ -707,7 +702,7 @@ TH1F * TPlots::ReScaleAxis(TH1F * h, double XMin, double XMax)
 {
     TH1F * hRescaled = new TH1F("hRescaled",h->GetTitle(),h->GetNbinsX(),XMin,XMax);
     for (int i = 0 ; i < h -> GetXaxis() -> GetNbins() + 1 ; i++)
-        hRescaled -> SetBinContent( i , h -> GetBinContent(i) );
+    hRescaled -> SetBinContent( i , h -> GetBinContent(i) );
     return hRescaled;
 }
 
@@ -746,7 +741,7 @@ float TPlots::GetBranchSum(TString v1,TCut cut){
         Printf("%s total = %f",v1.Data(),res);
         return res;
     } else
-        Printf("Tree does not exist....");
+    Printf("Tree does not exist....");
     return 0;
 }
 
@@ -779,11 +774,6 @@ void TPlots::Draw2DVarAndCut(TCanvas * c  , int i , TString varX , TString varY,
         AddLegend(varX+" vs. " + varY,hNoCut,"no cut",hCut,(TString)cut,"p");
     }
 }
-
-
-
-
-
 
 
 

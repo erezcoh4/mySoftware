@@ -82,7 +82,6 @@ public:
     Float_t DistanceFromPointToLine (Double_t , Double_t , Double_t , Double_t );
     Float_t Chi2FitStraightLine     (const int ,Double_t* ,Double_t* ,Double_t* ,Double_t* ,Double_t* );
     Double_t Sum                    (const int , Double_t*, Double_t, Double_t* , Double_t);
-    Double_t Distance               (TVector3 , TVector3 , bool print=false);
     float RadiationLength           (int, int, float);
     
     

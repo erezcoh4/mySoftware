@@ -161,7 +161,12 @@ public:
     void AddLegend (TString , TH2F *, TString, TH2F *, TString, Option_t * o = "p");
     void AddLegend (TString , TH3F *, TString, TH3F *, TString, Option_t * o = "p");
     
+    void AddLegend (TString , TH1F *, TString, TH1F *, TString, TH1F *, TString, Option_t * o = "l");
     
+    
+    
+    
+
     // general graph (with errors!)
     TGraphErrors * Graph( TString, const int, double*, double*, double*, double*, TString T="", TString XT="", TString YT="", int c=4, double mSize = 0.5, int mStyle = 21, TString option = "");
     TGraphErrors * Graph( TString, const int N , double* , double* , TString Title = "" , TString XTitle = "" , TString YTitle = "" , int color = 4 , double mSize = 0.5 , int mStyle = 21 , Option_t * option = "");
@@ -182,7 +187,7 @@ public:
     
     
     // multiple histograms
-    void Histograms( const int NHist , TH1F ** h  , TString * Labels, TString Title = "" , TString XTitle = "" , TString YTitle = "" ,double XMin = 0 , double XMax = 10 , double YMax = 1 , bool mean = true );
+//    void Histograms( const int NHist , TH1F ** h  , TString * Labels, TString Title = "" , TString XTitle = "" , TString YTitle = "" ,double XMin = 0 , double XMax = 10 , double YMax = 1 , bool mean = true );
     
     // service to all classes
     TH1F * DrawFrame(char *, TString, int, double, double, double Ymin = 0 , double Ymax = 1 , TString XTitle = ""  ,TString Ytitle = "" );
@@ -216,10 +221,10 @@ public:
     
     
     // prints
-    void PrintOut3Vector(  TVector3 , TString );
-    void Print4Momentum ( TLorentzVector Vec4 , TString Name );
-    void PrintstdTVector3(char * , std::vector<TVector3>);
-    void PrintOutMatrix (char *, const int N, const int M, double **mat);
+    //    void PrintOut3Vector(  TVector3 , TString );
+    //    void Print4Momentum ( TLorentzVector Vec4 , TString Name );
+    //    void PrintstdTVector3(char * , std::vector<TVector3>);
+    //    void PrintOutMatrix (char *, const int N, const int M, double **mat);
     TString PercentPrint(double x)  {return Form("%.1f\\%%",100.*x);};      // to Latex...
     TString PercentPrint(float x)   {return PercentPrint((double)x);};
     TString PercentStr(double x)  {return Form("%.1f%%",100.*x);};      // to screen...
@@ -248,7 +253,7 @@ public:
     // drawing with TCuts
     void Draw1DVarAndCut (TCanvas * , int, TString , int, float, float, TString, TString, TCut, bool DoAddLegend = false, TString CutName = "");
     void Draw2DVarAndCut (TCanvas * , int, TString , TString, int, float, float, int, float, float, TString, TString, TString, TCut, bool DoAddLegend = false);
-
+    
     
     
     // GETs
@@ -256,9 +261,8 @@ public:
     TTree *     GetTree (){ return Tree; };
     int      GetEntries ( TCut cut = "" ){ return (int)Tree->GetEntries(cut); };
     TString GetFileName (){return (TString)(File->GetName());};
-
+    
 };
 
 
 #endif
-

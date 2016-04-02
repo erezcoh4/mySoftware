@@ -281,7 +281,6 @@ void TPlots::AddLegend(TString Title, TH3F * h1, TString l1, TH3F * h2, TString 
 
 
 
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void TPlots::AddLegend(TString Title , const int N , TGraphErrors * g[N] ,  TString * Labels, int Ncol , Option_t * option){
     TLegend * leg = new TLegend( 0.15 , 0.7 , 0.5 , 0.9 );

@@ -161,6 +161,7 @@ public:
     void AddLegend (TString , TH2F *, TString, TH2F *, TString, Option_t * o = "p");
     void AddLegend (TString , TH3F *, TString, TH3F *, TString, Option_t * o = "p");
     
+    
     // general graph (with errors!)
     TGraphErrors * Graph( TString, const int, double*, double*, double*, double*, TString T="", TString XT="", TString YT="", int c=4, double mSize = 0.5, int mStyle = 21, TString option = "");
     TGraphErrors * Graph( TString, const int N , double* , double* , TString Title = "" , TString XTitle = "" , TString YTitle = "" , int color = 4 , double mSize = 0.5 , int mStyle = 21 , Option_t * option = "");

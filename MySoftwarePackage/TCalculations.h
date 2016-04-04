@@ -82,7 +82,7 @@ public:
     float TwoIdenticalSpheresOverlapVolume(float R, float d);
 
     
-    TH1F* CFGMomentumDist(bool DoPlot = false , TF1 * tail = 0);
+    TF1 * CFGMomentumDist(bool DoPlot = false);
 
 };
 

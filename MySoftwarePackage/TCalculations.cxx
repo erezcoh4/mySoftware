@@ -75,7 +75,7 @@ float TCalculations::TwoIdenticalSpheresOverlapVolume(float R, float d){
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-TH1F* TCalculations::CFGMomentumDist(bool DoPlot,TF1 * SRCk4Tail){ // April-04
+TF1* TCalculations::CFGMomentumDist(bool DoPlot){ // April-04
     
     // Correlated Fermi Gas (CFG) distribution
     TH1F* hCFG;
@@ -89,7 +89,7 @@ TH1F* TCalculations::CFGMomentumDist(bool DoPlot,TF1 * SRCk4Tail){ // April-04
     Double_t    lambda = 2.75 ;// +/- 0.25 high-momentum cutoff
     Double_t       pi2 = pow(TMath::Pi(),2);
     Double_t        A0 = (3 * pi2 / pow(k_F0,3)) * (1./rho2rho0) * (1 - (1 - (1./lambda)*pow(rho2rho0,1./3.)) * (c0 / pi2 ));
-   SRCk4Tail = new TF1("tail",Form("%f*%f/(x**4)",c0,k_F),k_F,lambda*k_F0);
+   TF1 * SRCk4Tail = new TF1("tail",Form("%f*%f/(x**4)",c0,k_F),k_F,lambda*k_F0);
     
     int Nbins = 100;
     float bin_content , k;
@@ -106,7 +106,7 @@ TH1F* TCalculations::CFGMomentumDist(bool DoPlot,TF1 * SRCk4Tail){ // April-04
     if (DoPlot){
         hCFG -> Draw();
     }
-    return hCFG;
+    return SRCk4Tail;
 }
 
 

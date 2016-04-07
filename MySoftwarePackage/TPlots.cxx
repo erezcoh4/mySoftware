@@ -389,25 +389,6 @@ void TPlots::Graphs( const int N, TGraphErrors ** g, TString * Labels, int PolRa
     if (DoAddLegend)
     AddLegend("" , N , g , newLabels , 1 , "lp");
 }
-//
-//
-//
-////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//void TPlots::Histograms( const int NHist , TH1F * h[NHist]  , TString * Labels, TString Title , TString XTitle , TString YTitle , double XMin , double XMax , double YMax , bool DoMean ){
-//
-//    TH1F *frame = new TH1F("frame","",100, XMin , XMax);
-//    frame -> SetMaximum(YMax);
-//    SetFrame( frame ,Title , XTitle , YTitle );
-//    frame -> Draw();
-//    for (int i = 0 ; i < NHist ; i++ ){
-//        h[i] -> SetLineColor(5*i+31);
-//        h[i] -> SetLineWidth(3);
-//        h[i] -> Draw("same");
-//    }
-//    AddLegend("Legend" , NHist , h , Labels  , 1 , "l" , DoMean);
-//}
-//
-//
 
 
 
@@ -652,51 +633,6 @@ void TPlots::Frame3D(TString Title){
 
 
 
-
-
-//
-//
-////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//void TPlots::PrintOut3Vector( TVector3 v , TString name){
-//    Printf("%12s: (%5.2f,%5.2f,%5.2f) |%s|=%5.2f",name.Data(),v.x(),v.y(),v.z(),name.Data(),v.Mag());
-//}
-//
-////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//void TPlots::Print4Momentum( TLorentzVector Vec4 , TString Name ){
-//    printf("%12s: ( ( %5.2f , %5.2f , %5.2f ) , %5.2f ) ||%s-4 vec||=%5.2f |%s-3 vec|=%5.2f\n"
-//           , Name.Data() , Vec4.Vect().x() , Vec4.Vect().y() , Vec4.Vect().z(), Vec4.Energy(), Name.Data(), Vec4.Mag(), Name.Data(), Vec4.Vect().Mag());
-//}
-
-//
-////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//void TPlots::PrintstdTVector3(char * name , std::vector<TVector3> v){
-//    std::cout << v.size() << " entries of " << name << ":" << '\n';
-//    for (std::vector<TVector3>::iterator it=v.begin(); it!=v.end(); ++it)
-//        std::cout << "(" << it -> X() << "," << it -> Y() << "," << it -> Z() << ")\n" ;
-//    std::cout << "----------\n";
-//}
-//
-////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//void TPlots::PrintOutMatrix(char * name , const int N , const int M , double **mat){
-//    Printf("%s:\n------------------",name);
-//    for (int i = 0 ; i < N ; i++ ){
-//        printf("|");
-//        for (int j = 0 ; j < M ; j++){
-//            printf("%10.2f",mat[i][j]);
-//        }
-//        printf("|\n");
-//    }
-//    Printf("------------------");
-//}
-//
-
-
-
-
-
-
-
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TH1F * TPlots::ReScaleAxis(TH1F * h, double XMin, double XMax)
 {
@@ -766,12 +702,12 @@ void TPlots::Draw1DVarAndCut(TCanvas * c  , int i , TString varX ,
 void TPlots::Draw2DVarAndCut(TCanvas * c  , int i , TString varX , TString varY,
                              int NbinsX , float Xmin , float Xmax,
                              int NbinsY , float Ymin , float Ymax,
-                             TString Title , TString XTitle , TString YTitle , TCut cut , bool DoAddLegend ){
+                             TString Title , TString XTitle , TString YTitle , TCut cut , bool DoAddLegend , TString CutName ){
     c -> cd(i);
     TH2F * hNoCut = H2(varX,varY,"","",NbinsX,Xmin,Xmax,NbinsY,Ymin,Ymax,Title,XTitle,YTitle,1,6,0.3);
     TH2F * hCut   = H2(varX,varY,cut,"colz same",NbinsX,Xmin,Xmax,NbinsY,Ymin,Ymax,Title,XTitle,YTitle);
     if (DoAddLegend) {
-        AddLegend(varX+" vs. " + varY,hNoCut,"no cut",hCut,(TString)cut,"p");
+        AddLegend(varX,hNoCut,Form("no cut (%d)",(int)hNoCut->GetEntries()),hCut,Form("%s cut (%d)",CutName.Data(),(int)hCut->GetEntries()),"F");
     }
 }
 

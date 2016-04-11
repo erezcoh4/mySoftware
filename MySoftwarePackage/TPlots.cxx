@@ -674,10 +674,10 @@ float TPlots::GetBranchSum(TString v1,TCut cut){
         Tree -> Draw(Form("%s>>hBranch",v1.Data()),cut,"goff");
         TH1F * h = (TH1F *)gROOT->FindObject(Form("hBranch"));
         float res = h->GetMean()*h->GetEntries();
-        Printf("%s total = %f",v1.Data(),res);
+        //        Printf("%s total = %f",v1.Data(),res);
         return res;
     } else
-    Printf("Tree does not exist....");
+    //    Printf("Tree does not exist....");
     return 0;
 }
 

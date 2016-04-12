@@ -147,14 +147,15 @@ public:
     TH1F * CosAngle(TString,TString, TCut cut="", TString o="", TString T="", TString XT="", TString YT="" , int c=1, int N=23, double Xl=-1, double Xu=1);
     
     
-    TH2F * AngularCorrelation(TString, TString,TString, TString, TCut cut="", TString o=""
-                              , TString T="", TString XT="", TString YT="" , int c=1, int N=46, double Xl=0, double Xu=180., int style=20, float Alpha=0.9, double mSize=0.4);
+//    TH2F * AngularCorrelation(TString, TString,TString, TString, TCut cut="", TString o=""
+//                              , TString T="", TString XT="", TString YT="" , int c=1, int N=46, double Xl=0, double Xu=180., int style=20, float Alpha=0.9, double mSize=0.4);
     
     
     
     
     //legend
     void AddLegend (TString , const int N, TH1F ** h , TString * Labels , int Ncol = 1 , Option_t * option = "F"  , bool mean = false );
+    void AddLegend (int, TProfile ** , TString * );
     void AddLegend (TString , const int N, TH2F ** h , TString * Labels , int Ncol = 1 , Option_t * option = "p" );
     void AddLegend (TString , const int N, TGraphErrors ** g ,  TString * Labels , int Ncol = 1 , Option_t * option = "p");
     void AddLegend (TString , TH1F *, TString, TH1F *, TString, Option_t * o = "p");
@@ -187,7 +188,8 @@ public:
     void SetFrame( TH3F *, TString t="", TString Xt="", TString Yt="", TString Zt="", int c=1 , int mStyle=20 , double mSize=0.5 , double a=0.99);
     void SetFrame( TGraphErrors *, TString T="", TString XT="", TString YT="",int c=1, int mStyle=20, double mSize=0.5, double Alpha=0.99);
     void SetFrame( TGraph * g, TString T="", TString XT="", TString YT="",int c=1, int mStyle=20, double mSize=0.5, double Alpha=0.99);
-    
+    void SetFrame( TProfile * p, TString t="", TString Xt="", TString Yt="", int c=1 );
+
     
     
     

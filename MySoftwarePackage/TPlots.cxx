@@ -220,17 +220,17 @@ TH1F * TPlots::CosAngle(TString v1, TString v2 , TCut cut , TString option, TStr
               , cut, option, Nbins, Tlow, Tup, Title, XTitle, YTitle, color);
 }
 
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-TH2F * TPlots::AngularCorrelation(TString v1, TString v2 , TString v3, TString v4
-                                  , TCut cut , TString option, TString Title, TString XTitle, TString YTitle
-                                  , int color, int Nbins, double Tlow, double Tup , int style, float Alpha, double mSize ){
-    return H2(  Form("TMath::RadToDeg()*acos((%s.x()*%s.x() + %s.y()*%s.y() + %s.z()*%s.z() )/(%s.Mag()*%s.Mag()))"
-                     ,v1.Data(),v2.Data(),v1.Data(),v2.Data(),v1.Data(),v2.Data(),v1.Data(),v2.Data())
-              , Form("TMath::RadToDeg()*acos((%s.x()*%s.x() + %s.y()*%s.y() + %s.z()*%s.z() )/(%s.Mag()*%s.Mag()))"
-                     ,v3.Data(),v4.Data(),v3.Data(),v4.Data(),v3.Data(),v4.Data(),v3.Data(),v4.Data())
-              , cut, option, Nbins, Tlow, Tup, Nbins, Tlow, Tup, Title, XTitle, YTitle, color, style, Alpha, mSize);
-}
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//TH2F * TPlots::AngularCorrelation(TString v1, TString v2 , TString v3, TString v4
+//                                  , TCut cut , TString option, TString Title, TString XTitle, TString YTitle
+//                                  , int color, int Nbins, double Tlow, double Tup , int style, float Alpha, double mSize ){
+//    return H2(  Form("TMath::RadToDeg()*acos((%s.x()*%s.x() + %s.y()*%s.y() + %s.z()*%s.z() )/(%s.Mag()*%s.Mag()))"
+//                     ,v1.Data(),v2.Data(),v1.Data(),v2.Data(),v1.Data(),v2.Data(),v1.Data(),v2.Data())
+//              , Form("TMath::RadToDeg()*acos((%s.x()*%s.x() + %s.y()*%s.y() + %s.z()*%s.z() )/(%s.Mag()*%s.Mag()))"
+//                     ,v3.Data(),v4.Data(),v3.Data(),v4.Data(),v3.Data(),v4.Data(),v3.Data(),v4.Data())
+//              , cut, option, Nbins, Tlow, Tup, Nbins, Tlow, Tup, Title, XTitle, YTitle, color, style, Alpha, mSize);
+//}
 
 
 
@@ -258,6 +258,22 @@ void TPlots::AddLegend(TString Title , const int N , TH1F * h[N], TString * Labe
 void TPlots::AddLegend(TString Title , const int N , TH2F * h[N], TString * Labels , int Ncol , Option_t * option){
     AddLegend( Title ,  N , (TH1F **) h, Labels , Ncol , option , false );
 }
+
+
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void TPlots::AddLegend(int N, TProfile ** p , TString * Labels ){
+    TLegend * leg = new TLegend( 0.1 , 0.5 , 0.4 , 0.85 );
+    leg -> SetLineColor(1);
+    leg -> SetTextSize(0.04);
+    for (int i = 0 ; i < N ; i++){
+        leg -> AddEntry ( p[i] , Labels[i] , "l" );
+    }
+    leg -> Draw();
+}
+
+
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -469,6 +485,15 @@ void TPlots::SetFrame( TGraph * g , TString Title , TString XTitle , TString YTi
 
 
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void TPlots::SetFrame( TProfile * frame , TString Title , TString XTitle , TString YTitle , int color ){
+    frame -> SetTitle( Title );
+    SetAxisTitle(frame -> GetXaxis() , XTitle );
+    SetAxisTitle(frame -> GetYaxis() , YTitle );
+    frame -> SetLineColor(color);
+}
+
+
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void TPlots::SetFrame( TGraphErrors * frame , TString Title , TString XTitle , TString YTitle,int color, int mStyle, double mSize, double Alpha){
@@ -528,10 +553,10 @@ Float_t TPlots::CalculateRatioOfEvents2D( TH2F* hA , TH2F* hB , Float_t XMin , F
 // Draw a arrow / line / text / box / circle ...
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TGaxis * TPlots::Axis( double XMin , double YMin , double XMax , double YMax , TString option){
-    TGaxis *axis = new TGaxis(XMin,YMin,XMax,YMax,option);
+    TGaxis *axis = new TGaxis(XMin,YMin,XMax,YMax,1.2,1.32,80506,option);
     axis -> SetLabelSize(0.03);
-    axis -> SetTextFont(72);
-    axis -> SetLabelOffset(0.025);
+    axis -> SetTextFont(0);
+    axis -> SetLabelOffset(100.025);
     axis -> Draw();
     return axis;
 }

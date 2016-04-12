@@ -160,6 +160,7 @@ TH1F * TAnalysis::GetHistoFromAFile(TString filename , TString histoname){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TH2F * TAnalysis::GetH2FromAFile(TString filename , TString histoname){
+    cout << "opening" << filename << ", to get " << histoname << endl;
     TFile * File = new TFile(filename);
     TH2F* histo =  (TH2F*)File->Get(histoname);
     return histo;
@@ -169,6 +170,7 @@ TH2F * TAnalysis::GetH2FromAFile(TString filename , TString histoname){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TProfile * TAnalysis::GetProfileFromFile(TString filename , TString profilename){
+    cout << "opening" << filename << ", to get " << profilename << endl;
     TFile     * File = new TFile(filename);
     TProfile  * prof = (TProfile*)File->Get(profilename);
     return prof;

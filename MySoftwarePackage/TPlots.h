@@ -62,7 +62,7 @@
 #include <TCutG.h>
 #include <TGeoSphere.h>
 #include <TBox.h>
-
+#include "TGaxis.h"
 
 using namespace std;
 
@@ -178,16 +178,6 @@ public:
                 , double XMin=0, double Xmax=10, double YMin=0, double Ymax=10
                 , bool FitGraphs = false , int LineColors[N] = 0,  bool DoAddLegend = true, bool addfit2leg = false);
     
-    //    void Graphs( const int, TGraphErrors**, TString*
-    //                , TString, TString, TString
-    //                , double, int
-    //                , double, double, double, double
-    //                , int* , bool addleg = true);
-    
-    
-    
-    // multiple histograms
-//    void Histograms( const int NHist , TH1F ** h  , TString * Labels, TString Title = "" , TString XTitle = "" , TString YTitle = "" ,double XMin = 0 , double XMax = 10 , double YMax = 1 , bool mean = true );
     
     // service to all classes
     TH1F * DrawFrame(char *, TString, int, double, double, double Ymin = 0 , double Ymax = 1 , TString XTitle = ""  ,TString Ytitle = "" );
@@ -207,13 +197,14 @@ public:
     Float_t CalculateRatioOfEvents2D( TH2F*, TH2F*, Float_t, Float_t, Float_t, Float_t );
     
     
-    TLine * Line        ( double , double , double , double , int c = 1 , int w = 1 , int s = 1 , double o = 1 );
-    TArrow * Arrow      ( double , double , double , double , int c = 1 , int w = 1 , int s = 1 , double o = 1 , double size = 0.005);
-    TLatex * Text       ( double X , double Y , TString label="" , int color = 1, double size = 0.05 , double Angle = 0 );
-    TLatex * Latex      ( double X , double Y , TString label="" , int color = 1, double size = 0.05 , double Angle = 0 );
-    TBox * Box          ( double XMin , double YMin , double XMax , double YMax , int color = 46 , double opacity = 1 , int LineWidth = 1);
-    TEllipse * Circle   ( double X , double Y , double R = 1. , int color = 1, double opacity = 1, int LineColor = 1 , int LineWidth = 1 );
-    TPolyLine3D * Line3D( TVector3 , int LineColor = 1 , int LineWidth = 1 , int LineStyle = 1 );
+    TGaxis         * Axis ( double , double , double , double , TString );
+    TLine         * Line ( double , double , double , double , int c = 1 , int w = 1 , int s = 1 , double o = 1 );
+    TArrow       * Arrow ( double , double , double , double , int c = 1 , int w = 1 , int s = 1 , double o = 1 , double size = 0.005);
+    TLatex        * Text ( double X , double Y , TString label="" , int color = 1, double size = 0.05 , double Angle = 0 );
+    TLatex       * Latex ( double X , double Y , TString label="" , int color = 1, double size = 0.05 , double Angle = 0 );
+    TBox           * Box ( double XMin , double YMin , double XMax , double YMax , int color = 46 , double opacity = 1 , int LineWidth = 1);
+    TEllipse    * Circle ( double X , double Y , double R = 1. , int color = 1, double opacity = 1, int LineColor = 1 , int LineWidth = 1 );
+    TPolyLine3D * Line3D ( TVector3 , int LineColor = 1 , int LineWidth = 1 , int LineStyle = 1 );
     void Plot3DAxesSystem( float size = 0.5 );
     void Frame3D        (TString);
     
@@ -221,10 +212,6 @@ public:
     
     
     // prints
-    //    void PrintOut3Vector(  TVector3 , TString );
-    //    void Print4Momentum ( TLorentzVector Vec4 , TString Name );
-    //    void PrintstdTVector3(char * , std::vector<TVector3>);
-    //    void PrintOutMatrix (char *, const int N, const int M, double **mat);
     TString PercentPrint(double x)  {return Form("%.1f\\%%",100.*x);};      // to Latex...
     TString PercentPrint(float x)   {return PercentPrint((double)x);};
     TString PercentStr(double x)  {return Form("%.1f%%",100.*x);};      // to screen...

@@ -526,6 +526,17 @@ Float_t TPlots::CalculateRatioOfEvents2D( TH2F* hA , TH2F* hB , Float_t XMin , F
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 // Draw a arrow / line / text / box / circle ...
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+TGaxis * TPlots::Axis( double XMin , double YMin , double XMax , double YMax , TString option){
+    TGaxis *axis = new TGaxis(XMin,YMin,XMax,YMax,option);
+    axis -> SetLabelSize(0.03);
+    axis -> SetTextFont(72);
+    axis -> SetLabelOffset(0.025);
+    axis -> Draw();
+    return axis;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TLine * TPlots::Line( double XMin , double YMin , double XMax , double YMax , int color , int width , int style , double opacity){
     TLine * line = new TLine( XMin , YMin , XMax , YMax );
     line -> SetLineColorAlpha( color , opacity );

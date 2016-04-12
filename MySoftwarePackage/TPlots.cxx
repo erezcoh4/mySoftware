@@ -303,12 +303,10 @@ void TPlots::AddLegend(TH1F * h1, TString l1, TH1F * h2, TString l2, TH1F * h3, 
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::AddLegend(TString Title , const int N , TGraphErrors * g[N] ,  TString * Labels, int Ncol , Option_t * option){
+void TPlots::AddLegend(int N , TGraphErrors * g[N] ,  TString * Labels, Option_t * option){
     TLegend * leg = new TLegend( 0.15 , 0.7 , 0.5 , 0.9 );
-    leg -> SetHeader (Title);
-    leg -> SetLineColor (0);
+    leg -> SetLineColor (1);
     leg -> SetTextSize (0.04);
-    leg-> SetNColumns(Ncol);
     for (int i = 0 ; i < N ; i++)
     leg -> AddEntry ( g[i] , Labels[i] , option );
     leg -> Draw();
@@ -401,7 +399,7 @@ void TPlots::Graphs( const int N, TGraphErrors ** g, TString * Labels, int PolRa
         newLabels[i] = Labels[i];
     }
     if (DoAddLegend)
-    AddLegend("" , N , g , newLabels , 1 , "lp");
+    AddLegend(N , g , newLabels , "lp");
 }
 
 

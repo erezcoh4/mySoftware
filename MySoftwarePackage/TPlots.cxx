@@ -303,13 +303,18 @@ void TPlots::AddLegend(TH1F * h1, TString l1, TH1F * h2, TString l2, TH1F * h3, 
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::AddLegend(int N , TGraphErrors * g[N] ,  TString * Labels, Option_t * option){
+void TPlots::AddLegend(int N , TGraph * g[N] ,  TString * Labels, Option_t * option){
     TLegend * leg = new TLegend( 0.15 , 0.7 , 0.5 , 0.9 );
     leg -> SetLineColor (1);
     leg -> SetTextSize (0.04);
     for (int i = 0 ; i < N ; i++)
     leg -> AddEntry ( g[i] , Labels[i] , option );
     leg -> Draw();
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void TPlots::AddLegend(int N , TGraphErrors * g[N] ,  TString * Labels, Option_t * option){
+    AddLegend( N , (TGraph **) g , Labels,  option);
 }
 
 

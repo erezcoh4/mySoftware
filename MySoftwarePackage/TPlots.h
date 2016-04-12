@@ -158,6 +158,7 @@ public:
     void AddLegend (int, TProfile ** , TString * );
     void AddLegend (int, TH2F ** , TString * , Option_t * option = "p" );
     void AddLegend (int, TGraphErrors ** ,  TString * Labels , Option_t * option = "l");
+    void AddLegend (int, TGraph ** ,  TString * Labels , Option_t * option = "l");
     void AddLegend (TH1F *, TString, TH1F *, TString, Option_t * o = "p");
     void AddLegend (TH2F *, TString, TH2F *, TString, Option_t * o = "p");
     void AddLegend (TH3F *, TString, TH3F *, TString, Option_t * o = "p");

@@ -236,11 +236,9 @@ TH1F * TPlots::CosAngle(TString v1, TString v2 , TCut cut , TString option, TStr
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 // legend
-void TPlots::AddLegend(TString Title , const int N , TH1F * h[N], TString * Labels , int Ncol , Option_t * option , bool mean ){
-    TLegend * leg = new TLegend( 0.35 , 0.7 , 0.8 , 0.85 );
-    leg -> SetHeader (Title);
-    leg -> SetLineColor(0);
-    leg -> SetNColumns(Ncol);
+void TPlots::AddLegend(int N , TH1F * h[N], TString * Labels ,Option_t * option , bool mean ){
+    TLegend * leg = new TLegend( 0.1 , 0.8 , 0.8 , 0.85 );
+    leg -> SetLineColor(1);
     leg -> SetTextSize(0.04);
     for (int i = 0 ; i < N ; i++){
         if (mean)
@@ -255,8 +253,8 @@ void TPlots::AddLegend(TString Title , const int N , TH1F * h[N], TString * Labe
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::AddLegend(TString Title , const int N , TH2F * h[N], TString * Labels , int Ncol , Option_t * option){
-    AddLegend( Title ,  N , (TH1F **) h, Labels , Ncol , option , false );
+void TPlots::AddLegend(int N , TH2F * h[N], TString * Labels , Option_t * option){
+    AddLegend( N , (TH1F **) h, Labels ,option , false );
 }
 
 
@@ -277,30 +275,30 @@ void TPlots::AddLegend(int N, TProfile ** p , TString * Labels ){
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::AddLegend(TString Title, TH1F * h1, TString l1, TH1F * h2, TString l2, Option_t * option){
+void TPlots::AddLegend(TH1F * h1, TString l1, TH1F * h2, TString l2, Option_t * option){
     TH1F * h[2] = {h1,h2};
     TString Labels[2];
     Labels[0] = l1 ;//+ Form(" (%d)",(int)h1->GetEntries());
     Labels[1] = l2 ;//+ Form(" (%d)",(int)h2->GetEntries());
-    AddLegend( Title ,  2 , h , Labels , 1 , option);
+    AddLegend( 2 , h , Labels, option);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::AddLegend(TString Title, TH2F * h1, TString l1, TH2F * h2, TString l2, Option_t * option){
-    AddLegend( Title , (TH1F *) h1 , l1, (TH1F *) h2, l2, option);
+void TPlots::AddLegend(TH2F * h1, TString l1, TH2F * h2, TString l2, Option_t * option){
+    AddLegend( (TH1F *) h1 , l1, (TH1F *) h2, l2, option);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::AddLegend(TString Title, TH3F * h1, TString l1, TH3F * h2, TString l2, Option_t * option){
-    AddLegend( Title , (TH1F *) h1 , l1, (TH1F *) h2, l2, option);
+void TPlots::AddLegend(TH3F * h1, TString l1, TH3F * h2, TString l2, Option_t * option){
+    AddLegend( (TH1F *) h1 , l1, (TH1F *) h2, l2, option);
 }
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::AddLegend(TString Title, TH1F * h1, TString l1, TH1F * h2, TString l2, TH1F * h3, TString l3, Option_t * option){
+void TPlots::AddLegend(TH1F * h1, TString l1, TH1F * h2, TString l2, TH1F * h3, TString l3, Option_t * option){
     TH1F * h[3] = {h1,h2,h3};
     TString Labels[3] = {l1,l2,l3};
-    AddLegend( Title ,  3 , h , Labels , 1 , option);
+    AddLegend( 3 , h , Labels, option);
 }
 
 
@@ -729,7 +727,7 @@ void TPlots::Draw1DVarAndCut(TCanvas * c  , int i , TString varX ,
     TH1F * hNoCut = H1(varX,"","BAR",NbinsX,Xmin,Xmax,Title,XTitle,"",1,48);
     TH1F * hCut   = H1(varX,cut,"BAR same",NbinsX,Xmin,Xmax,Title,XTitle,"",1,38);
     if (DoAddLegend) {
-        AddLegend(varX,hNoCut,Form("no cut (%d)",(int)hNoCut->GetEntries()),hCut,Form("%s cut (%d)",CutName.Data(),(int)hCut->GetEntries()),"F");
+        AddLegend(hNoCut,Form("no cut (%d)",(int)hNoCut->GetEntries()),hCut,Form("%s cut (%d)",CutName.Data(),(int)hCut->GetEntries()),"F");
     }
 }
 
@@ -743,7 +741,7 @@ void TPlots::Draw2DVarAndCut(TCanvas * c  , int i , TString varX , TString varY,
     TH2F * hNoCut = H2(varX,varY,"","",NbinsX,Xmin,Xmax,NbinsY,Ymin,Ymax,Title,XTitle,YTitle,1,6,0.3);
     TH2F * hCut   = H2(varX,varY,cut,"colz same",NbinsX,Xmin,Xmax,NbinsY,Ymin,Ymax,Title,XTitle,YTitle);
     if (DoAddLegend) {
-        AddLegend(varX,hNoCut,Form("no cut (%d)",(int)hNoCut->GetEntries()),hCut,Form("%s cut (%d)",CutName.Data(),(int)hCut->GetEntries()),"p");
+        AddLegend(hNoCut,Form("no cut (%d)",(int)hNoCut->GetEntries()),hCut,Form("%s cut (%d)",CutName.Data(),(int)hCut->GetEntries()),"p");
     }
 }
 

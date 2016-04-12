@@ -154,15 +154,14 @@ public:
     
     
     //legend
-    void AddLegend (TString , const int N, TH1F ** h , TString * Labels , int Ncol = 1 , Option_t * option = "F"  , bool mean = false );
+    void AddLegend (int, TH1F ** , TString *, Option_t * option = "F"  , bool mean = false );
     void AddLegend (int, TProfile ** , TString * );
-    void AddLegend (TString , const int N, TH2F ** h , TString * Labels , int Ncol = 1 , Option_t * option = "p" );
+    void AddLegend (int, TH2F ** , TString * , Option_t * option = "p" );
     void AddLegend (TString , const int N, TGraphErrors ** g ,  TString * Labels , int Ncol = 1 , Option_t * option = "p");
-    void AddLegend (TString , TH1F *, TString, TH1F *, TString, Option_t * o = "p");
-    void AddLegend (TString , TH2F *, TString, TH2F *, TString, Option_t * o = "p");
-    void AddLegend (TString , TH3F *, TString, TH3F *, TString, Option_t * o = "p");
-    
-    void AddLegend (TString , TH1F *, TString, TH1F *, TString, TH1F *, TString, Option_t * o = "l");
+    void AddLegend (TH1F *, TString, TH1F *, TString, Option_t * o = "p");
+    void AddLegend (TH2F *, TString, TH2F *, TString, Option_t * o = "p");
+    void AddLegend (TH3F *, TString, TH3F *, TString, Option_t * o = "p");
+    void AddLegend (TH1F *, TString, TH1F *, TString, TH1F *, TString, Option_t * o = "l");
     
     
     

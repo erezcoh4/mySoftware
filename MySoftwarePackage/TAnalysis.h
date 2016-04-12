@@ -53,18 +53,7 @@ public:
     Double_t Kolmogorov1DCriticalValue( Double_t , int , int );
     void Sort                   (Int_t, Double_t*);
     
-    Double_t EnergyTestHisto2D  (Int_t, Int_t, TH2F*, TH2F*);
-    Double_t EnergyTestUnbinned3D(std::vector<TVector3>, std::vector<TVector3>);
-    Double_t WeightingFunc      (Double_t, int);
     
-    
-    // particular used for ppCM motion analysis (acceptance corrections...)
-    float ppCMEnergyTest        (char * name, TTree* , TTree *,bool histos=false);
-    Double_t EnergyTestUnbinned3D(int ND, int NMC, float**, float**, float**);
-    float stdev                 (std::vector<float> v);
-    
-    Double_t ETestHisto3D       (TH3F*, TH3F*/*, const int*/);
-    //    Double_t EtestPsi           (int i1, int i2, int i3, int j1,int j2, int j3, double);
     
     Double_t IntegralH2D        (TH2F * h,Double_t Xlow, Double_t Ylow, Double_t Xup, Double_t Yup,bool DoDrawBox=false, int color = 1);
     Double_t IntegralH1D        (TH1F * h,Double_t Xlow, Double_t Xup);
@@ -73,12 +62,19 @@ public:
     TH1F* RatioOfHistograms     (TString, TH1F *, TH1F *,TString,TString,int col = 38);
     void PlotHRefAndHRatios     (TString, TH1F *, int, const int, TH1F **, TString, TString, int*);
     TH1F* CombineHistograms     (char *, TH1F *, TH1F *,TString,TString,int col = 38);
-    TH1F* GetHistoFromAFile     (TString, TString);
-    TH2F   * GetH2FromAFile     (TString, TString);
     TH1F* GetPartOfHistogram    (char *, TH1F *, double, double);
     void NormalizeHistogram     (TH1F *);
     float GetS2N                (TH1 *, TH1 *);
     
+    
+    
+    
+    
+    // get from file...
+    TH1F *      GetHistoFromAFile (TString, TString);
+    TH2F *         GetH2FromAFile (TString, TString);
+    TProfile * GetProfileFromFile (TString, TString);
+
     
     
   

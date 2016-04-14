@@ -199,7 +199,7 @@ public:
     Float_t CalculateRatioOfEvents2D( TH2F*, TH2F*, Float_t, Float_t, Float_t, Float_t );
     
     
-    TGaxis         * Axis ( double , double , double , double , TString );
+    TGaxis        * Axis ( double , double , double , double , double , double , int , TString );
     TLine         * Line ( double , double , double , double , int c = 1 , int w = 1 , int s = 1 , double o = 1 );
     TArrow       * Arrow ( double , double , double , double , int c = 1 , int w = 1 , int s = 1 , double o = 1 , double size = 0.005);
     TLatex        * Text ( double X , double Y , TString label="" , int color = 1, double size = 0.05 , double Angle = 0 );

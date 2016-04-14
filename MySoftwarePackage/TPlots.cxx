@@ -574,9 +574,9 @@ Float_t TPlots::CalculateRatioOfEvents2D( TH2F* hA , TH2F* hB , Float_t XMin , F
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TGaxis * TPlots::Axis( double XMin , double YMin , double XMax , double YMax, double w_min , double w_max , int n_div , TString option){
     TGaxis *axis = new TGaxis(XMin,YMin,XMax,YMax,w_min,w_max,n_div,option);
-    axis -> SetLabelSize(0.03);
     axis -> SetTextFont(0);
     axis -> SetLabelOffset(100.025);
+    axis -> SetLabelSize(0.05);
     axis -> Draw();
     return axis;
 }

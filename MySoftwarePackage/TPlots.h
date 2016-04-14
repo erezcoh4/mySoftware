@@ -169,9 +169,9 @@ public:
     
 
     // general graph (with errors!)
-    TGraphErrors * Graph( TString, const int, double*, double*, double*, double*, TString T="", TString XT="", TString YT="", int c=4, double mSize = 0.5, int mStyle = 21, TString option = "");
-    TGraphErrors * Graph( TString, const int N , double* , double* , TString Title = "" , TString XTitle = "" , TString YTitle = "" , int color = 4 , double mSize = 0.5 , int mStyle = 21 , Option_t * option = "");
-    TGraph * Graph( TString, const int N , double* , double* , TString Title = "" , TString XTitle = "" , TString YTitle = "" , int color = 4 , TString option = "");
+    TGraphErrors * Graph ( TString, const int, double*, double*, double*, double*, TString T="", TString XT="", TString YT="", int c=4, double mSize = 0.5, int mStyle = 21, TString option = "");
+    TGraphErrors * Graph ( TString, const int N , double* , double* , TString Title = "" , TString XTitle = "" , TString YTitle = "" , int color = 4 , double mSize = 0.5 , int mStyle = 21 , Option_t * option = "");
+    TGraph       * Graph ( TString, const int N , double* , double* , TString Title = "" , TString XTitle = "" , TString YTitle = "" , int color = 4 , TString option = "");
     
     void Graphs( const int N , TGraphErrors** , TString* , int *, double* , double*
                 , double** , double** , double*
@@ -194,8 +194,8 @@ public:
     
     
     
-    void H1Frame( int , double , double , TString Title = "" , TString XTitle = "" , TString YTitle = "" , double Ylow = 0 , double Yup = 1);
-    void H2Frame( double , double , double , double , TString Title = "" , TString XTitle = "" , TString YTitle = "" );
+    void H1Frame ( int , double , double , TString Title = "" , TString XTitle = "" , TString YTitle = "" , double Ylow = 0 , double Yup = 1);
+    void H2Frame ( double , double , double , double , TString Title = "" , TString XTitle = "" , TString YTitle = "" );
     
     Float_t CalculateRatioOfEvents2D( TH2F*, TH2F*, Float_t, Float_t, Float_t, Float_t );
     
@@ -215,11 +215,11 @@ public:
     
     
     // prints
-    TString PercentPrint(double x)  {return Form("%.1f\\%%",100.*x);};      // to Latex...
-    TString PercentPrint(float x)   {return PercentPrint((double)x);};
-    TString PercentStr(double x)  {return Form("%.1f%%",100.*x);};      // to screen...
-    TString PercentStr(float x)   {return PercentPrint((double)x);};
-    void PrintPercentStr(double x)  {Printf("[%s]",PercentStr(x).Data());};
+    TString    PercentPrint (double x)  {return Form("%.1f\\%%",100.*x);};      // to Latex...
+    TString    PercentPrint (float x)   {return PercentPrint((double)x);};
+    TString      PercentStr (double x)  {return Form("%.1f%%",100.*x);};      // to screen...
+    TString      PercentStr (float x)   {return PercentPrint((double)x);};
+    void    PrintPercentStr (double x)  {Printf("[%s]",PercentStr(x).Data());};
     
     
     

@@ -193,7 +193,7 @@ TH2F * TPlots::H2WithProjections( TString VarX, TString VarY, TCut cut
     TH1F* hY = H1(VarY, cut, "hbar2", NbinY, Ylow, Yup ,"" ,YTitle,"",2,2);
     SetAxisTitle(hY -> GetXaxis() , YTitle , -1. , 0.075 , 0.05);
     c -> cd(2);
-    DrawFrame(Form("Projections%d",i_plot) , "" , 10 , -1 , 1, -1 , 1 , "", "" );
+    DrawFrame( Form("Projections%d",i_plot) , 10 , -1 , 1, -1 , 1 , "", "" );
     Text(-0.5,0.5,Title,1,0.075);
     Text(0,0.4,Form("%.0f entries",h2->GetEntries()),1);
     return h2;
@@ -339,6 +339,25 @@ TGraphErrors * TPlots::Graph( TString Name, const int N , double X[N] , double Y
 }
 
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+// general graph
+TGraph * TPlots::Graph( TString Name, const int N , double* X , double* Y, TString Title , TString XTitle , TString YTitle , int color , TString option){
+    i_plot++;
+    TGraph * g = new TGraph( N , X , Y );
+    g -> SetName(Name);
+    SetFrame( g ,Title , XTitle , YTitle );
+    g -> SetMarkerColor(color);
+    g -> SetLineColor(color);
+    if (option=="goff"){
+        return g;
+    }
+    else {
+        g -> Draw(option);
+    }
+    return g;
+}
+
+
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -361,7 +380,7 @@ void TPlots::Graphs( const int N, TGraphErrors ** g, TString * Labels, int PolRa
     
     TF1 * f[N];
     TString * newLabels = nullptr;
-    DrawFrame((char*)"graphs" , Title , 10*(Xmax-Xmin) , Xmin , Xmax, YMin , YMax , XTitle, YTitle );
+    DrawFrame(Title , 10*(Xmax-Xmin) , Xmin , Xmax, YMin , YMax , XTitle, YTitle );
     //    SetFrame( g[0] ,Title , XTitle , YTitle );
     for (int i = 0 ; i < N ; i++){
         newLabels[i] = Labels[i];
@@ -411,11 +430,11 @@ void TPlots::Graphs( const int N, TGraphErrors ** g, TString * Labels, int PolRa
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 // A service to all classes
-TH1F * TPlots::DrawFrame(char * name , TString Title , int Nbins , double Xlow , double Xup , double Ymin , double Ymax , TString XTitle ,TString YTitle ){
-    TH1F * frame = new TH1F(name , Title , Nbins , Xlow , Xup );
-    frame -> GetYaxis() -> SetRangeUser(Ymin,Ymax*1.05);
+TH1F * TPlots::DrawFrame(TString Title , int Nbins , double Xlow , double Xup , double Ymin , double Ymax , TString XTitle ,TString YTitle ){
+    TH1F * frame = new TH1F(Title , Title , Nbins , Xlow , Xup );
+    frame -> GetYaxis() -> SetRangeUser(Ymin,Ymax);
     SetFrame(frame , Title , XTitle , YTitle );
-    frame -> Draw("goff");
+    frame -> Draw();
     return frame;
 }
 

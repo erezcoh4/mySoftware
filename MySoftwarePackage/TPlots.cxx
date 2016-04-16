@@ -750,7 +750,7 @@ void TPlots::Draw1DVarAndCut(TCanvas * c  , int i , TString varX ,
     TH1F * hNoCut = H1(varX,"","BAR",NbinsX,Xmin,Xmax,Title,XTitle,"",1,48);
     TH1F * hCut   = H1(varX,cut,"BAR same",NbinsX,Xmin,Xmax,Title,XTitle,"",1,38);
     if (DoAddLegend) {
-        AddLegend(hNoCut,Form("no cut - 100% (%d)",(int)hNoCut->GetEntries()),hCut,Form("%s cut (%.1f%%)",CutName.Data(),100.*(float)hCut->GetEntries()/hNoCut->GetEntries()),"F");
+        AddLegend(hNoCut,Form("no cut - 100%% (%d)",(int)hNoCut->GetEntries()),hCut,Form("%s cut (%.1f%%)",CutName.Data(),100.*(float)hCut->GetEntries()/hNoCut->GetEntries()),"F");
     }
 }
 
@@ -764,7 +764,7 @@ void TPlots::Draw2DVarAndCut(TCanvas * c  , int i , TString varX , TString varY,
     TH2F * hNoCut = H2(varX,varY,"","",NbinsX,Xmin,Xmax,NbinsY,Ymin,Ymax,Title,XTitle,YTitle,1,6,0.3);
     TH2F * hCut   = H2(varX,varY,cut,"colz same",NbinsX,Xmin,Xmax,NbinsY,Ymin,Ymax,Title,XTitle,YTitle);
     if (DoAddLegend) {
-        AddLegend(hNoCut,Form("no cut (%d)",(int)hNoCut->GetEntries()),hCut,Form("%s cut (%d)",CutName.Data(),(int)hCut->GetEntries()),"p");
+        AddLegend(hNoCut,Form("no cut - 100%% (%d)",(int)hNoCut->GetEntries()),hCut,Form("%s cut (%.1f%%)",CutName.Data(),100.*(float)hCut->GetEntries()/hNoCut->GetEntries()),"p");
     }
 }
 

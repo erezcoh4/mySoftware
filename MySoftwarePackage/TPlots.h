@@ -147,9 +147,6 @@ public:
     TH1F * CosAngle(TString,TString, TCut cut="", TString o="", TString T="", TString XT="", TString YT="" , int c=1, int N=23, double Xl=-1, double Xu=1);
     
     
-//    TH2F * AngularCorrelation(TString, TString,TString, TString, TCut cut="", TString o=""
-//                              , TString T="", TString XT="", TString YT="" , int c=1, int N=46, double Xl=0, double Xu=180., int style=20, float Alpha=0.9, double mSize=0.4);
-    
     
     
     
@@ -236,8 +233,8 @@ public:
     
     
     // TTree functionality
-    float GetBranchSum  (TString,TCut);
-    void SetAlias       (TString v1,TString v2) {Tree->SetAlias(v1,v2);};
+    float GetBranchSum (TString,TCut);
+    void      SetAlias (TString v1,TString v2) {Tree->SetAlias(v1,v2);};
     
     
     // drawing with TCuts

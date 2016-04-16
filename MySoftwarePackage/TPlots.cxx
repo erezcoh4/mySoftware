@@ -341,13 +341,14 @@ TGraphErrors * TPlots::Graph( TString Name, const int N , double X[N] , double Y
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 // general graph
-TGraph * TPlots::Graph( TString Name, const int N , double* X , double* Y, TString Title , TString XTitle , TString YTitle , int color , TString option){
+TGraph * TPlots::Graph( TString Name, const int N , double* X , double* Y, TString Title , TString XTitle , TString YTitle , int color  , int style , TString option){
     i_plot++;
     TGraph * g = new TGraph( N , X , Y );
     g -> SetName(Name);
     SetFrame( g ,Title , XTitle , YTitle );
     g -> SetMarkerColor(color);
     g -> SetLineColor(color);
+    g -> SetLineStyle(style);
     if (option=="goff"){
         return g;
     }

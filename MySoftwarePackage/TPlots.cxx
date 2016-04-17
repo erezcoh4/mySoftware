@@ -760,8 +760,8 @@ void TPlots::Draw2DVarAndCut(TCanvas * c  , int i , TString varX , TString varY,
                              int NbinsY , float Ymin , float Ymax,
                              TString Title , TString XTitle , TString YTitle , TCut cut , bool DoAddLegend , TString CutName ){
     c -> cd(i);
-    TH2F * hNoCut = H2(varX,varY,"","",NbinsX,Xmin,Xmax,NbinsY,Ymin,Ymax,Title,XTitle,YTitle,1,6,0.3);
-    TH2F * hCut   = H2(varX,varY,cut,"colz same",NbinsX,Xmin,Xmax,NbinsY,Ymin,Ymax,Title,XTitle,YTitle);
+    TH2F * hNoCut = H2(varX,varY,"","",NbinsX,Xmin,Xmax,NbinsY,Ymin,Ymax,Title,XTitle,YTitle,1,7,0.5);
+    TH2F * hCut   = H2(varX,varY,cut,"same",NbinsX,Xmin,Xmax,NbinsY,Ymin,Ymax,Title,XTitle,YTitle,2,7,0.8);
     if (DoAddLegend) {
         AddLegend(hNoCut,Form("no cut - 100%% (%d)",(int)hNoCut->GetEntries()),hCut,Form("%s cut (%.1f%%)",CutName.Data(),100.*(float)hCut->GetEntries()/hNoCut->GetEntries()),"p");
     }

@@ -168,7 +168,7 @@ public:
     // general graph (with errors!)
     TGraphErrors * Graph ( TString, const int, double*, double*, double*, double*, TString T="", TString XT="", TString YT="", int c=4, double mSize = 0.5, int mStyle = 21, TString option = "");
     TGraphErrors * Graph ( TString, const int N , double* , double* , TString Title = "" , TString XTitle = "" , TString YTitle = "" , int color = 4 , double mSize = 0.5 , int mStyle = 21 , Option_t * option = "");
-    TGraph       * Graph ( TString, const int N , double* , double* , TString Title = "" , TString XTitle = "" , TString YTitle = "" , int color = 4 , int style = 1 , TString option = "");
+    TGraph       * Graph ( const int N , double* , double* , TString Title = "" , TString XTitle = "" , TString YTitle = "" , int color = 4 , int style = 1 , TString option = "");
     
     void Graphs( const int N , TGraphErrors** , TString* , int *, double* , double*
                 , double** , double** , double*

@@ -29,26 +29,31 @@ public:
 
     
     
+    TRandom3 r;
     TPlots plot;
     vector<Double_t> pars;
     Double_t factor;
+    TF1     *alpha[8] , *XsecTheta[6];
+    TF1     *fTheta;
     TF2     *Xsec;
     TH2F    *XsecHist;
-    TH1F    *XsecHist20,*XsecHist24,*XsecHist40;
+    TF12    *f12;
+    
+    
+    
     /// Default constructor
     ppElastic(){};
-
-    /// Default destructor
     ~ppElastic(){};
     
 
     
     // cross-section for p-p elastic scattering in c.m. frame
     // following GSI ppElastic analysis [http://web-docs.gsi.de/~webhades/computing/pluto/NN/pp_elastic.html#ref*]
-//    double f (double *x, double *par);
-    void    CreateXsec ();
-    TCanvas * DrawXsec ();
-    Double_t       pol ( vector<Double_t> par , Double_t x );
+    void        CreateAlphas ();
+    TCanvas *     DrawAlphas ();
+    void          CreateXsec ();
+    TCanvas *       DrawXsec ();
+    Double_t             pol ( vector<Double_t> par , Double_t x );
     
     
     Double_t a0 (Double_t);
@@ -66,6 +71,8 @@ public:
     Double_t g_v (Double_t , Double_t);
     Double_t f_Theta_cm (Double_t , Double_t);
     
+    
+    Double_t RandomTheta (Double_t);
 
 
 };

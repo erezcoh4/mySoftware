@@ -34,6 +34,7 @@
 #include <TCanvas.h>
 #include <TF1.h>
 #include <TF2.h>
+#include <TF12.h>
 #include <TH1F.h>
 #include <TH2F.h>
 #include <TH3F.h>
@@ -65,6 +66,7 @@
 #include <TGeoSphere.h>
 #include <TBox.h>
 #include "TGaxis.h"
+#include <TRandom3.h>
 
 using namespace std;
 

@@ -11,26 +11,100 @@ double f2MppTheta( double *x , double *par){
     ppElastic pp;
     return pp.f_Theta_cm( Mpp,  Theta_cm);
 }
+double fa0( double *x , double *par){
+    ppElastic pp;
+    return pp.a0( x[0] );
+}
+double fa1( double *x , double *par){
+    ppElastic pp;
+    return pp.a1( x[0] );
+}
+double fa2( double *x , double *par){
+    ppElastic pp;
+    return pp.a2( x[0] );
+}
+double fa3( double *x , double *par){
+    ppElastic pp;
+    return pp.a3( x[0] );
+}
+double fa4( double *x , double *par){
+    ppElastic pp;
+    return pp.a4( x[0] );
+}
+double fa5( double *x , double *par){
+    ppElastic pp;
+    return pp.a5( x[0] );
+}
+double fa6( double *x , double *par){
+    ppElastic pp;
+    return pp.a6( x[0] );
+}
+double fa7( double *x , double *par){
+    ppElastic pp;
+    return pp.a7( x[0] );
+}
+
+
+
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-double f1Theta20( double *x , double *par){
-    ppElastic pp;
-    return pp.f_Theta_cm( 2.0 ,  x[0] );
+Double_t ppElastic::RandomTheta(Double_t Mpp){
+    
+    // generate a random theta value for a given pp-invariant mass
+    r.SetSeed((int)(1000*r.Rndm()));
+//    fTheta = ( TF1 * ) (new TF12("fTheta",Xsec,Mpp,"y"));
+    TF12 * f12 = new TF12("fTheta",Xsec,Mpp,"y");
+    TH1F* h = (TH1F*)f12 -> CreateHistogram();
+//    fTheta -> SetNpx(1000);
+
+//    fTheta -> Draw();
+//    h -> Draw("hist");
+    Double_t theta  = h -> GetRandom();
+    return theta;
+
 }
+
+
+
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-double f1Theta24( double *x , double *par){
-    ppElastic pp;
-    return pp.f_Theta_cm( 2.4,  x[0] );
+void ppElastic::CreateAlphas(){
+    alpha[0] = new TF1("alpha0",fa0,1.9,4.2,0);
+    alpha[1] = new TF1("alpha1",fa1,1.9,4.2,0);
+    alpha[2] = new TF1("alpha2",fa2,1.9,4.2,0);
+    alpha[3] = new TF1("alpha3",fa3,1.9,4.2,0);
+    alpha[4] = new TF1("alpha4",fa4,1.9,4.2,0);
+    alpha[5] = new TF1("alpha5",fa5,1.9,4.2,0);
+    alpha[6] = new TF1("alpha6",fa6,1.9,4.2,0);
+    alpha[7] = new TF1("alpha7",fa7,1.9,4.2,0);
+    for (int i = 0; i < 8; i++) {
+        plot.SetFrame(alpha[i],Form("#alpha_{%i}",i),"c.m. mass #sqrt{s} [GeV/c^{2}]","",2);
+    }
+
 }
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-double f1Theta32( double *x , double *par){
-    ppElastic pp;
-    return pp.f_Theta_cm( 3.2,  x[0] );
+TCanvas* ppElastic::DrawAlphas(){
+    // eustatics...
+    alpha[0] -> GetYaxis() -> SetRangeUser(0 , 300);
+    alpha[1] -> GetYaxis() -> SetRangeUser(85.5 , 89);
+    alpha[2] -> GetYaxis() -> SetRangeUser(-3 , 7);
+    alpha[3] -> GetYaxis() -> SetRangeUser(0 , 9);
+    alpha[4] -> GetYaxis() -> SetRangeUser(-0.013   , 0.002);
+    alpha[5] -> GetYaxis() -> SetRangeUser(-0.14e-5 , 0.06e-5);
+    alpha[6] -> GetYaxis() -> SetRangeUser(-0.05e-9 , 0.40e-9);
+    alpha[7] -> GetYaxis() -> SetRangeUser(0 , 0.012);
+
+    
+    
+    
+    TCanvas * c = plot.CreateCanvas("alphas","Divide",4,2);
+    for (int i = 0; i < 8; i++) {
+        c -> cd(i+1);
+        alpha[i] -> Draw();
+    }
+    return c;
 }
-
-
-
-
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -39,40 +113,35 @@ void ppElastic::CreateXsec(){
     // two invariant mass regions: 1.9 < m(pp) < 2.1 GeV/c2, and 2.1 < m(pp) < 4.2 GeV/c2
     Xsec = new TF2("Xsec",f2MppTheta,1.9,4.2,0,180,3);
     plot.SetFrame(Xsec,"d#sigma/d#Omega","c.m. mass #sqrt{s} [GeV/c^{2}]","#theta [deg.]");
-
+    for (int i = 0; i < 6; i++) {
+        XsecTheta[i] = (TF1 *) (new TF12(Form("Xsec%d",i),Xsec,2.0+i*0.4,"y"));
+        plot.SetFrame(XsecTheta[i],Form("m(pp) = %.1f GeV/c ^{2}",2.0+i*0.4),"#theta [deg.]","");
+        XsecTheta[i] -> SetNpx(1000);
+    }
+    
     XsecHist = new TH2F("XsecHist","",100,1.9,4.2,100,0,180);
     Double_t Mpp , theta;
-    for (int i = 0  ; i < 1e7 ; i++) {
+    int N = 1e7;
+    for (int i = 0  ; i < N ; i++) {
         Xsec -> GetRandom2(Mpp,theta);
         XsecHist -> Fill(Mpp,theta);
     }
     plot.SetFrame(XsecHist,"d#sigma/d#Omega","c.m. mass #sqrt{s} [GeV/c^{2}]","#theta [deg.]");
 
-    XsecHist20 = (TH1F*)XsecHist -> ProjectionY("_px20",XsecHist->GetXaxis()->FindBin(2.0),XsecHist->GetXaxis()->FindBin(2.0)+1);
-    plot.SetFrame(XsecHist20,"m_{pp} = 2.0 GeV/c ^{2}","#theta [deg.]","");
-    XsecHist24 = (TH1F*)XsecHist -> ProjectionY("_px24",XsecHist->GetXaxis()->FindBin(2.4),XsecHist->GetXaxis()->FindBin(2.4)+1);
-    plot.SetFrame(XsecHist24,"m_{pp} = 2.4 GeV/c ^{2}","#theta [deg.]","");
-    XsecHist40 = (TH1F*)XsecHist -> ProjectionY("_px32",XsecHist->GetXaxis()->FindBin(4.0),XsecHist->GetXaxis()->FindBin(4.0)+1);
-    plot.SetFrame(XsecHist40,"m_{pp} = 4.0 GeV/c ^{2}","#theta [deg.]","");
-
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TCanvas* ppElastic::DrawXsec(){
-    TCanvas * c = plot.CreateCanvas("canvas","Divide",2,3);
+    TCanvas * c = plot.CreateCanvas("canvas","Divide",3,3);
     c -> cd(1);
     Xsec -> Draw("surf1");
     c -> cd(2);
     XsecHist -> Draw("surf2");
-    c -> cd(3);
-    XsecHist20 -> Draw("hist");
-    gPad -> SetLogy();
-    c -> cd(4);
-    XsecHist24 -> Draw("hist");
-    gPad -> SetLogy();
-    c -> cd(5);
-    XsecHist40 -> Draw("hist");
-    gPad -> SetLogy();
+    for (int i = 0; i < 6; i++) {
+        c -> cd(4+i);
+        XsecTheta[i] -> Draw();
+        gPad -> SetLogy();
+    }
     return c;
 }
 
@@ -99,11 +168,11 @@ Double_t ppElastic::pol ( vector<Double_t> par , Double_t x ){
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 Double_t ppElastic::a0(Double_t Mpp){
     vector<Double_t> pars;
-    if ( 1.9 < Mpp  && Mpp < 2.1) {
+    if ( 1.9 < Mpp  && Mpp <= 2.1) {
         return (exp(90.16161 - 42.54657*Mpp) + 250.6459 - 82.64069 * Mpp); // f0
     }
     else if ( 2.1 < Mpp  && Mpp < 4.2) {
-        pars = vector<Double_t> {208.6132 , 85.75014 , 9.606524}; // f2
+        pars = vector<Double_t> {208.6132 , -85.75014 , 9.606524}; // f2
         factor = 1;
         return factor * pol(pars , Mpp);
     }
@@ -115,12 +184,12 @@ Double_t ppElastic::a0(Double_t Mpp){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 Double_t ppElastic::a1(Double_t Mpp){
-    if ( 1.9 < Mpp  && Mpp < 2.1) {
-        pars = vector<Double_t> {81.46621 , - 2.442514 }; // f1
+    if ( 1.9 < Mpp  && Mpp <= 2.1) {
+        pars = vector<Double_t> { 81.46621 , 2.442514 }; // f1
         factor = 1;
     }
     else if ( 2.1 < Mpp  && Mpp < 4.2) {
-        pars = vector<Double_t> {9014.328 , - 249.0616 , 26.35260 , 3.374141 }; // f3
+        pars = vector<Double_t> { 9014.328 , -249.0616 , 26.35260 , 3.374141 }; // f3
         factor = 1e-2;
     }
     return factor * pol(pars , Mpp);
@@ -130,12 +199,12 @@ Double_t ppElastic::a1(Double_t Mpp){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 Double_t ppElastic::a2(Double_t Mpp){
-    if ( 1.9 < Mpp  && Mpp < 2.1) {
-        pars = vector<Double_t> { - 1.613531 , - 1.424601 }; // f1
+    if ( 1.9 < Mpp  && Mpp <= 2.1) {
+        pars = vector<Double_t> { -1.613531 , 1.424601 }; // f1
         factor = 1;
     }
     else if ( 2.1 < Mpp  && Mpp < 4.2) {
-        pars = vector<Double_t> { 1.403383 , - 4.544666 }; // f1
+        pars = vector<Double_t> { 1.403383 , 4.544666 }; // f1
         factor = 1e-1;
     }
     return factor * pol(pars , Mpp);
@@ -145,12 +214,12 @@ Double_t ppElastic::a2(Double_t Mpp){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 Double_t ppElastic::a3(Double_t Mpp){
-    if ( 1.9 < Mpp  && Mpp < 2.1) {
+    if ( 1.9 < Mpp  && Mpp <= 2.1) {
         pars = vector<Double_t> { 222.9465 , -125.6755 , -23.42175 , 15.85506 }; // f3
         factor = 1;
     }
     else if ( 2.1 < Mpp  && Mpp < 4.2) {
-        pars = vector<Double_t> { 816000.1 , 1924544. , 1962241. , -1126850. ,  397754.5 , -88173.33 , 11948.51 , -896.5965 , 27.03873 , .1756284}; // f9
+        pars = vector<Double_t> { 816000.1 , -1924544. , 1962241. , -1126850. ,  397754.5 , -88173.33 , 11948.51 , -896.5965 , 27.03873 , .1756284}; // f9
         factor = 1e-2;
     }
     return factor * pol(pars , Mpp);
@@ -161,8 +230,8 @@ Double_t ppElastic::a3(Double_t Mpp){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 Double_t ppElastic::a4(Double_t Mpp){
-    if ( 1.9 < Mpp  && Mpp < 2.1) {
-        pars = vector<Double_t> { 1.675475 , -1.718991 , 0.4285591 , 15.85506 }; // f2
+    if ( 1.9 < Mpp  && Mpp <= 2.1) {
+        pars = vector<Double_t> { 1.675475 , -1.718991 , 0.4285591 }; // f2
         factor = 1e-2;
     }
     else if ( 2.1 < Mpp  && Mpp < 4.2) {
@@ -177,12 +246,12 @@ Double_t ppElastic::a4(Double_t Mpp){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 Double_t ppElastic::a5(Double_t Mpp){
-    if ( 1.9 < Mpp  && Mpp < 2.1) {
+    if ( 1.9 < Mpp  && Mpp <= 2.1) {
         pars = vector<Double_t> { -2.464428 , 2.413957 , -0.5908636  }; // f2
         factor = 1e-4;
     }
     else if ( 2.1 < Mpp  && Mpp < 4.2) {
-        pars = vector<Double_t> { 6069.216 , -15344.59 , 15584.70 ,  8343.774 , 2567.415 , -458.0696 , 44.27438 , -1.805952 }; // f7
+        pars = vector<Double_t> { 6069.216 , -15344.59 , 15584.70 ,  -8343.774 , 2567.415 , -458.0696 , 44.27438 , -1.805952 }; // f7
         factor = 1e-7;
     }
     return factor * pol(pars , Mpp);
@@ -216,7 +285,7 @@ Double_t ppElastic::a7(Double_t Mpp){
     }
     else if ( 2.1 < Mpp  && Mpp < 4.2) {
         pars = vector<Double_t> { 470.0798,	-1108.074,	924.0620,	-362.0080,	70.10400,	-5.363294 }; // f5
-        factor = 1e-11;
+        factor = 1e-4;
     }
     return factor * pol(pars , Mpp);
 }

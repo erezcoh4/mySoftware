@@ -12,5 +12,7 @@
 #pragma link C++ class TPlots+;
 #pragma link C++ class TAnalysis+;
 #pragma link C++ class TCalculations+;
+#pragma link C++ class ppElastic+;
 //ADD_NEW_CLASS ... do not change this line
 #endif
+

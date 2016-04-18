@@ -524,6 +524,46 @@ void TPlots::SetFrame( TGraphErrors * frame , TString Title , TString XTitle , T
 
 
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void TPlots::SetFrame( TF1 * frame , TString Title , TString XTitle , TString YTitle , int color , int FillColor , int FillStyle ){
+    frame -> SetTitle( Title );
+    SetAxisTitle(frame -> GetXaxis() , XTitle );
+    SetAxisTitle(frame -> GetYaxis() , YTitle );
+    frame -> SetLineColor(color);
+    frame -> SetFillColor(FillColor);
+    frame -> SetFillStyle(FillStyle);
+}
+
+
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void TPlots::SetFrame( TF2 * frame , TString Title , TString XTitle , TString YTitle
+                      , int color , int mStyle , double mSize , double Alpha ){
+    frame -> SetTitle( Title );
+    SetAxisTitle(frame -> GetXaxis() , XTitle);
+    SetAxisTitle(frame -> GetYaxis() , YTitle);
+    frame -> SetMarkerStyle(mStyle);
+    frame -> SetMarkerSize(mSize);
+    frame -> SetMarkerColorAlpha(color,Alpha);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

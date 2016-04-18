@@ -32,6 +32,8 @@
 #include <TTree.h>
 #include <TROOT.h>
 #include <TCanvas.h>
+#include <TF1.h>
+#include <TF2.h>
 #include <TH1F.h>
 #include <TH2F.h>
 #include <TH3F.h>
@@ -187,6 +189,8 @@ public:
     void SetFrame( TGraphErrors *, TString T="", TString XT="", TString YT="",int c=1, int mStyle=20, double mSize=0.5, double Alpha=0.99);
     void SetFrame( TGraph * g, TString T="", TString XT="", TString YT="",int c=1, int mStyle=20, double mSize=0.5, double Alpha=0.99);
     void SetFrame( TProfile * p, TString t="", TString Xt="", TString Yt="", int c=1 );
+    void SetFrame( TF1 *, TString t="", TString Xt="", TString Yt="", int c=1, int fc=0 , int fStyle=3003 );
+    void SetFrame( TF2 *, TString t="", TString Xt="", TString Yt="", int c=1, int mStyle=20 , double mSize=0.5 , double a=0.99);
 
     
     

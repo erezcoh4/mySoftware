@@ -110,7 +110,7 @@ void ppElastic::CreateXsec(){
     plot.SetFrame(Xsec,"d#sigma/d#Omega","c.m. mass #sqrt{s} [GeV/c^{2}]","#theta [deg.]");
     for (int i = 0; i < 6; i++) {
         XsecTheta[i] = (TF1 *) (new TF12(Form("Xsec%d",i),Xsec,2.0+i*0.4,"y"));
-        plot.SetFrame(XsecTheta[i],Form("m(pp) = %.1f GeV/c ^{2}",2.0+i*0.4),"#theta [deg.]","");
+        plot.SetFrame(XsecTheta[i],Form("m(pp) = %.1f GeV/c ^{2}",2.0+i*0.4),"#theta [deg.]","#theta [deg.]");
         XsecTheta[i] -> SetNpx(1000);
     }
     
@@ -130,6 +130,9 @@ TCanvas* ppElastic::DrawXsec(){
     TCanvas * c = plot.CreateCanvas("canvas","Divide",3,3);
     c -> cd(1);
     Xsec -> Draw("surf1");
+//    Xsec -> SetNpx(1000);
+//    Xsec -> SetNpy(1000);
+    gPad -> SetLogz();
     c -> cd(2);
     XsecHist -> Draw("surf2");
     for (int i = 0; i < 6; i++) {

@@ -10,8 +10,8 @@ ROOT.gStyle.SetOptStat(0000)
 
 
 DoDrawAlphas    = False
-DoDrawXsec      = False
-DoRuffleTheta   = True
+DoDrawXsec      = True
+DoRuffleTheta   = False
 
 
 pp_elastic.CreateAlphas()

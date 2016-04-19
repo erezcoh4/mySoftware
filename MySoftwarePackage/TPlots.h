@@ -233,9 +233,9 @@ public:
     
     
     // TCuts
-    TCut CutOnAngle     (TString, TString, float, float);
-    TString Theta       (TString, TString);
-    TString CosTheta    (TString, TString);
+    TCut     CutOnAngle (TString, TString, float, float);
+    TString       Theta (TString, TString);
+    TString    CosTheta (TString, TString);
     
     
     // TTree functionality

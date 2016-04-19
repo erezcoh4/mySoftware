@@ -53,7 +53,7 @@ Double_t ppElastic::RandomTheta(Double_t Mpp){
     // generate a random theta value for a given pp-invariant mass
     r.SetSeed((int)(1000*r.Rndm()));
     TF12 * f12 = new TF12("fTheta",Xsec,Mpp,"y");
-    TH1F* h = (TH1F*)f12 -> CreateHistogram();
+    TH1F* h = (TH1F*)f12 -> GetHistogram();
     Double_t theta  = h -> GetRandom();
     return theta;
 

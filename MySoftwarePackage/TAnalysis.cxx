@@ -196,6 +196,7 @@ double TAnalysis::GetFWHM(TH1 * h){
     
     int bin1 = h->FindFirstBinAbove(h->GetMaximum()/2);
     int bin2 = h->FindLastBinAbove(h->GetMaximum()/2);
+    plot.Line(h->GetBinCenter(bin1) ,h->GetMaximum()/2. , h->GetBinCenter(bin2) , h->GetMaximum()/2. ,2 , 2 );
     return ( h->GetBinCenter(bin2) - h->GetBinCenter(bin1) );
     
 }

@@ -55,16 +55,17 @@ public:
     
     
     
-    Double_t IntegralH2D        (TH2F * h,Double_t Xlow, Double_t Ylow, Double_t Xup, Double_t Yup,bool DoDrawBox=false, int color = 1);
-    Double_t IntegralH1D        (TH1F * h,Double_t Xlow, Double_t Xup);
-    Double_t TH1Frac            (TH1F * histo , Double_t Xlow, Double_t Xup);
+    Double_t    IntegralH2D (TH2F * h,Double_t Xlow, Double_t Ylow, Double_t Xup, Double_t Yup,bool DoDrawBox=false, int color = 1);
+    Double_t    IntegralH1D (TH1F * h,Double_t Xlow, Double_t Xup);
+    Double_t        TH1Frac (TH1F * histo , Double_t Xlow, Double_t Xup);
     
-    TH1F* RatioOfHistograms     (TString, TH1F *, TH1F *,TString,TString,int col = 38);
-    void PlotHRefAndHRatios     (TString, TH1F *, int, const int, TH1F **, TString, TString, int*);
-    TH1F* CombineHistograms     (char *, TH1F *, TH1F *,TString,TString,int col = 38);
-    TH1F* GetPartOfHistogram    (char *, TH1F *, double, double);
-    void NormalizeHistogram     (TH1F *);
-    float GetS2N                (TH1 *, TH1 *);
+    TH1F*   RatioOfHistograms (TString, TH1F *, TH1F *,TString,TString,int col = 38);
+    void   PlotHRefAndHRatios (TString, TH1F *, int, const int, TH1F **, TString, TString, int*);
+    TH1F*   CombineHistograms (char *, TH1F *, TH1F *,TString,TString,int col = 38);
+    TH1F*  GetPartOfHistogram (char *, TH1F *, double, double);
+    void   NormalizeHistogram (TH1F *);
+    float              GetS2N (TH1 *, TH1 *);
+    double            GetFWHM (TH1 *);
     
     
     

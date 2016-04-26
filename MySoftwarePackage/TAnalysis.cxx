@@ -191,6 +191,15 @@ float TAnalysis::GetS2N(TH1 * hSignal, TH1 * hNoise){
 
 
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+double TAnalysis::GetFWHM(TH1 * h){
+    
+    int bin1 = h->FindFirstBinAbove(h->GetMaximum()/2);
+    int bin2 = h->FindLastBinAbove(h->GetMaximum()/2);
+    return ( h->GetBinCenter(bin2) - h->GetBinCenter(bin1) );
+    
+}
+
 
 
 

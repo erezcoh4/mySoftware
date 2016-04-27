@@ -448,6 +448,7 @@ void TPlots::SetAxisTitle(TAxis * axis , TString Title , double Offset , double 
     axis -> SetTitleOffset(Offset);
     axis -> SetTitleSize(TitleSize);
     axis -> SetLabelSize(LabelSize);
+    axis -> SetNdivisions(507);
     axis -> CenterTitle();
 }
 

@@ -194,10 +194,22 @@ float TAnalysis::GetS2N(TH1 * hSignal, TH1 * hNoise){
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 double TAnalysis::GetFWHM(TH1 * h){
     
-    int bin1 = h->FindFirstBinAbove(h->GetMaximum()/2);
+    int bin1    = h->FindFirstBinAbove(h->GetMaximum()/2);
+    Float_t X1  = h->GetBinCenter(bin1 - 10);
     int bin2 = h->FindLastBinAbove(h->GetMaximum()/2);
-    plot.Line(h->GetBinCenter(bin1) ,h->GetMaximum()/2. , h->GetBinCenter(bin2) , h->GetMaximum()/2. ,2 , 2 );
-    return ( h->GetBinCenter(bin2) - h->GetBinCenter(bin1) );
+    Float_t X2  = h->GetBinCenter(bin2 + 10);
+    TF1* fGaus = new TF1(Form("f%s",h->GetName()),"gaus",X1,X2);
+    h -> Fit(fGaus,"","SAME",X1 , X2);
+    fGaus -> SetLineColor(h->GetLineColor());
+    fGaus -> Draw("same");
+    Float_t sigma   = fGaus -> GetParameter(2);
+    Float_t FWHM    = 2. * sqrt( 2. * log (2.) ) * sigma;
+    return FWHM;
+//    plot.Line(X1 ,h->GetMaximum()/2. , X2 , h->GetMaximum()/2. ,2 , 2 );
+//    return ( X2 - X1 );
+    
+    
+    
     
 }
 

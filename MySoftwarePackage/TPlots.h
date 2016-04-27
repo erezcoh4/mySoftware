@@ -77,7 +77,7 @@ using namespace std;
 
 #define SHOWTLorentzVector(v) std::cout << #v << ": " << "\t(" << setprecision(2) << fixed << v.Px() << ","  << v.Py() << "," << v.Pz()  << "," << v.E() << ")" << ", P = " << v.P() << ", M = " << v.M() << std::endl
 
-#define SHOWTVector3(v) std::cout << #v << ": " << "\t(" << setprecision(2) << fixed << v.X() << ","  << v.Y() << "," << v.Z()  << "," << ")" << ", mag = " << v.Mag()  << std::endl
+#define SHOWTVector3(v) std::cout << #v << ": " << "\t(" << setprecision(2) << fixed << v.X() << ","  << v.Y() << "," << v.Z() << ")" << ", mag = " << v.Mag()  << std::endl
 
 #define SHOWvectorFloat_t(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<Float_t>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << setprecision(2)  << fixed << "\n\t" << *it ; std::cout << '\n';}
 

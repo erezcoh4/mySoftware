@@ -819,6 +819,17 @@ void TPlots::Draw2DVarAndCut(TCanvas * c  , int i , TString varX , TString varY,
     }
 }
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+// April-31,2016
+TCanvas * TPlots::Draw2DVarAndCut(TString varX , TString varY,
+                             int NbinsX , float Xmin , float Xmax,
+                             int NbinsY , float Ymin , float Ymax,
+                             TString Title , TString XTitle , TString YTitle , TCut cut , bool DoAddLegend , TString CutName ){
+    TCanvas * c = CreateCanvas(varX + " vs " + varY);
+    Draw2DVarAndCut(c  , 1 , varX , varY, NbinsX , Xmin , Xmax, NbinsY , Ymin , Ymax, Title , XTitle , YTitle , cut , DoAddLegend , CutName );
+    return c;
+}
+
 
 
 

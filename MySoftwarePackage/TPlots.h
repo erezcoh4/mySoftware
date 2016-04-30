@@ -247,6 +247,7 @@ public:
     void Draw1DVarAndCut (TCanvas *, int, TString, int, float, float, TString, TString, TCut, bool DoLeg = false, TString cName = "");
     TCanvas * Draw1DVarAndCut (TString , int, float, float, TString, TString, TCut, bool DoLeg = false, TString cName = "");
     void Draw2DVarAndCut (TCanvas * , int, TString , TString, int, float, float, int, float, float, TString, TString, TString, TCut, bool DoAddLegend = false, TString CutName = "");
+    TCanvas * Draw2DVarAndCut (TString , TString, int, float, float, int, float, float, TString, TString, TString, TCut, bool DoAddLegend = false, TString CutName = "");
     
     
     

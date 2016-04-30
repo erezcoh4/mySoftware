@@ -797,11 +797,12 @@ void TPlots::Draw1DVarAndCut(TCanvas * c  , int i , TString varX ,
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 // April-19,2016
-void TPlots::Draw1DVarAndCut( TString varX ,
+TCanvas * TPlots::Draw1DVarAndCut( TString varX ,
                              int NbinsX , float Xmin , float Xmax,
                              TString Title , TString XTitle , TCut cut , bool DoAddLegend , TString CutName){
     TCanvas * c = CreateCanvas(varX);
     Draw1DVarAndCut(c  , 1 , varX , NbinsX , Xmin , Xmax, Title , XTitle , cut , DoAddLegend , CutName);
+    return c;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

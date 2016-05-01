@@ -523,9 +523,6 @@ void TPlots::SetFrame( T * frame, TString Title, TString XTitle, TString YTitle,
     SetAxisTitle(frame -> GetYaxis() , YTitle);
     if(typeid(frame)==typeid(TH3F)) SetAxisTitle(((TH1F*)frame) -> GetZaxis() , ZTitle);
     frame -> SetLineColor(color);
-    SHOW(color);
-    SHOW(FillStyle);
-    SHOW(FillColor);
     frame -> SetFillColor(FillColor);
     frame -> SetFillStyle(FillStyle);
     frame -> SetMarkerStyle(mStyle);

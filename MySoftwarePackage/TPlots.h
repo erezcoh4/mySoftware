@@ -8,93 +8,14 @@
 
 #ifndef __TPLOTS_H__
 #define __TPLOTS_H__
-
-#include <stdio.h>
-#include <iostream>
-#include <iomanip>
-#include <math.h>
-#include <vector>
-#include <numeric>
-#include <string>
-#include <functional>
-#include <stdlib.h>
-#include <fstream>
-#include <algorithm>
-#include <functional>
-#include "TRotation.h"
-#include <TTimeStamp.h>
-#include <TStopwatch.h>
-#include <TString.h>
-#include <TSystem.h>
-#include <TLine.h>
-#include <TArrow.h>
-#include <TFile.h>
-#include <TTree.h>
-#include <TROOT.h>
-#include <TCanvas.h>
-#include <TF1.h>
-#include <TF2.h>
-#include <TF12.h>
-#include <TH1F.h>
-#include <TH2F.h>
-#include <TH3F.h>
-#include <TProfile.h>
-#include <TPad.h>
-#include <TStyle.h>
-#include <TMultiGraph.h>
-#include <TGraphErrors.h>
-#include <TLegend.h>
-#include <TPaveStats.h>
-#include <TChain.h>
-#include <TBranch.h>
-#include <TLeaf.h>
-#include <TMath.h>
-#include <TCut.h>
-#include <TLorentzVector.h>
-#include <TVector2.h>
-#include <TVector3.h>
-#include <TPie.h>
-#include <TLatex.h>
-#include <TEllipse.h>
-#include <TPolyLine3D.h>
-#include <TRandom2.h>
-#include <THStack.h>
-#include <TSpectrum.h>
-#include <TSpectrum2.h>
-#include <TUnfoldSys.h>
-#include <TCutG.h>
-#include <TGeoSphere.h>
-#include <TBox.h>
-#include "TGaxis.h"
-#include <TRandom3.h>
-
-using namespace std;
-
-// important prints....
-#define PrintLine() std::cout << "-------------------------------" << std::endl;
-
-#define SHOW(a) std::cout  << setprecision(2) << fixed << #a << ": " << (a) << std::endl
-
-#define SHOWTLorentzVector(v) std::cout << #v << ": " << "\t(" << setprecision(2) << fixed << v.Px() << ","  << v.Py() << "," << v.Pz()  << "," << v.E() << ")" << ", P = " << v.P() << ", M = " << v.M() << std::endl
-
-#define SHOWTVector3(v) std::cout << #v << ": " << "\t(" << setprecision(2) << fixed << v.X() << ","  << v.Y() << "," << v.Z() << ")" << ", mag = " << v.Mag()  << std::endl
-
-#define SHOWvectorFloat_t(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<Float_t>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << setprecision(2)  << fixed << "\n\t" << *it ; std::cout << '\n';}
-
-#define SHOWvectorInt_t(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<Int_t>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << "\n\t" << *it ; std::cout << '\n';}
-
-#define SHOWstdTVector3(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<TVector3>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << setprecision(2) << fixed << "\n\t(" << it -> X() << ","  << it -> Y() << "," << it -> Z() << ")\t"; std::cout << '\n';}
-
-#define SHOWvectorTLorentzVector(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<TLorentzVector>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << setprecision(2) << fixed << "\n\t(" << it -> Px() << ","  << it -> Py() << "," << it -> Pz()  << "," << it -> E() << ")" << ", P = " << it -> P() << ", M = " << it -> M(); std::cout << '\n';}
+#include "myIncludes.h"
 
 class TPlots{
     
 private:
     
-    Int_t i_plot;         // for ploting multiple histograms...
-    
-    
-    
+    Int_t i_plot;
+
     
 public:
     //date
@@ -128,22 +49,12 @@ public:
     //plots
     TCanvas * CreateCanvas(TString Title, TString DoDivide="NoDivision", int Nx=4, int Ny=2, float w=800, float h=800);
     
-    TH1F *  H1 ( TString, TCut, TString, int Nbins=10, double Xlow=0, double Xup=1
-                , TString T="",  TString XT="", TString YT="", int c=1, int fc=38,int fStyle=1001);
-    TH2F *  H2 ( TString, TString, TCut, TString, int NbinX=6, double Xlow=-3, double Xup=3, int NbinY=4, double Ylow=0, double Yup=4
-                , TString Title="", TString XTitle="", TString YTitle=""
-                , int color=1, int style=7, float Alpha=0.9, double mSize=1. );
+    TH1F *  H1 ( TString, TCut, TString, int, double, double,TString T="",TString XT="",TString YT="",int c=1, int fc=38,int fStyle=1001);
+    TH2F *  H2 ( TString, TString, TCut, TString, int, double, double, int, double, double,TString T="",TString XT="",TString YT="", int c=1,int s=7,float a=0.9, double mSize=1);
     TH3F *  H3 ( TString, TString, TString, TCut, TString
-                , int NbinX=6, double Xlow=-3, double Xup=3, int NbinY=4, double Ylow=0, double Yup=4, int NbinZ=4, double Zlow=0, double Zup=4
-                , TString Title="", TString XTitle="", TString YTitle="", TString ZTitle=""
-                , int color=1, int style=7, float Alpha=0.3, double mSize=1. );
-    
-    
-    TPie * Pie(TString , TString , const int , Float_t* , Int_t*, TString*, TString option="3d");
-    
-    
-    TH2F * H2WithProjections( TString, TString, TCut, int NbinX=6, double Xlow=-3, double Xup=3, int NbinY=4, double Ylow=0, double Yup=4
-                             , TString Title="", TString XTitle="", TString YTitle="");
+                ,int,double,double,int,double,double,int,double,double, TString T="",TString XT="",TString YT="",TString ZT="",int c=1,int s=7,float a=0.3, double mSize=1);
+    TPie * Pie (TString , TString , const int , Float_t* , Int_t*, TString*, TString option="3d");
+    TH2F * H2WithProjections ( TString, TString, TCut, int, double, double,int, double, double, TString T="", TString XT="", TString YT="");
     
     
     // angles
@@ -155,14 +66,18 @@ public:
     
     
     //legend
-    void AddLegend (int, TH1F ** , TString *, Option_t * option = "F"  , bool mean = false );
-    void AddLegend (int, TProfile ** , TString * );
-    void AddLegend (int, TH2F ** , TString * , Option_t * option = "p" );
-    void AddLegend (int, TGraphErrors ** ,  TString * Labels , Option_t * option = "l");
-    void AddLegend (int, TGraph ** ,  TString * Labels , Option_t * option = "l");
-    void AddLegend (TH1F *, TString, TH1F *, TString, Option_t * o = "p");
-    void AddLegend (TH2F *, TString, TH2F *, TString, Option_t * o = "p");
-    void AddLegend (TH3F *, TString, TH3F *, TString, Option_t * o = "p");
+    template <typename T>
+    void AddLegend (int, T ** , TString *, Option_t * o = "F"  , bool mean = false );
+//    void AddLegend (int, TH1F ** , TString *, Option_t * option = "F"  , bool mean = false );
+//    void AddLegend (int, TProfile ** , TString * );
+//    void AddLegend (int, TH2F ** , TString * , Option_t * option = "p" );
+//    void AddLegend (int, TGraphErrors ** ,  TString * Labels , Option_t * option = "l");
+//    void AddLegend (int, TGraph ** ,  TString * Labels , Option_t * option = "l");
+    template <typename T>
+    void AddLegend (T *, TString, T *, TString, Option_t * o = "p");
+//    void AddLegend (TH1F *, TString, TH1F *, TString, Option_t * o = "p");
+//    void AddLegend (TH2F *, TString, TH2F *, TString, Option_t * o = "p");
+//    void AddLegend (TH3F *, TString, TH3F *, TString, Option_t * o = "p");
     void AddLegend (TH1F *, TString, TH1F *, TString, TH1F *, TString, Option_t * o = "l");
     
     
@@ -185,14 +100,16 @@ public:
     // service to all classes
     TH1F * DrawFrame(TString, int, double, double, double Ymin = 0 , double Ymax = 1 , TString XTitle = ""  ,TString Ytitle = "" );
     void SetAxisTitle(TAxis * , TString , double Offset = 1 , double TitleSize = 0.055 , double LabelSize = 0.05);
-    void SetFrame( TH1F *, TString t="", TString Xt="", TString Yt="", int c=1, int fc=0 , int fStyle=3003 );
-    void SetFrame( TH2F *, TString t="", TString Xt="", TString Yt="", int c=1, int mStyle=20 , double mSize=0.5 , double a=0.99);
-    void SetFrame( TH3F *, TString t="", TString Xt="", TString Yt="", TString Zt="", int c=1 , int mStyle=20 , double mSize=0.5 , double a=0.99);
-    void SetFrame( TGraphErrors *, TString T="", TString XT="", TString YT="",int c=1, int mStyle=20, double mSize=0.5, double Alpha=0.99);
-    void SetFrame( TGraph * g, TString T="", TString XT="", TString YT="",int c=1, int mStyle=20, double mSize=0.5, double Alpha=0.99);
-    void SetFrame( TProfile * p, TString t="", TString Xt="", TString Yt="", int c=1 );
-    void SetFrame( TF1 *, TString t="", TString Xt="", TString Yt="", int c=1, int fc=0 , int fStyle=3003 );
-    void SetFrame( TF2 *, TString t="", TString Xt="", TString Yt="", int c=1, int mStyle=20 , double mSize=0.5 , double a=0.99);
+//    void SetFrame( TH1F *, TString t="", TString Xt="", TString Yt="", int c=1, int fc=0 , int fStyle=3003 );
+//    void SetFrame( TH2F *, TString t="", TString Xt="", TString Yt="", int c=1, int mStyle=20 , double mSize=0.5 , double a=0.99);
+//    void SetFrame( TH3F *, TString t="", TString Xt="", TString Yt="", TString Zt="", int c=1 , int mStyle=20 , double mSize=0.5 , double a=0.99);
+    template <typename T>
+    void SetFrame( T *, TString t="", TString Xt="", TString Yt="", TString Zt="", int c=4, int fc=46, int fs=1001 , int mStyle=20 , double mSize=0.5 , double a=0.99);
+//    void SetFrame( TGraphErrors *, TString T="", TString XT="", TString YT="",int c=1, int mStyle=20, double mSize=0.5, double Alpha=0.99);
+//    void SetFrame( TGraph * g, TString T="", TString XT="", TString YT="",int c=1, int mStyle=20, double mSize=0.5, double Alpha=0.99);
+//    void SetFrame( TProfile * p, TString t="", TString Xt="", TString Yt="", int c=1 );
+//    void SetFrame( TF1 *, TString t="", TString Xt="", TString Yt="", int c=1, int fc=0 , int fStyle=3003 );
+//    void SetFrame( TF2 *, TString t="", TString Xt="", TString Yt="", int c=1, int mStyle=20 , double mSize=0.5 , double a=0.99);
 
     
     

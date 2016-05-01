@@ -13,6 +13,8 @@
 #pragma link C++ class TAnalysis+;
 #pragma link C++ class TCalculations+;
 #pragma link C++ class ppElastic+;
+#pragma link C++ class myIncludes+;
 //ADD_NEW_CLASS ... do not change this line
 #endif
+
 

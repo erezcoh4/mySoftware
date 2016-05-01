@@ -73,7 +73,7 @@ void ppElastic::CreateAlphas(){
     alpha[6] = new TF1("alpha6",fa6,1.9,4.2,0);
     alpha[7] = new TF1("alpha7",fa7,1.9,4.2,0);
     for (int i = 0; i < 8; i++) {
-        plot.SetFrame(alpha[i],Form("#alpha_{%i}",i),"c.m. mass #sqrt{s} [GeV/c^{2}]","",2);
+//        plot.SetFrame(alpha[i],Form("#alpha_{%i}",i),"c.m. mass #sqrt{s} [GeV/c^{2}]","","",2);
     }
 
 }
@@ -107,10 +107,10 @@ void ppElastic::CreateXsec(){
     // build pp-eastic c.m. scattering angle following GSI ppElastic analysis [http://web-docs.gsi.de/~webhades/computing/pluto/NN/pp_elastic.html#ref*]
     // two invariant mass regions: 1.9 < m(pp) < 2.1 GeV/c2, and 2.1 < m(pp) < 4.2 GeV/c2
     Xsec = new TF2("Xsec",f2MppTheta,1.9,4.2,0,180,3);
-    plot.SetFrame(Xsec,"d#sigma/d#Omega","c.m. mass #sqrt{s} [GeV/c^{2}]","#theta [deg.]");
+//    plot.SetFrame(Xsec,"d#sigma/d#Omega","c.m. mass #sqrt{s} [GeV/c^{2}]","#theta [deg.]");
     for (int i = 0; i < 6; i++) {
         XsecTheta[i] = (TF1 *) (new TF12(Form("Xsec%d",i),Xsec,2.0+i*0.4,"y"));
-        plot.SetFrame(XsecTheta[i],Form("m(pp) = %.1f GeV/c ^{2}",2.0+i*0.4),"#theta [deg.]","#theta [deg.]");
+        //        plot.SetFrame(XsecTheta[i],Form("m(pp) = %.1f GeV/c ^{2}",2.0+i*0.4),"#theta [deg.]","#theta [deg.]","");
         XsecTheta[i] -> SetNpx(1000);
     }
     

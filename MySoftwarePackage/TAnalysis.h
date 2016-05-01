@@ -5,26 +5,8 @@
 //  Created by Erez Cohen on 5/15/15.
 //
 //
+#include "myIncludes.h"
 #include "TPlots.h"
-
-
-#ifndef __CINT__
-#include "RooGlobalFunc.h"
-#endif
-#include "RooRealVar.h"
-#include "RooDataSet.h"
-#include "RooDataHist.h"
-#include "RooGaussian.h"
-#include "RooConstVar.h"
-#include "RooFormulaVar.h"
-#include "RooGenericPdf.h"
-#include "RooPolynomial.h"
-#include "RooChi2Var.h"
-#include "RooMinuit.h"
-#include "TCanvas.h"
-#include "TAxis.h"
-#include "TMatrix.h"
-#include "RooPlot.h"
 
 
 

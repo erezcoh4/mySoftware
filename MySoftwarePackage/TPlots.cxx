@@ -85,7 +85,7 @@ TH1F * TPlots::H1(TString  Var, TCut cut, TString option
     i_plot++;
     Tree -> Draw(Form("%s>>h%s%d(%d,%f,%f)",Var.Data(),fName.Data(),i_plot,Nbins,Xlow,Xup),cut,"goff");
     h[i_plot] = (TH1F *)gROOT->FindObject(Form("h%s%d",fName.Data(),i_plot));
-    SetFrame( h[i_plot] , Title , XTitle , YTitle , color , FillColor , FillStyle);
+    SetFrame( h[i_plot] , Title , XTitle , YTitle , "" ,  color , FillColor , FillStyle);
     if (option!="goff")
     h[i_plot] -> Draw(Form("%s",option.Data()));
     if (!QuietMode)
@@ -114,7 +114,7 @@ TH2F * TPlots::H2( TString VarX, TString VarY, TCut cut, TString option
     Tree -> Draw(Form("%s:%s>>h2%s%d(%d,%f,%f,%d,%f,%f)"
                       ,VarY.Data(),VarX.Data(),fName.Data(),i_plot,NbinX,Xlow,Xup,NbinY,Ylow,Yup),cut,"goff");
     h2[i_plot] = (TH2F *)gROOT->FindObject(Form("h2%s%d",fName.Data(),i_plot));
-    SetFrame( h2[i_plot] , Form("%s",Title.Data()) , XTitle , YTitle , color , style , mSize , Alpha );
+    SetFrame( h2[i_plot] , Form("%s",Title.Data()) , XTitle , YTitle , "" , color , color , style , style , mSize , Alpha );
     if (option!="goff")
     h2[i_plot] -> Draw(Form("%s",option.Data()));
     if (!QuietMode)
@@ -236,62 +236,84 @@ TH1F * TPlots::CosAngle(TString v1, TString v2 , TCut cut , TString option, TStr
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 // legend
-void TPlots::AddLegend(int N , TH1F * h[N], TString * Labels ,Option_t * option , bool mean ){
+template <typename T>
+void TPlots::AddLegend(int N , T ** h, TString * Labels ,Option_t * option , bool mean ){
     TLegend * leg = new TLegend( 0.1 , 0.8 , 0.8 , 0.85 );
     leg -> SetLineColor(1);
     leg -> SetTextSize(0.04);
     for (int i = 0 ; i < N ; i++){
         if (mean)
-        leg -> AddEntry ( h[i] , Form("%s, #mu=%.3f",Labels[i].Data(),h[i]->GetMean()) , option );
+            leg -> AddEntry ( h[i] , Form("%s, #mu=%.3f",Labels[i].Data(),h[i]->GetMean()) , option );
         else
-        leg -> AddEntry ( h[i] , Labels[i] , option );
+            leg -> AddEntry ( h[i] , Labels[i] , option );
     }
     leg -> Draw();
 }
+//void TPlots::AddLegend(int N , TH1F * h[N], TString * Labels ,Option_t * option , bool mean ){
+//    TLegend * leg = new TLegend( 0.1 , 0.8 , 0.8 , 0.85 );
+//    leg -> SetLineColor(1);
+//    leg -> SetTextSize(0.04);
+//    for (int i = 0 ; i < N ; i++){
+//        if (mean)
+//            leg -> AddEntry ( h[i] , Form("%s, #mu=%.3f",Labels[i].Data(),h[i]->GetMean()) , option );
+//        else
+//            leg -> AddEntry ( h[i] , Labels[i] , option );
+//    }
+//    leg -> Draw();
+//}
+
+//
+//
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TPlots::AddLegend(int N , TH2F * h[N], TString * Labels , Option_t * option){
+//    AddLegend( N , (TH1F **) h, Labels ,option , false );
+//}
 
 
+
+
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TPlots::AddLegend(int N, TProfile ** p , TString * Labels ){
+//    TLegend * leg = new TLegend( 0.1 , 0.5 , 0.4 , 0.85 );
+//    leg -> SetLineColor(1);
+//    leg -> SetTextSize(0.04);
+//    for (int i = 0 ; i < N ; i++){
+//        leg -> AddEntry ( p[i] , Labels[i] , "l" );
+//    }
+//    leg -> Draw();
+//}
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::AddLegend(int N , TH2F * h[N], TString * Labels , Option_t * option){
-    AddLegend( N , (TH1F **) h, Labels ,option , false );
-}
-
-
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::AddLegend(int N, TProfile ** p , TString * Labels ){
-    TLegend * leg = new TLegend( 0.1 , 0.5 , 0.4 , 0.85 );
-    leg -> SetLineColor(1);
-    leg -> SetTextSize(0.04);
-    for (int i = 0 ; i < N ; i++){
-        leg -> AddEntry ( p[i] , Labels[i] , "l" );
-    }
-    leg -> Draw();
-}
-
-
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::AddLegend(TH1F * h1, TString l1, TH1F * h2, TString l2, Option_t * option){
-    TH1F * h[2] = {h1,h2};
+template <typename T>
+void TPlots::AddLegend(T * h1, TString l1, T * h2, TString l2, Option_t * option){
+    T * h[2] = {h1,h2};
     TString Labels[2];
     Labels[0] = l1 ;//+ Form(" (%d)",(int)h1->GetEntries());
     Labels[1] = l2 ;//+ Form(" (%d)",(int)h2->GetEntries());
     AddLegend( 2 , h , Labels, option);
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::AddLegend(TH2F * h1, TString l1, TH2F * h2, TString l2, Option_t * option){
-    AddLegend( (TH1F *) h1 , l1, (TH1F *) h2, l2, option);
-}
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::AddLegend(TH3F * h1, TString l1, TH3F * h2, TString l2, Option_t * option){
-    AddLegend( (TH1F *) h1 , l1, (TH1F *) h2, l2, option);
-}
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TPlots::AddLegend(TH1F * h1, TString l1, TH1F * h2, TString l2, Option_t * option){
+//    TH1F * h[2] = {h1,h2};
+//    TString Labels[2];
+//    Labels[0] = l1 ;//+ Form(" (%d)",(int)h1->GetEntries());
+//    Labels[1] = l2 ;//+ Form(" (%d)",(int)h2->GetEntries());
+//    AddLegend( 2 , h , Labels, option);
+//}
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TPlots::AddLegend(TH2F * h1, TString l1, TH2F * h2, TString l2, Option_t * option){
+//    AddLegend( (TH1F *) h1 , l1, (TH1F *) h2, l2, option);
+//}
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TPlots::AddLegend(TH3F * h1, TString l1, TH3F * h2, TString l2, Option_t * option){
+//    AddLegend( (TH1F *) h1 , l1, (TH1F *) h2, l2, option);
+//}
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -301,21 +323,21 @@ void TPlots::AddLegend(TH1F * h1, TString l1, TH1F * h2, TString l2, TH1F * h3, 
     AddLegend( 3 , h , Labels, option);
 }
 
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TPlots::AddLegend(int N , TGraph * g[N] ,  TString * Labels, Option_t * option){
+//    TLegend * leg = new TLegend( 0.15 , 0.7 , 0.5 , 0.9 );
+//    leg -> SetLineColor (1);
+//    leg -> SetTextSize (0.04);
+//    for (int i = 0 ; i < N ; i++)
+//    leg -> AddEntry ( g[i] , Labels[i] , option );
+//    leg -> Draw();
+//}
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::AddLegend(int N , TGraph * g[N] ,  TString * Labels, Option_t * option){
-    TLegend * leg = new TLegend( 0.15 , 0.7 , 0.5 , 0.9 );
-    leg -> SetLineColor (1);
-    leg -> SetTextSize (0.04);
-    for (int i = 0 ; i < N ; i++)
-    leg -> AddEntry ( g[i] , Labels[i] , option );
-    leg -> Draw();
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::AddLegend(int N , TGraphErrors * g[N] ,  TString * Labels, Option_t * option){
-    AddLegend( N , (TGraph **) g , Labels,  option);
-}
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TPlots::AddLegend(int N , TGraphErrors * g[N] ,  TString * Labels, Option_t * option){
+//    AddLegend( N , (TGraph **) g , Labels,  option);
+//}
 
 
 
@@ -452,102 +474,121 @@ void TPlots::SetAxisTitle(TAxis * axis , TString Title , double Offset , double 
     axis -> CenterTitle();
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::SetFrame( TH1F * frame , TString Title , TString XTitle , TString YTitle , int color , int FillColor , int FillStyle ){
-    frame -> SetTitle( Title );
-    SetAxisTitle(frame -> GetXaxis() , XTitle );//, 1. , 0.075 , 0.05); // for plots
-    SetAxisTitle(frame -> GetYaxis() , YTitle );//, 1. , 0.075 , 0.05);
-    frame -> SetLineColor(color);
-    frame -> SetFillColor(FillColor);
-    frame -> SetFillStyle(FillStyle);
-}
-
-
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::SetFrame( TH2F * frame , TString Title , TString XTitle , TString YTitle
-                      , int color , int mStyle , double mSize , double Alpha ){
-    frame -> SetTitle( Title );
-    frame -> SetTitleSize(0.1);
-    SetAxisTitle(frame -> GetXaxis() , XTitle);//, 1. , 0.075 , 0.05);
-    SetAxisTitle(frame -> GetYaxis() , YTitle);//, 1. , 0.075 , 0.05);
-    frame -> SetMarkerStyle(mStyle);
-    frame -> SetMarkerSize(mSize);
-    frame -> SetMarkerColorAlpha(color,Alpha);
-}
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::SetFrame( TH3F * frame, TString Title, TString XTitle, TString YTitle, TString ZTitle
-                      , int color , int mStyle , double mSize , double Alpha ){
-    frame -> SetTitle( Title );
-    frame -> SetTitleSize(0.1);
-    SetAxisTitle(frame -> GetXaxis() , XTitle);
-    SetAxisTitle(frame -> GetYaxis() , YTitle);
-    SetAxisTitle(frame -> GetZaxis() , ZTitle);
-    frame -> SetMarkerStyle(mStyle);
-    frame -> SetMarkerSize(mSize);
-    frame -> SetMarkerColorAlpha(color,Alpha);
-}
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::SetFrame( TGraph * g , TString Title , TString XTitle , TString YTitle,int color, int mStyle, double mSize, double Alpha){
-    g -> SetTitle( Title );
-    SetAxisTitle(g -> GetXaxis() , XTitle);//, 0.8 , 0.055 , 0.03);
-    SetAxisTitle(g -> GetYaxis() , YTitle);//, 0.8 , 0.055 , 0.03);
-    g -> SetMarkerStyle(mStyle);
-    g -> SetMarkerSize(mSize);
-    g -> SetMarkerColorAlpha(color,Alpha);
-    g -> SetLineColorAlpha(color,Alpha);
-    //    gPad -> SetTicks(1,1);
-}
-
-
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TPlots::SetFrame( TH1F * frame , TString Title , TString XTitle , TString YTitle , int color , int FillColor , int FillStyle ){
+//    frame -> SetTitle( Title );
+//    SetAxisTitle(frame -> GetXaxis() , XTitle );//, 1. , 0.075 , 0.05); // for plots
+//    SetAxisTitle(frame -> GetYaxis() , YTitle );//, 1. , 0.075 , 0.05);
+//    frame -> SetLineColor(color);
+//    frame -> SetFillColor(FillColor);
+//    frame -> SetFillStyle(FillStyle);
+//}
+//
+//
+//
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TPlots::SetFrame( TH2F * frame , TString Title , TString XTitle , TString YTitle
+//                      , int color , int mStyle , double mSize , double Alpha ){
+//    frame -> SetTitle( Title );
+//    frame -> SetTitleSize(0.1);
+//    SetAxisTitle(frame -> GetXaxis() , XTitle);//, 1. , 0.075 , 0.05);
+//    SetAxisTitle(frame -> GetYaxis() , YTitle);//, 1. , 0.075 , 0.05);
+//    frame -> SetMarkerStyle(mStyle);
+//    frame -> SetMarkerSize(mSize);
+//    frame -> SetMarkerColorAlpha(color,Alpha);
+//}
+//
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TPlots::SetFrame( TH3F * frame, TString Title, TString XTitle, TString YTitle, TString ZTitle
+//                      , int color , int mStyle , double mSize , double Alpha ){
+//    frame -> SetTitle( Title );
+//    frame -> SetTitleSize(0.1);
+//    SetAxisTitle(frame -> GetXaxis() , XTitle);
+//    SetAxisTitle(frame -> GetYaxis() , YTitle);
+//    SetAxisTitle(frame -> GetZaxis() , ZTitle);
+//    frame -> SetMarkerStyle(mStyle);
+//    frame -> SetMarkerSize(mSize);
+//    frame -> SetMarkerColorAlpha(color,Alpha);
+//}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::SetFrame( TProfile * frame , TString Title , TString XTitle , TString YTitle , int color ){
-    frame -> SetTitle( Title );
-    SetAxisTitle(frame -> GetXaxis() , XTitle );
-    SetAxisTitle(frame -> GetYaxis() , YTitle );
-    frame -> SetLineColor(color);
-}
-
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::SetFrame( TGraphErrors * frame , TString Title , TString XTitle , TString YTitle,int color, int mStyle, double mSize, double Alpha){
-    SetFrame( (TGraph *)frame , Title , XTitle , YTitle, color, mStyle, mSize, Alpha);
-}
-
-
-
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::SetFrame( TF1 * frame , TString Title , TString XTitle , TString YTitle , int color , int FillColor , int FillStyle ){
-    frame -> SetTitle( Title );
-    SetAxisTitle(frame -> GetXaxis() , XTitle );
-    SetAxisTitle(frame -> GetYaxis() , YTitle );
-    frame -> SetLineColor(color);
-    frame -> SetFillColor(FillColor);
-    frame -> SetFillStyle(FillStyle);
-}
-
-
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::SetFrame( TF2 * frame , TString Title , TString XTitle , TString YTitle
-                      , int color , int mStyle , double mSize , double Alpha ){
+template <typename T>
+void TPlots::SetFrame( T * frame, TString Title, TString XTitle, TString YTitle, TString ZTitle
+                      , int color , int FillColor, int FillStyle, int mStyle , double mSize , double Alpha ){
+    std::cout << "frame is: " << typeid(frame).name() << '\n';
     frame -> SetTitle( Title );
     SetAxisTitle(frame -> GetXaxis() , XTitle);
     SetAxisTitle(frame -> GetYaxis() , YTitle);
+    if(typeid(frame)==typeid(TH3F)) SetAxisTitle(((TH1F*)frame) -> GetZaxis() , ZTitle);
+    frame -> SetLineColor(color);
+    SHOW(color);
+    SHOW(FillStyle);
+    SHOW(FillColor);
+    frame -> SetFillColor(FillColor);
+    frame -> SetFillStyle(FillStyle);
     frame -> SetMarkerStyle(mStyle);
     frame -> SetMarkerSize(mSize);
     frame -> SetMarkerColorAlpha(color,Alpha);
 }
+
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TPlots::SetFrame( TGraph * g , TString Title , TString XTitle , TString YTitle,int color, int mStyle, double mSize, double Alpha){
+//    g -> SetTitle( Title );
+//    SetAxisTitle(g -> GetXaxis() , XTitle);//, 0.8 , 0.055 , 0.03);
+//    SetAxisTitle(g -> GetYaxis() , YTitle);//, 0.8 , 0.055 , 0.03);
+//    g -> SetMarkerStyle(mStyle);
+//    g -> SetMarkerSize(mSize);
+//    g -> SetMarkerColorAlpha(color,Alpha);
+//    g -> SetLineColorAlpha(color,Alpha);
+//    //    gPad -> SetTicks(1,1);
+//}
+//
+//
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TPlots::SetFrame( TProfile * frame , TString Title , TString XTitle , TString YTitle , int color ){
+//    frame -> SetTitle( Title );
+//    SetAxisTitle(frame -> GetXaxis() , XTitle );
+//    SetAxisTitle(frame -> GetYaxis() , YTitle );
+//    frame -> SetLineColor(color);
+//}
+//
+//
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TPlots::SetFrame( TGraphErrors * frame , TString Title , TString XTitle , TString YTitle,int color, int mStyle, double mSize, double Alpha){
+//    SetFrame( (TGraph *)frame , Title , XTitle , YTitle, color, mStyle, mSize, Alpha);
+//}
+//
+//
+//
+//
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TPlots::SetFrame( TF1 * frame , TString Title , TString XTitle , TString YTitle , int color , int FillColor , int FillStyle ){
+//    frame -> SetTitle( Title );
+//    SetAxisTitle(frame -> GetXaxis() , XTitle );
+//    SetAxisTitle(frame -> GetYaxis() , YTitle );
+//    frame -> SetLineColor(color);
+//    frame -> SetFillColor(FillColor);
+//    frame -> SetFillStyle(FillStyle);
+//}
+//
+//
+//
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TPlots::SetFrame( TF2 * frame , TString Title , TString XTitle , TString YTitle
+//                      , int color , int mStyle , double mSize , double Alpha ){
+//    frame -> SetTitle( Title );
+//    SetAxisTitle(frame -> GetXaxis() , XTitle);
+//    SetAxisTitle(frame -> GetYaxis() , YTitle);
+//    frame -> SetMarkerStyle(mStyle);
+//    frame -> SetMarkerSize(mSize);
+//    frame -> SetMarkerColorAlpha(color,Alpha);
+//}
 
 
 

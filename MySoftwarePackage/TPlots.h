@@ -1,10 +1,5 @@
-//
 //  TPlots.h
-//
-//
 //  Created by Erez Cohen on 2/24/15.
-//
-//
 
 #ifndef __TPLOTS_H__
 #define __TPLOTS_H__
@@ -18,6 +13,7 @@ private:
 
     
 public:
+    
     //date
     TTimeStamp ts;
     TString fName;
@@ -50,16 +46,19 @@ public:
     TCanvas * CreateCanvas(TString Title, TString DoDivide="NoDivision", int Nx=4, int Ny=2, float w=800, float h=800);
     
     TH1F *  H1 ( TString, TCut, TString, int, double, double,TString T="",TString XT="",TString YT="",int c=1, int fc=38,int fStyle=1001);
+
     TH2F *  H2 ( TString, TString, TCut, TString, int, double, double, int, double, double,TString T="",TString XT="",TString YT="", int c=1,int s=7,float a=0.9, double mSize=1);
+ 
     TH3F *  H3 ( TString, TString, TString, TCut, TString
                 ,int,double,double,int,double,double,int,double,double, TString T="",TString XT="",TString YT="",TString ZT="",int c=1,int s=7,float a=0.3, double mSize=1);
+
     TPie * Pie (TString , TString , const int , Float_t* , Int_t*, TString*, TString option="3d");
+
     TH2F * H2WithProjections ( TString, TString, TCut, int, double, double,int, double, double, TString T="", TString XT="", TString YT="");
     
+    TH2F *  Dalitz ( TString, TString, TString, TCut, int Nx=100,float xl=0,float xu=1,int Ny=100,float yl=0,float yu=1);
     
-    // angles
-    TH1F * Angle(TString,TString, TCut cut="", TString o="", TString T="", TString XT="", TString YT="" , int c=1, int N=46, double Xl=0, double Xu=180.);
-    TH1F * CosAngle(TString,TString, TCut cut="", TString o="", TString T="", TString XT="", TString YT="" , int c=1, int N=23, double Xl=-1, double Xu=1);
+    
     
     
     
@@ -68,16 +67,8 @@ public:
     //legend
     template <typename T>
     void AddLegend (int, T ** , TString *, Option_t * o = "F"  , bool mean = false );
-//    void AddLegend (int, TH1F ** , TString *, Option_t * option = "F"  , bool mean = false );
-//    void AddLegend (int, TProfile ** , TString * );
-//    void AddLegend (int, TH2F ** , TString * , Option_t * option = "p" );
-//    void AddLegend (int, TGraphErrors ** ,  TString * Labels , Option_t * option = "l");
-//    void AddLegend (int, TGraph ** ,  TString * Labels , Option_t * option = "l");
     template <typename T>
     void AddLegend (T *, TString, T *, TString, Option_t * o = "p");
-//    void AddLegend (TH1F *, TString, TH1F *, TString, Option_t * o = "p");
-//    void AddLegend (TH2F *, TString, TH2F *, TString, Option_t * o = "p");
-//    void AddLegend (TH3F *, TString, TH3F *, TString, Option_t * o = "p");
     void AddLegend (TH1F *, TString, TH1F *, TString, TH1F *, TString, Option_t * o = "l");
     
     
@@ -100,17 +91,9 @@ public:
     // service to all classes
     TH1F * DrawFrame(TString, int, double, double, double Ymin = 0 , double Ymax = 1 , TString XTitle = ""  ,TString Ytitle = "" );
     void SetAxisTitle(TAxis * , TString , double Offset = 1 , double TitleSize = 0.055 , double LabelSize = 0.05);
-//    void SetFrame( TH1F *, TString t="", TString Xt="", TString Yt="", int c=1, int fc=0 , int fStyle=3003 );
-//    void SetFrame( TH2F *, TString t="", TString Xt="", TString Yt="", int c=1, int mStyle=20 , double mSize=0.5 , double a=0.99);
-//    void SetFrame( TH3F *, TString t="", TString Xt="", TString Yt="", TString Zt="", int c=1 , int mStyle=20 , double mSize=0.5 , double a=0.99);
     template <typename T>
     void SetFrame( T *, TString t="", TString Xt="", TString Yt="", TString Zt="", int c=4, int fc=46, int fs=1001 , int mStyle=20 , double mSize=0.5 , double a=0.99);
-//    void SetFrame( TGraphErrors *, TString T="", TString XT="", TString YT="",int c=1, int mStyle=20, double mSize=0.5, double Alpha=0.99);
-//    void SetFrame( TGraph * g, TString T="", TString XT="", TString YT="",int c=1, int mStyle=20, double mSize=0.5, double Alpha=0.99);
-//    void SetFrame( TProfile * p, TString t="", TString Xt="", TString Yt="", int c=1 );
-//    void SetFrame( TF1 *, TString t="", TString Xt="", TString Yt="", int c=1, int fc=0 , int fStyle=3003 );
-//    void SetFrame( TF2 *, TString t="", TString Xt="", TString Yt="", int c=1, int mStyle=20 , double mSize=0.5 , double a=0.99);
-
+    
     
     
     
@@ -161,9 +144,9 @@ public:
     
     
     // drawing with TCuts
-    void Draw1DVarAndCut (TCanvas *, int, TString, int, float, float, TString, TString, TCut, bool DoLeg = false, TString cName = "");
+    void      Draw1DVarAndCut (TCanvas *, int, TString, int, float, float, TString, TString, TCut, bool DoLeg = false, TString cName = "");
     TCanvas * Draw1DVarAndCut (TString , int, float, float, TString, TString, TCut, bool DoLeg = false, TString cName = "");
-    void Draw2DVarAndCut (TCanvas * , int, TString , TString, int, float, float, int, float, float, TString, TString, TString, TCut, bool DoAddLegend = false, TString CutName = "");
+    void      Draw2DVarAndCut (TCanvas *, int, TString , TString, int, float, float, int, float, float, TString, TString, TString, TCut, bool DoAddLegend = false, TString CutName = "");
     TCanvas * Draw2DVarAndCut (TString , TString, int, float, float, int, float, float, TString, TString, TString, TCut, bool DoAddLegend = false, TString CutName = "");
     
     
@@ -178,3 +161,26 @@ public:
 
 
 #endif
+//// angles
+//TH1F * Angle(TString,TString, TCut cut="", TString o="", TString T="", TString XT="", TString YT="" , int c=1, int N=46, double Xl=0, double Xu=180.);
+//TH1F * CosAngle(TString,TString, TCut cut="", TString o="", TString T="", TString XT="", TString YT="" , int c=1, int N=23, double Xl=-1, double Xu=1);
+
+//    void AddLegend (int, TH1F ** , TString *, Option_t * option = "F"  , bool mean = false );
+//    void AddLegend (int, TProfile ** , TString * );
+//    void AddLegend (int, TH2F ** , TString * , Option_t * option = "p" );
+//    void AddLegend (int, TGraphErrors ** ,  TString * Labels , Option_t * option = "l");
+//    void AddLegend (int, TGraph ** ,  TString * Labels , Option_t * option = "l");
+//    void AddLegend (TH1F *, TString, TH1F *, TString, Option_t * o = "p");
+//    void AddLegend (TH2F *, TString, TH2F *, TString, Option_t * o = "p");
+//    void AddLegend (TH3F *, TString, TH3F *, TString, Option_t * o = "p");
+
+
+//    void SetFrame( TH1F *, TString t="", TString Xt="", TString Yt="", int c=1, int fc=0 , int fStyle=3003 );
+//    void SetFrame( TH2F *, TString t="", TString Xt="", TString Yt="", int c=1, int mStyle=20 , double mSize=0.5 , double a=0.99);
+//    void SetFrame( TH3F *, TString t="", TString Xt="", TString Yt="", TString Zt="", int c=1 , int mStyle=20 , double mSize=0.5 , double a=0.99);
+//    void SetFrame( TGraphErrors *, TString T="", TString XT="", TString YT="",int c=1, int mStyle=20, double mSize=0.5, double Alpha=0.99);
+//    void SetFrame( TGraph * g, TString T="", TString XT="", TString YT="",int c=1, int mStyle=20, double mSize=0.5, double Alpha=0.99);
+//    void SetFrame( TProfile * p, TString t="", TString Xt="", TString Yt="", int c=1 );
+//    void SetFrame( TF1 *, TString t="", TString Xt="", TString Yt="", int c=1, int fc=0 , int fStyle=3003 );
+//    void SetFrame( TF2 *, TString t="", TString Xt="", TString Yt="", int c=1, int mStyle=20 , double mSize=0.5 , double a=0.99);
+

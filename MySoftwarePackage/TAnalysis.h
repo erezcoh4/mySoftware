@@ -31,9 +31,9 @@ public:
     
     //    //Unbinned RooFit of 1d Histogram
     //    RooPlot * RooFit1D          ( TTree * , TString , Double_t *  , Double_t * , Double_t * , TString , bool PlotFit = true , bool DoWeight = false );
-    Double_t Kolmogorov1D       (Int_t, Double_t*, Int_t, Double_t*, Option_t* option="");
-    Double_t Kolmogorov1DCriticalValue( Double_t , int , int );
-    void Sort                   (Int_t, Double_t*);
+    Double_t              Kolmogorov1D (Int_t, Double_t*, Int_t, Double_t*, Option_t* option="");
+    Double_t Kolmogorov1DCriticalValue ( Double_t , int , int );
+    void                          Sort (Int_t, Double_t*);
     
     
     
@@ -54,6 +54,7 @@ public:
     
     
     // get from file...
+    TTree *      GetTreeFromAFile (TString, TString);
     TH1F *      GetHistoFromAFile (TString, TString);
     TH2F *         GetH2FromAFile (TString, TString);
     TProfile * GetProfileFromFile (TString, TString);

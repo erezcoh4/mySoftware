@@ -152,6 +152,14 @@ TH1F* TAnalysis::CombineHistograms(char * name, TH1F * hNum, TH1F * hDen,TString
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+TTree * TAnalysis::GetTreeFromAFile(TString filename , TString tree_name){
+    TFile * File = new TFile(filename);
+    TTree* tree =  (TTree*)File->Get(tree_name);
+    return tree;
+}
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TH1F * TAnalysis::GetHistoFromAFile(TString filename , TString histoname){
     TFile * File = new TFile(filename);
     TH1F* histo =  (TH1F*)File->Get(histoname);

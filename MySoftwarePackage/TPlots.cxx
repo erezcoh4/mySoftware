@@ -202,16 +202,14 @@ TH2F * TPlots::H2WithProjections( TString VarX, TString VarY, TCut cut
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-TH2F * TPlots::Dalitz ( TString v1, TString v2, TString v3, TCut cut, int NbinsX, float Xlow, float Xup, int NbinsY, float Ylow, float Yup){
+TH2F * TPlots::Dalitz ( TString Tp1, TString Tp2, TString Tp3, TCut cut, int NbinsX, float Xlow, float Xup, int NbinsY, float Ylow, float Yup){
     // return a Dalitz plot of the 4-vectors v1,v2,v3
-    // as a TH2F* correlation histogram of m²(v1-v2) vs. m²(v1-v3)
-    
-    TString m2v1v2 = Form("(%s.E()+%s.E())**2 - ( (%s.Px()+%s.Px())**2 + (%s.Py()+%s.Py())**2 + (%s.Pz()+%s.Pz())**2 ) "
-                          , v1.Data() , v2.Data(), v1.Data() , v2.Data(), v1.Data() , v2.Data(), v1.Data() , v2.Data() );
-    TString m2v1v3 = Form("(%s.E()+%s.E())**2 - ( (%s.Px()+%s.Px())**2 + (%s.Py()+%s.Py())**2 + (%s.Pz()+%s.Pz())**2 ) "
-                          , v1.Data() , v3.Data(), v1.Data() , v3.Data(), v1.Data() , v3.Data(), v1.Data() , v3.Data() );
-    return H2(m2v1v2 , m2v1v3 , cut , "colz" , NbinsX, Xlow, Xup, NbinsY, Ylow, Yup , ""
-              , Form("m^{2}(%s-%s)",v1.Data() , v2.Data()), Form("m^{2}(%s-%s)",v1.Data() , v3.Data()) );
+    // [http://www.bo.infn.it/rem/Giammaria_Tommaso_tesi.pdf]
+    // x = √3(T₁-T₂)/T , y = (2T₃ - T₁ - T₂)/T
+    TString T = Form("(%s+%s+%s)", Tp1.Data(), Tp2.Data(), Tp3.Data());
+    TString VarX = Form("sqrt(3)*(%s - %s)/%s",Tp1.Data(),Tp2.Data(),T.Data());
+    TString VarY = Form("(2*%s - %s - %s)/%s",Tp3.Data(),Tp1.Data(),Tp2.Data(),T.Data());
+    return H2( VarX, VarY, cut, "colz", NbinsX, Xlow, Xup, NbinsY, Ylow, Yup,"Dalitz plot", VarX , VarY );
 }
 
 

@@ -56,7 +56,7 @@ public:
 
     TH2F * H2WithProjections ( TString, TString, TCut, int, double, double,int, double, double, TString T="", TString XT="", TString YT="");
     
-    TH2F *  Dalitz ( TString, TString, TString, TCut, int Nx=100,float xl=0,float xu=1,int Ny=100,float yl=0,float yu=1);
+    TH2F *  Dalitz ( TString, TString, TString, TCut, int Nx=100,float xl=-1.7,float xu=1.7,int Ny=100,float yl=-1.1,float yu=2);
     
     
     

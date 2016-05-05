@@ -108,7 +108,7 @@ TH1F * TPlots::H1(TString  Var, TCut cut, TString option
 TH2F * TPlots::H2( TString VarX, TString VarY, TCut cut, TString option
                   , int NbinX, double Xlow, double Xup, int NbinY, double Ylow, double Yup
                   , TString Title , TString XTitle , TString YTitle
-                  , int color, int style, float Alpha, double mSize ){
+                  , int color, int style, double Alpha, double mSize ){
     i_plot++;
     Tree -> SetMarkerColorAlpha( color , Alpha );
     Tree -> Draw(Form("%s:%s>>h2%s%d(%d,%f,%f,%d,%f,%f)"
@@ -132,7 +132,7 @@ TH2F * TPlots::H2( TString VarX, TString VarY, TCut cut, TString option
 TH3F * TPlots::H3( TString VX, TString VY, TString VZ, TCut cut, TString option
                   , int NbinX, double Xlow, double Xup, int NbinY, double Ylow , double Yup, int NbinZ, double Zlow , double Zup
                   , TString Title, TString XTitle, TString YTitle, TString ZTitle
-                  , int color, int style , float Alpha , double mSize ){
+                  , int color, int style , double Alpha , double mSize ){
     i_plot++;
     Tree -> SetMarkerColorAlpha( color , Alpha );
     Tree -> Draw(Form("%s:%s:%s>>h%s%d(%d,%f,%f,%d,%f,%f,%d,%f,%f)"
@@ -202,7 +202,7 @@ TH2F * TPlots::H2WithProjections( TString VarX, TString VarY, TCut cut
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-TH2F * TPlots::Dalitz ( TString Tp1, TString Tp2, TString Tp3, TCut cut, int NbinsX, float Xlow, float Xup, int NbinsY, float Ylow, float Yup){
+TH2F * TPlots::Dalitz ( TString Tp1, TString Tp2, TString Tp3, TCut cut, int NbinsX, double Xlow, double Xup, int NbinsY, double Ylow, double Yup){
     // return a Dalitz plot of the 4-vectors v1,v2,v3
     // [http://www.bo.infn.it/rem/Giammaria_Tommaso_tesi.pdf]
     // x = √3(T₁-T₂)/T , y = (2T₃ - T₁ - T₂)/T
@@ -213,42 +213,42 @@ TH2F * TPlots::Dalitz ( TString Tp1, TString Tp2, TString Tp3, TCut cut, int Nbi
 }
 
 
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-// legend
-template <typename T>
-void TPlots::AddLegend(int N , T ** h, TString * Labels ,Option_t * option , bool mean ){
-    TLegend * leg = new TLegend( 0.1 , 0.8 , 0.8 , 0.85 );
-    leg -> SetLineColor(1);
-    leg -> SetTextSize(0.04);
-    for (int i = 0 ; i < N ; i++){
-        if (mean)
-            leg -> AddEntry ( h[i] , Form("%s, #mu=%.3f",Labels[i].Data(),h[i]->GetMean()) , option );
-        else
-            leg -> AddEntry ( h[i] , Labels[i] , option );
-    }
-    leg -> Draw();
-}
-
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-template <typename T>
-void TPlots::AddLegend(T * h1, TString l1, T * h2, TString l2, Option_t * option){
-    T * h[2] = {h1,h2};
-    TString Labels[2];
-    Labels[0] = l1 ;//+ Form(" (%d)",(int)h1->GetEntries());
-    Labels[1] = l2 ;//+ Form(" (%d)",(int)h2->GetEntries());
-    AddLegend( 2 , h , Labels, option);
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::AddLegend(TH1F * h1, TString l1, TH1F * h2, TString l2, TH1F * h3, TString l3, Option_t * option){
-    TH1F * h[3] = {h1,h2,h3};
-    TString Labels[3] = {l1,l2,l3};
-    AddLegend( 3 , h , Labels, option);
-}
-
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//// legend
+//template <typename T>
+//void TPlots::AddLegend(int N , T ** h, TString * Labels ,Option_t * option , bool mean ){
+//    TLegend * leg = new TLegend( 0.1 , 0.8 , 0.8 , 0.85 );
+//    leg -> SetLineColor(1);
+//    leg -> SetTextSize(0.04);
+//    for (int i = 0 ; i < N ; i++){
+//        if (mean)
+//            leg -> AddEntry ( h[i] , Form("%s, #mu=%.3f",Labels[i].Data(),h[i]->GetMean()) , option );
+//        else
+//            leg -> AddEntry ( h[i] , Labels[i] , option );
+//    }
+//    leg -> Draw();
+//}
+//
+//
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//template <typename T>
+//void TPlots::AddLegend(T * h1, TString l1, T * h2, TString l2, Option_t * option){
+//    T * h[2] = {h1,h2};
+//    TString Labels[2];
+//    Labels[0] = l1 ;//+ Form(" (%d)",(int)h1->GetEntries());
+//    Labels[1] = l2 ;//+ Form(" (%d)",(int)h2->GetEntries());
+//    AddLegend( 2 , h , Labels, option);
+//}
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void TPlots::AddLegend(TH1F * h1, TString l1, TH1F * h2, TString l2, TH1F * h3, TString l3, Option_t * option){
+//    TH1F * h[3] = {h1,h2,h3};
+//    TString Labels[3] = {l1,l2,l3};
+//    AddLegend( 3 , h , Labels, option);
+//}
+//
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -382,25 +382,25 @@ void TPlots::SetAxisTitle(TAxis * axis , TString Title , double Offset , double 
     axis -> SetNdivisions(507);
     axis -> CenterTitle();
 }
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-template <typename T>
-void TPlots::SetFrame( T * frame, TString Title, TString XTitle, TString YTitle, TString ZTitle
-                      , int color , int FillColor, int FillStyle, int mStyle , double mSize , double Alpha ){
-    std::cout << "frame is: " << typeid(frame).name() << '\n';
-    frame -> SetTitle( Title );
-    SetAxisTitle(frame -> GetXaxis() , XTitle);
-    SetAxisTitle(frame -> GetYaxis() , YTitle);
-    if(typeid(frame)==typeid(TH3F)) SetAxisTitle(((TH1F*)frame) -> GetZaxis() , ZTitle);
-    frame -> SetLineColor(color);
-    frame -> SetFillColor(FillColor);
-    frame -> SetFillStyle(FillStyle);
-    frame -> SetMarkerStyle(mStyle);
-    frame -> SetMarkerSize(mSize);
-    frame -> SetMarkerColorAlpha(color,Alpha);
-}
-
-
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//template <typename T>
+//void TPlots::SetFrame( T * frame, TString Title, TString XTitle, TString YTitle, TString ZTitle
+//                      , int color , int FillColor, int FillStyle, int mStyle , double mSize , double Alpha ){
+//    std::cout << "frame is: " << typeid(frame).name() << '\n';
+//    frame -> SetTitle( Title );
+//    SetAxisTitle(frame -> GetXaxis() , XTitle);
+//    SetAxisTitle(frame -> GetYaxis() , YTitle);
+//    if(typeid(frame)==typeid(TH3F)) SetAxisTitle(((TH1F*)frame) -> GetZaxis() , ZTitle);
+//    frame -> SetLineColor(color);
+//    frame -> SetFillColor(FillColor);
+//    frame -> SetFillStyle(FillStyle);
+//    frame -> SetMarkerStyle(mStyle);
+//    frame -> SetMarkerSize(mSize);
+//    frame -> SetMarkerColorAlpha(color,Alpha);
+//}
+//
+//
 
 
 

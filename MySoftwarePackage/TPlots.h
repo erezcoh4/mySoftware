@@ -38,38 +38,59 @@ public:
     
     
     // methods
-    
-    
     void MergeFiles ( TString, const int N, char ** fName, char *, char *);
     
     //plots
     TCanvas * CreateCanvas(TString Title, TString DoDivide="NoDivision", int Nx=4, int Ny=2, float w=800, float h=800);
     
-    TH1F *  H1 ( TString, TCut, TString, int, double, double,TString T="",TString XT="",TString YT="",int c=1, int fc=38,int fStyle=1001);
+    TH1F *                H1 ( TString, TCut, TString, int, double, double,TString T="",TString XT="",TString YT="",int c=1, int fc=38,int fStyle=1001);
 
-    TH2F *  H2 ( TString, TString, TCut, TString, int, double, double, int, double, double,TString T="",TString XT="",TString YT="", int c=1,int s=7,float a=0.9, double mSize=1);
+    TH2F *                H2 ( TString, TString, TCut, TString, int, double, double, int, double, double,TString T="",TString XT="",TString YT="", int c=1,int s=7,double a=0.9, double mSize=1);
  
-    TH3F *  H3 ( TString, TString, TString, TCut, TString
-                ,int,double,double,int,double,double,int,double,double, TString T="",TString XT="",TString YT="",TString ZT="",int c=1,int s=7,float a=0.3, double mSize=1);
+    TH3F *                H3 ( TString, TString, TString, TCut, TString
+                              ,int,double,double,int,double,double,int,double,double, TString T="",TString XT="",TString YT="",TString ZT="",int c=1,int s=7,double a=0.3, double mSize=1);
 
-    TPie * Pie (TString , TString , const int , Float_t* , Int_t*, TString*, TString option="3d");
+    TPie *               Pie (TString , TString , const int , Float_t* , Int_t*, TString*, TString option="3d");
 
     TH2F * H2WithProjections ( TString, TString, TCut, int, double, double,int, double, double, TString T="", TString XT="", TString YT="");
     
-    TH2F *  Dalitz ( TString, TString, TString, TCut, int Nx=100,float xl=-1.7,float xu=1.7,int Ny=100,float yl=-1.1,float yu=2);
+    TH2F *            Dalitz ( TString, TString, TString, TCut, int Nx=100,double xl=-1.7,double xu=1.7,int Ny=100,double yl=-1.1,double yu=2);
     
     
     
     
-    
-    
-    
-    //legend
+    //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+    // legend
     template <typename T>
-    void AddLegend (int, T ** , TString *, Option_t * o = "F"  , bool mean = false );
+    void AddLegend(int N , T ** h, TString * Labels ,Option_t * option = "F", bool mean = false){
+        TLegend * leg = new TLegend( 0.1 , 0.8 , 0.8 , 0.85 );
+        leg -> SetLineColor(1);
+        leg -> SetTextSize(0.04);
+        for (int i = 0 ; i < N ; i++){
+            if (mean)
+                leg -> AddEntry ( h[i] , Form("%s, #mu=%.3f",Labels[i].Data(),h[i]->GetMean()) , option );
+            else
+                leg -> AddEntry ( h[i] , Labels[i] , option );
+        }
+        leg -> Draw();
+    }
+    
     template <typename T>
-    void AddLegend (T *, TString, T *, TString, Option_t * o = "p");
-    void AddLegend (TH1F *, TString, TH1F *, TString, TH1F *, TString, Option_t * o = "l");
+    void AddLegend(T * h1, TString l1, T * h2, TString l2, Option_t * option = "p"){
+        T * h[2] = {h1,h2};
+        TString Labels[2];
+        Labels[0] = l1 ;//+ Form(" (%d)",(int)h1->GetEntries());
+        Labels[1] = l2 ;//+ Form(" (%d)",(int)h2->GetEntries());
+        AddLegend( 2 , h , Labels, option);
+    }
+    
+    template <typename T>
+    void AddLegend(T * h1, TString l1, TH1F * h2, TString l2, TH1F * h3, TString l3, Option_t * option = "l"){
+        T * h[3] = {h1,h2,h3};
+        TString Labels[3] = {l1,l2,l3};
+        AddLegend( 3 , h , Labels, option);
+    }
+    
     
     
     
@@ -91,10 +112,27 @@ public:
     // service to all classes
     TH1F * DrawFrame(TString, int, double, double, double Ymin = 0 , double Ymax = 1 , TString XTitle = ""  ,TString Ytitle = "" );
     void SetAxisTitle(TAxis * , TString , double Offset = 1 , double TitleSize = 0.055 , double LabelSize = 0.05);
+    
+    
+    //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
     template <typename T>
-    void SetFrame( T *, TString t="", TString Xt="", TString Yt="", TString Zt="", int c=4, int fc=46, int fs=1001 , int mStyle=20 , double mSize=0.5 , double a=0.99);
+    void SetFrame( T * frame, TString Title="", TString XTitle="", TString YTitle="", TString ZTitle=""
+                          , int color=4 , int FillColor=46, int FillStyle=1001, int mStyle=20 , double mSize=0.5 , double Alpha=0.99 ){
+        frame -> SetTitle( Title );
+        SetAxisTitle(frame -> GetXaxis() , XTitle);
+        SetAxisTitle(frame -> GetYaxis() , YTitle);
+        if(typeid(frame)==typeid(TH3F)) SetAxisTitle(((TH1F*)frame) -> GetZaxis() , ZTitle);
+        frame -> SetLineColor(color);
+        frame -> SetFillColor(FillColor);
+        frame -> SetFillStyle(FillStyle);
+        frame -> SetMarkerStyle(mStyle);
+        frame -> SetMarkerSize(mSize);
+        frame -> SetMarkerColorAlpha(color,Alpha);
+    }
     
     
+    
+
     
     
     void H1Frame ( int , double , double , TString Title = "" , TString XTitle = "" , TString YTitle = "" , double Ylow = 0 , double Yup = 1);
@@ -161,6 +199,20 @@ public:
 
 
 #endif
+
+
+
+
+
+//    //legend // delete may 19
+//    template <typename T>
+//    void AddLegend (int, T ** , TString *, Option_t * o = "F"  , bool mean = false );
+//    template <typename T>
+//    void AddLegend (T *, TString, T *, TString, Option_t * o = "p");
+//    void AddLegend (TH1F *, TString, TH1F *, TString, TH1F *, TString, Option_t * o = "l");
+//
+
+
 //// angles
 //TH1F * Angle(TString,TString, TCut cut="", TString o="", TString T="", TString XT="", TString YT="" , int c=1, int N=46, double Xl=0, double Xu=180.);
 //TH1F * CosAngle(TString,TString, TCut cut="", TString o="", TString T="", TString XT="", TString YT="" , int c=1, int N=23, double Xl=-1, double Xu=1);

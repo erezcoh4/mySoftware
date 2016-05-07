@@ -202,14 +202,26 @@ TH2F * TPlots::H2WithProjections( TString VarX, TString VarY, TCut cut
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-TH2F * TPlots::Dalitz ( TString Tp1, TString Tp2, TString Tp3, TCut cut, int NbinsX, double Xlow, double Xup, int NbinsY, double Ylow, double Yup){
+TH2F * TPlots::Dalitz ( TString Tp1, TString Tp2, TString Tp3, TCut cut, int NbinsX, double Xlow, double Xup, int NbinsY, double Ylow, double Yup
+                       ,TString Tit1, TString Tit2, TString Tit3){
     // return a Dalitz plot of the 4-vectors v1,v2,v3
     // [http://www.bo.infn.it/rem/Giammaria_Tommaso_tesi.pdf]
     // x = √3(T₁-T₂)/T , y = (2T₃ - T₁ - T₂)/T
     TString T = Form("(%s+%s+%s)", Tp1.Data(), Tp2.Data(), Tp3.Data());
+    TString Tit = Form("(%s+%s+%s)", Tit1.Data(), Tit2.Data(), Tit3.Data());
+    Tit1 = Form("%s/%s",Tit1.Data(),Tit.Data());
+    Tit2 = Form("%s/%s",Tit2.Data(),Tit.Data());
+    Tit3 = Form("%s/%s",Tit3.Data(),Tit.Data());
     TString VarX = Form("sqrt(3)*(%s - %s)/%s",Tp1.Data(),Tp2.Data(),T.Data());
     TString VarY = Form("(2*%s - %s - %s)/%s",Tp3.Data(),Tp1.Data(),Tp2.Data(),T.Data());
-    return H2( VarX, VarY, cut, "colz", NbinsX, Xlow, Xup, NbinsY, Ylow, Yup,"Dalitz plot", VarX , VarY );
+    TH2F * h2 = H2( VarX, VarY, cut, "colz", NbinsX, Xlow, Xup, NbinsY, Ylow, Yup,"Dalitz plot", "" , "" );
+    Arrow(0,0,0.8*Xup,0.8*Ylow);
+    Text(0.6*Xup,0.6*Ylow,Tit1);
+    Arrow(0,0,0.8*Xlow,0.8*Ylow);
+    Text(0.6*Xlow,0.6*Ylow,Tit2);
+    Arrow(0,0,0,0.8*Yup);
+    Text(0.1,0.8*Yup,Tit3);
+    return h2;
 }
 
 

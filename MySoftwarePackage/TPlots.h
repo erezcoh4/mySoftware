@@ -54,7 +54,7 @@ public:
 
     TH2F * H2WithProjections ( TString, TString, TCut, int, double, double,int, double, double, TString T="", TString XT="", TString YT="");
     
-    TH2F *            Dalitz ( TString, TString, TString, TCut, int Nx=100,double xl=-1.7,double xu=1.7,int Ny=100,double yl=-1.1,double yu=2);
+    TH2F *            Dalitz ( TString, TString, TString, TCut, int Nx=100,double xl=-1.7,double xu=1.7,int Ny=100,double yl=-1.1,double yu=2, TString Tit1="", TString Tit2="", TString Tit3="");
     
     
     
@@ -85,7 +85,7 @@ public:
     }
     
     template <typename T>
-    void AddLegend(T * h1, TString l1, TH1F * h2, TString l2, TH1F * h3, TString l3, Option_t * option = "l"){
+    void AddLegend(T * h1, TString l1, T * h2, TString l2, T * h3, TString l3, Option_t * option = "l"){
         T * h[3] = {h1,h2,h3};
         TString Labels[3] = {l1,l2,l3};
         AddLegend( 3 , h , Labels, option);

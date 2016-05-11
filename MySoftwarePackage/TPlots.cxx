@@ -203,7 +203,7 @@ TH2F * TPlots::H2WithProjections( TString VarX, TString VarY, TCut cut
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TH2F * TPlots::Dalitz ( TString Tp1, TString Tp2, TString Tp3, TCut cut, int NbinsX, double Xlow, double Xup, int NbinsY, double Ylow, double Yup
-                       ,TString Tit1, TString Tit2, TString Tit3){
+                       ,TString Tit1, TString Tit2, TString Tit3, TString option, int color, bool DoText){
     // return a Dalitz plot of the 4-vectors v1,v2,v3
     // [http://www.bo.infn.it/rem/Giammaria_Tommaso_tesi.pdf]
     // x = √3(T₁-T₂)/T , y = (2T₃ - T₁ - T₂)/T
@@ -214,15 +214,20 @@ TH2F * TPlots::Dalitz ( TString Tp1, TString Tp2, TString Tp3, TCut cut, int Nbi
     Tit3 = Form("%s/%s",Tit3.Data(),Tit.Data());
     TString VarX = Form("sqrt(3)*(%s - %s)/%s",Tp1.Data(),Tp2.Data(),T.Data());
     TString VarY = Form("(2*%s - %s - %s)/%s",Tp3.Data(),Tp1.Data(),Tp2.Data(),T.Data());
-    TH2F * h2 = H2( VarX, VarY, cut, "colz", NbinsX, Xlow, Xup, NbinsY, Ylow, Yup,"Dalitz plot", "" , "" );
-    Arrow(0,0,0.8*Xup,0.8*Ylow);
-    Text(0.6*Xup,0.6*Ylow,Tit1);
-    Arrow(0,0,0.8*Xlow,0.8*Ylow);
-    Text(0.6*Xlow,0.6*Ylow,Tit2);
-    Arrow(0,0,0,0.8*Yup);
-    Text(0.1,0.8*Yup,Tit3);
+    TH2F * h2 = H2( VarX, VarY, cut, option , NbinsX, Xlow, Xup, NbinsY, Ylow, Yup,"Dalitz plot", "" , "", color , 20 );
+    if (DoText) {
+        Arrow(0,0,0.8*Xup,0.8*Ylow);
+        Text(0.6*Xup,0.6*Ylow,Tit1);
+        Arrow(0,0,0.8*Xlow,0.8*Ylow);
+        Text(0.6*Xlow,0.6*Ylow,Tit2);
+        Arrow(0,0,0,0.8*Yup);
+        Text(0.1,0.8*Yup,Tit3);
+    }
     return h2;
 }
+
+
+
 
 
 //
@@ -693,6 +698,7 @@ TCanvas * TPlots::Draw2DVarAndCut(TString varX , TString varY,
 
 
 
+//template<> void TPlots::AddLegend(TH1*,TString,TH1*,TString);
 
 
 

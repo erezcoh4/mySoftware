@@ -54,7 +54,7 @@ public:
 
     TH2F * H2WithProjections ( TString, TString, TCut, int, double, double,int, double, double, TString T="", TString XT="", TString YT="");
     
-    TH2F *            Dalitz ( TString, TString, TString, TCut, int Nx=100,double xl=-1.7,double xu=1.7,int Ny=100,double yl=-1.1,double yu=2, TString Tit1="", TString Tit2="", TString Tit3="");
+    TH2F *            Dalitz ( TString, TString, TString, TCut, int Nx=100,double xl=-1.7,double xu=1.7,int Ny=100,double yl=-1.1,double yu=2, TString Tit1="", TString Tit2="", TString Tit3="", TString option="colz",int color=1, bool DoText=false);
     
     
     
@@ -83,6 +83,9 @@ public:
         Labels[1] = l2 ;//+ Form(" (%d)",(int)h2->GetEntries());
         AddLegend( 2 , h , Labels, option);
     }
+    template<typename T> void AddLegend(TH1*,TString,TH1*,TString);
+    template<typename T> void AddLegend(TH2*,TString,TH2*,TString);
+    
     
     template <typename T>
     void AddLegend(T * h1, TString l1, T * h2, TString l2, T * h3, TString l3, Option_t * option = "l"){

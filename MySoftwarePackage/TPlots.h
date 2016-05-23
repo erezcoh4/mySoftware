@@ -83,9 +83,7 @@ public:
         Labels[1] = l2 ;//+ Form(" (%d)",(int)h2->GetEntries());
         AddLegend( 2 , h , Labels, option);
     }
-    template<typename T> void AddLegend(TH1*,TString,TH1*,TString);
-    template<typename T> void AddLegend(TH2*,TString,TH2*,TString);
-    
+   
     
     template <typename T>
     void AddLegend(T * h1, TString l1, T * h2, TString l2, T * h3, TString l3, Option_t * option = "l"){
@@ -202,6 +200,10 @@ public:
 
 
 #endif
+
+
+
+
 
 
 

@@ -70,7 +70,7 @@ TCanvas * TPlots::CreateCanvas(TString Title, TString DoDivide, int Nx, int Ny, 
     i_plot++;
     TCanvas * c = new TCanvas(Form("c%s%s%d",fName.Data(),Title.Data(),i_plot),Title.Data(),w,h);
     if (DoDivide=="Divide")
-    c -> Divide(Nx , Ny);
+    c -> Divide(Nx , Ny , 0.01 , 0.01);
     else if (DoDivide=="DivideSquare")
     c -> DivideSquare(Nx);
     return c;

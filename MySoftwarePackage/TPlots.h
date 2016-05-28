@@ -112,7 +112,7 @@ public:
     
     // service to all classes
     TH1F * DrawFrame(TString, int, double, double, double Ymin = 0 , double Ymax = 1 , TString XTitle = ""  ,TString Ytitle = "" );
-    void SetAxisTitle(TAxis * , TString , double Offset = -0.6 , double TitleSize = 0.055 , double LabelSize = 0.05);
+    void SetAxisTitle(TAxis * , TString , double Offset = 0.8 , double TitleSize = 0.055 , double LabelSize = 0.05);
     
     
     //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -370,8 +370,8 @@ void TPlots::Graphs( const int N, TGraphErrors ** g, TString * Labels, int PolRa
         } else
         newLabels[i] = Labels[i];
     }
-    if (DoAddLegend)
-    AddLegend(N , g , newLabels , "lp");
+//    if (DoAddLegend)
+//    AddLegend(N , g , newLabels , "lp");
 }
 
 
@@ -697,10 +697,8 @@ TCanvas * TPlots::Draw2DVarAndCut(TString varX , TString varY,
 
 
 
-template<> void TPlots::AddLegend(TH1*,TString,TH1*,TString,Option_t*);
-template<> void TPlots::AddLegend(TH2*,TString,TH2*,TString,Option_t*);
-
-
+//template<> void TPlots::AddLegend(TH1*,TString,TH1*,TString,Option_t*);
+//template<> void TPlots::AddLegend(TH2*,TString,TH2*,TString,Option_t*);
 //template<> void TPlots::AddLegend(TH1*,TString,TH1*,TString);
 
 

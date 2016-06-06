@@ -61,8 +61,8 @@ public:
     
     //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
     // legend
-    template <typename T>
-    void AddLegend(int N , T ** h, TString * Labels ,Option_t * option = "F", bool mean = false){
+//    template <typename T>
+    void AddLegend(int N , TH1 ** h, TString * Labels ,Option_t * option = "F", bool mean = false){
         TLegend * leg = new TLegend( 0.1 , 0.8 , 0.8 , 0.85 );
         leg -> SetLineColor(1);
         leg -> SetTextSize(0.04);
@@ -75,9 +75,9 @@ public:
         leg -> Draw();
     }
     
-    template <typename T>
-    void AddLegend(T * h1, TString l1, T * h2, TString l2, Option_t * option = "p"){
-        T * h[2] = {h1,h2};
+//    template <typename T>
+    void AddLegend(TH1 * h1, TString l1, TH1 * h2, TString l2, Option_t * option = "p"){
+        TH1 * h[2] = {h1,h2};
         TString Labels[2];
         Labels[0] = l1 ;//+ Form(" (%d)",(int)h1->GetEntries());
         Labels[1] = l2 ;//+ Form(" (%d)",(int)h2->GetEntries());

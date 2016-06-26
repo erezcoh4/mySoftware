@@ -2,7 +2,7 @@
 //  Created by Erez Cohen on 5/15/15.
 #include "TAnalysis.h"
 
-using namespace RooFit ;
+//using namespace RooFit ;
 #define MAX 100000
 
 
@@ -227,50 +227,50 @@ double TAnalysis::GetFWHM(TH1 * h){
 
 // signal on background (2d) - last editted March 24
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-RooRealVar TAnalysis::SubtractBackground(TH2F * h, float aSig, float axBkg , bool DoPlot){
-    // reutrns "real" events - the signal inside an [aSig x aSig] size box
-    float ayBkg     = aSig;
-    float VSig      = aSig * aSig   ,   VBkg    = axBkg * ayBkg;
-
-    float Peak      = IntegralH2D(h, -aSig/2.       , -aSig/2.          ,  aSig/2.          ,  aSig/2.      , DoPlot , 4)
-    , PeakErr    = sqrt(Peak);
-    
-    float BkgLeft   = IntegralH2D(h, -axBkg-aSig/2. , -ayBkg/2.         , -aSig/2.          ,  ayBkg/2.     , DoPlot , 1)
-    , BkgLeftErr = sqrt(BkgLeft);
-    
-    float BkgBottom = IntegralH2D(h, -aSig/2.       , -axBkg-aSig/2.    ,  aSig/2.          , -aSig/2.      , DoPlot , 1)
-    , BkgBottomErr = sqrt(BkgBottom);
-    
-    float BkgRight  = IntegralH2D(h,  aSig/2.       , -ayBkg/2.         ,  axBkg+aSig/2.    ,  ayBkg/2.     , DoPlot , 1)
-    , BkgRightErr= sqrt(BkgRight);
-    
-    float BkgTop    = IntegralH2D(h, -aSig/2.       ,  aSig/2.          ,  aSig/2.          ,  axBkg+aSig/2., DoPlot , 1)
-    , BkgTopErr  = sqrt(BkgTop);
-    
-    float BkgAvg    = (BkgLeft + BkgBottom + BkgRight + BkgTop) / 4.
-    , BkgAvgErr = sqrt(BkgLeftErr*BkgLeftErr + BkgBottomErr*BkgBottomErr + BkgRightErr*BkgRightErr + BkgTopErr*BkgTopErr) / 4. ;
-    
-    float Bkg       = BkgAvg    * ( VSig / VBkg );
-    float BkgErr    = BkgAvgErr * ( VSig / VBkg );
-    
-    if(DoPlot) {
-        plot.Text(-15 , 14, Form("Peak: %.1f  #pm  %.1f",Peak   ,PeakErr),2);
-        plot.Text(-15 , 12, Form("Bkgd: %.1f  #pm  %.1f",Bkg    ,BkgErr) ,1);
-    }
-    Printf("average background %.1f ± %.1f in (%.0fx%.0f) box, and %.1f ± %.1f in (%.0fx%.0f) box"
-           , BkgAvg,BkgAvgErr,aSig,axBkg,Bkg,BkgErr,aSig,aSig);
-    
-    Printf("BkgLeft - BkgAvg = %.1f ± %.1f"     , BkgLeft-BkgAvg , sqrt(BkgLeftErr*BkgLeftErr + BkgAvgErr*BkgAvgErr));
-    Printf("BkgBottom - BkgAvg = %.1f ± %.1f"   , BkgBottom-BkgAvg , sqrt(BkgBottomErr*BkgBottomErr + BkgAvgErr*BkgAvgErr));
-    Printf("BkgRight - BkgAvg = %.1f ± %.1f"    , BkgRight-BkgAvg , sqrt(BkgRightErr*BkgRightErr + BkgAvgErr*BkgAvgErr));
-    Printf("BkgTop - BkgAvg = %.1f ± %.1f"      , BkgTop-BkgAvg , sqrt(BkgTopErr*BkgTopErr + BkgAvgErr*BkgAvgErr));
-    
-    RooRealVar signal("signal","signal", Peak - Bkg , -1e5 , 1e5 , "");
-    signal.setError(sqrt(PeakErr*PeakErr + BkgErr*BkgErr));
-    return signal;
-
-
-}
+//RooRealVar TAnalysis::SubtractBackground(TH2F * h, float aSig, float axBkg , bool DoPlot){
+//    // reutrns "real" events - the signal inside an [aSig x aSig] size box
+//    float ayBkg     = aSig;
+//    float VSig      = aSig * aSig   ,   VBkg    = axBkg * ayBkg;
+//
+//    float Peak      = IntegralH2D(h, -aSig/2.       , -aSig/2.          ,  aSig/2.          ,  aSig/2.      , DoPlot , 4)
+//    , PeakErr    = sqrt(Peak);
+//    
+//    float BkgLeft   = IntegralH2D(h, -axBkg-aSig/2. , -ayBkg/2.         , -aSig/2.          ,  ayBkg/2.     , DoPlot , 1)
+//    , BkgLeftErr = sqrt(BkgLeft);
+//    
+//    float BkgBottom = IntegralH2D(h, -aSig/2.       , -axBkg-aSig/2.    ,  aSig/2.          , -aSig/2.      , DoPlot , 1)
+//    , BkgBottomErr = sqrt(BkgBottom);
+//    
+//    float BkgRight  = IntegralH2D(h,  aSig/2.       , -ayBkg/2.         ,  axBkg+aSig/2.    ,  ayBkg/2.     , DoPlot , 1)
+//    , BkgRightErr= sqrt(BkgRight);
+//    
+//    float BkgTop    = IntegralH2D(h, -aSig/2.       ,  aSig/2.          ,  aSig/2.          ,  axBkg+aSig/2., DoPlot , 1)
+//    , BkgTopErr  = sqrt(BkgTop);
+//    
+//    float BkgAvg    = (BkgLeft + BkgBottom + BkgRight + BkgTop) / 4.
+//    , BkgAvgErr = sqrt(BkgLeftErr*BkgLeftErr + BkgBottomErr*BkgBottomErr + BkgRightErr*BkgRightErr + BkgTopErr*BkgTopErr) / 4. ;
+//    
+//    float Bkg       = BkgAvg    * ( VSig / VBkg );
+//    float BkgErr    = BkgAvgErr * ( VSig / VBkg );
+//    
+//    if(DoPlot) {
+//        plot.Text(-15 , 14, Form("Peak: %.1f  #pm  %.1f",Peak   ,PeakErr),2);
+//        plot.Text(-15 , 12, Form("Bkgd: %.1f  #pm  %.1f",Bkg    ,BkgErr) ,1);
+//    }
+//    Printf("average background %.1f ± %.1f in (%.0fx%.0f) box, and %.1f ± %.1f in (%.0fx%.0f) box"
+//           , BkgAvg,BkgAvgErr,aSig,axBkg,Bkg,BkgErr,aSig,aSig);
+//    
+//    Printf("BkgLeft - BkgAvg = %.1f ± %.1f"     , BkgLeft-BkgAvg , sqrt(BkgLeftErr*BkgLeftErr + BkgAvgErr*BkgAvgErr));
+//    Printf("BkgBottom - BkgAvg = %.1f ± %.1f"   , BkgBottom-BkgAvg , sqrt(BkgBottomErr*BkgBottomErr + BkgAvgErr*BkgAvgErr));
+//    Printf("BkgRight - BkgAvg = %.1f ± %.1f"    , BkgRight-BkgAvg , sqrt(BkgRightErr*BkgRightErr + BkgAvgErr*BkgAvgErr));
+//    Printf("BkgTop - BkgAvg = %.1f ± %.1f"      , BkgTop-BkgAvg , sqrt(BkgTopErr*BkgTopErr + BkgAvgErr*BkgAvgErr));
+//    
+//    RooRealVar signal("signal","signal", Peak - Bkg , -1e5 , 1e5 , "");
+//    signal.setError(sqrt(PeakErr*PeakErr + BkgErr*BkgErr));
+//    return signal;
+//
+//
+//}
 
 
 
@@ -398,34 +398,34 @@ TH2F* TAnalysis::Assymetry(TTree * Tree , TString vZ
 }
 
 
-
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//----------- unbinned RooFit of 1d Gaussian ----------------------//
-RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t Par[2] , Double_t ParErr[2], bool PlotFit ){
-    
-    // Par are input initial parameters (Par[0]=mean,Par[1]=sigma) and are returned as the results
-    
-    RooRealVar  var     (name       ,name           ,0      ,-0.8       ,0.8       ) ;
-    RooRealVar  fMean   ("mean"     ,"mean"         ,0      ,-0.8       ,0.8         ) ;
-    RooRealVar  fSigma  ("sigma"    ,"sigma"        ,0.15   ,0          ,0.5         ) ;
-    RooGaussian fGauss  ("gauss"    ,"gauss"        ,var    ,fMean      ,fSigma     ) ;
-    
-    RooPlot* frame = var.frame( Bins(50), Name(name.Data()) , Title(name)) ;
-    TTree * ReducedTree = Tree -> CopyTree(cut);
-    RooDataSet DataSet("DataSet","Data Set",RooArgSet(var),Import(*ReducedTree)) ;
-    if(PlotFit) {
-        DataSet.Print();
-        DataSet.plotOn(frame) ;
-    }
-    fGauss.fitTo(DataSet) ;
-    fGauss.plotOn(frame,LineColor(kRed)) ;
-    Par[0]      = fMean.getValV();
-    Par[1]      = fSigma.getValV();
-    ParErr[0]   = fMean.getError();
-    ParErr[1]   = fSigma.getError();
-
-    if (PlotFit)    frame -> Draw();
-    return frame;
-}
+//
+//
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+////----------- unbinned RooFit of 1d Gaussian ----------------------//
+//RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t Par[2] , Double_t ParErr[2], bool PlotFit ){
+//    
+//    // Par are input initial parameters (Par[0]=mean,Par[1]=sigma) and are returned as the results
+//    
+//    RooRealVar  var     (name       ,name           ,0      ,-0.8       ,0.8       ) ;
+//    RooRealVar  fMean   ("mean"     ,"mean"         ,0      ,-0.8       ,0.8         ) ;
+//    RooRealVar  fSigma  ("sigma"    ,"sigma"        ,0.15   ,0          ,0.5         ) ;
+//    RooGaussian fGauss  ("gauss"    ,"gauss"        ,var    ,fMean      ,fSigma     ) ;
+//    
+//    RooPlot* frame = var.frame( Bins(50), Name(name.Data()) , Title(name)) ;
+//    TTree * ReducedTree = Tree -> CopyTree(cut);
+//    RooDataSet DataSet("DataSet","Data Set",RooArgSet(var),Import(*ReducedTree)) ;
+//    if(PlotFit) {
+//        DataSet.Print();
+//        DataSet.plotOn(frame) ;
+//    }
+//    fGauss.fitTo(DataSet) ;
+//    fGauss.plotOn(frame,LineColor(kRed)) ;
+//    Par[0]      = fMean.getValV();
+//    Par[1]      = fSigma.getValV();
+//    ParErr[0]   = fMean.getError();
+//    ParErr[1]   = fSigma.getError();
+//
+//    if (PlotFit)    frame -> Draw();
+//    return frame;
+//}
 

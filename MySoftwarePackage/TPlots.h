@@ -57,7 +57,7 @@ public:
     TH2F *            Dalitz ( TString, TString, TString, TCut, int Nx=100,double xl=-1.7,double xu=1.7,int Ny=100,double yl=-1.1,double yu=2, TString Tit1="", TString Tit2="", TString Tit3="", TString option="colz",int color=1, bool DoText=false);
     
     //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-    void  MultipleHistograms (int,TH1 **,TString *,double xl=0,double xh=1,TString T="",TString XT="",TString YT="",int fStyle=105);
+    void  MultipleHistograms (int,TH1 **,TString *,double xl=0,double xh=1,TString T="",TString XT="",TString YT="",int *colors=nullptr,int fStyle=0);
     
     
     

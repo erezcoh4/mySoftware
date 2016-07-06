@@ -117,12 +117,14 @@ TH3F * TPlots::H3( TString VX, TString VY, TString VZ, TCut cut, TString option
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void  TPlots::MultipleHistograms (int N,TH1 ** h,TString * Labels,double Xlow,double Xup,TString Title,TString XTitle,TString YTitle,int fStyle){
+    CreateCanvas("multiple histograms");
     float YMax = h[0]->GetMaximum()*1.05;
     for (int i = 0; i < N; i++) {
         if (h[i]->GetMaximum()*1.05 > YMax) {
             YMax = h[i]->GetMaximum()*1.05;
         }
     }
+    SHOW(YMax);
     DrawFrame(Title , 10 , Xlow , Xup , 0 , YMax , XTitle , YTitle );
     for (int i = 0; i < N; i++) {
         //        h[i] -> Scale( 1. / h[i]->Integral() );

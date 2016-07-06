@@ -10,7 +10,7 @@ class TPlots{
 private:
     
     Int_t i_plot;
-
+    
     
 public:
     
@@ -44,21 +44,21 @@ public:
     TCanvas * CreateCanvas(TString Title, TString DoDivide="NoDivision", int Nx=4, int Ny=2, float w=800, float h=800);
     
     TH1F *                H1 ( TString, TCut, TString, int, double, double,TString T="",TString XT="",TString YT="",int c=1, int fc=38,int fStyle=1001);
-
+    
     TH2F *                H2 ( TString, TString, TCut, TString, int, double, double, int, double, double,TString T="",TString XT="",TString YT="", int c=1,int s=7,double a=0.9, double mSize=1);
- 
+    
     TH3F *                H3 ( TString, TString, TString, TCut, TString
                               ,int,double,double,int,double,double,int,double,double, TString T="",TString XT="",TString YT="",TString ZT="",int c=1,int s=7,double a=0.3, double mSize=1);
-
+    
     TPie *               Pie (TString , TString , const int , Float_t* , Int_t*, TString*, TString option="3d");
-
+    
     TH2F * H2WithProjections ( TString, TString, TCut, int, double, double,int, double, double, TString T="", TString XT="", TString YT="");
     
     TH2F *            Dalitz ( TString, TString, TString, TCut, int Nx=100,double xl=-1.7,double xu=1.7,int Ny=100,double yl=-1.1,double yu=2, TString Tit1="", TString Tit2="", TString Tit3="", TString option="colz",int color=1, bool DoText=false);
     
     //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
     void  MultipleHistograms (int,TH1 **,TString *,double xl=0,double xh=1,TString T="",TString XT="",TString YT="",int fStyle=105);
-        
+    
     
     
     //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -93,7 +93,7 @@ public:
     
     
     
-
+    
     //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
     // general graph (with errors!)
     TGraphErrors * Graph ( TString, const int, double*, double*, double*, double*, TString T="", TString XT="", TString YT="", int c=4, double mSize = 0.5, int mStyle = 21, TString option = "");
@@ -116,7 +116,7 @@ public:
     //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
     template <typename T>
     void SetFrame( T * frame, TString Title="", TString XTitle="", TString YTitle="", TString ZTitle=""
-                          , int color=4 , int FillColor=46, int FillStyle=1001, int mStyle=20 , double mSize=0.5 , double Alpha=0.99 ){
+                  , int color=4 , int FillColor=46, int FillStyle=1001, int mStyle=20 , double mSize=0.5 , double Alpha=0.99 ){
         frame -> SetTitle( Title );
         SetAxisTitle(frame -> GetXaxis() , XTitle);
         SetAxisTitle(frame -> GetYaxis() , YTitle);
@@ -131,7 +131,7 @@ public:
     
     
     
-
+    
     
     
     void H1Frame ( int , double , double , TString Title = "" , TString XTitle = "" , TString YTitle = "" , double Ylow = 0 , double Yup = 1);

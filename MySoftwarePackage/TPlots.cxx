@@ -117,15 +117,21 @@ TH3F * TPlots::H3( TString VX, TString VY, TString VZ, TCut cut, TString option
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void  TPlots::MultipleHistograms (int N,TH1 ** h,TString * Labels,double Xlow,double Xup,TString Title,TString XTitle,TString YTitle,int fStyle){
-    DrawFrame(Title , 10 , Xlow , Xup , 0 , 1 , XTitle , YTitle );
+    float YMax = h[0]->GetMaximum()*1.05;
     for (int i = 0; i < N; i++) {
-        h[i] -> Scale( 1. / h[i]->Integral() );
+        if (h[i]->GetMaximum()*1.05 > YMax) {
+            YMax = h[i]->GetMaximum()*1.05;
+        }
+    }
+    DrawFrame(Title , 10 , Xlow , Xup , 0 , YMax , XTitle , YTitle );
+    for (int i = 0; i < N; i++) {
+        //        h[i] -> Scale( 1. / h[i]->Integral() );
         h[i] -> SetFillStyle(fStyle);
         h[i] -> SetFillColor(i+1);
         h[i] -> SetLineColor(i+1);
         h[i] -> Draw("same hist");
     }
-    AddLegend(N , h, Labels,"lF");
+    AddLegend(N , h, Labels , "lF");
     
 }
 

@@ -56,12 +56,13 @@ public:
     
     TH2F *            Dalitz ( TString, TString, TString, TCut, int Nx=100,double xl=-1.7,double xu=1.7,int Ny=100,double yl=-1.1,double yu=2, TString Tit1="", TString Tit2="", TString Tit3="", TString option="colz",int color=1, bool DoText=false);
     
-    
+    //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+    void  MultipleHistograms (int,TH1 **,TString *,double xl=0,double xh=1,TString T="",TString XT="",TString YT="",int fStyle=105);
+        
     
     
     //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
     // legend
-//    template <typename T>
     void AddLegend(int N , TH1 ** h, TString * Labels ,Option_t * option = "F", bool mean = false){
         TLegend * leg = new TLegend( 0.1 , 0.8 , 0.8 , 0.85 );
         leg -> SetLineColor(1);
@@ -74,8 +75,6 @@ public:
         }
         leg -> Draw();
     }
-    
-//    template <typename T>
     void AddLegend(TH1 * h1, TString l1, TH1 * h2, TString l2, Option_t * option = "p"){
         TH1 * h[2] = {h1,h2};
         TString Labels[2];
@@ -83,8 +82,6 @@ public:
         Labels[1] = l2 ;//+ Form(" (%d)",(int)h2->GetEntries());
         AddLegend( 2 , h , Labels, option);
     }
-   
-    
     template <typename T>
     void AddLegend(T * h1, TString l1, T * h2, TString l2, T * h3, TString l3, Option_t * option = "l"){
         T * h[3] = {h1,h2,h3};
@@ -97,6 +94,7 @@ public:
     
     
 
+    //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
     // general graph (with errors!)
     TGraphErrors * Graph ( TString, const int, double*, double*, double*, double*, TString T="", TString XT="", TString YT="", int c=4, double mSize = 0.5, int mStyle = 21, TString option = "");
     TGraphErrors * Graph ( TString, const int N , double* , double* , TString Title = "" , TString XTitle = "" , TString YTitle = "" , int color = 4 , double mSize = 0.5 , int mStyle = 21 , Option_t * option = "");

@@ -327,9 +327,10 @@ void TAnalysis::ReadGraphFromFile(TString FileName,const int N,double X[N],doubl
     ifstream InFile;
     InFile.open(FileName);
     cout << "reading "<< FileName << endl;
+    char tmp;
     for (int i = 0; i < N; i++){
-        InFile >> X[i] >>  Y[i] ;
-        //        Printf("point %i: (%.3f , %.3f)",i,X[i],Y[i]);
+        InFile >> X[i] >> tmp >>  Y[i] ;
+//        Printf("point %i: (%.3f , %.3f)",i,X[i],Y[i]);
     }
     InFile.close();
 }

@@ -270,7 +270,7 @@ void TAnalysis::ReadGraphDataFromFile(TString FileName,const int N,double *X,dou
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TAnalysis::ReadGraphFromFile(TString FileName,const int N,double X[N],double Y[N]){
+void TAnalysis::ReadGraphFromFile(TString FileName,const int N,double* X,double *Y){
     ifstream InFile;
     InFile.open(FileName);
     cout << "reading "<< FileName << endl;

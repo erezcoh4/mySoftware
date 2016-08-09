@@ -25,7 +25,7 @@ TPlots::TPlots( TString FileName , TString TreeName , TString Name , bool fQuiet
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TPlots::MergeFiles( TString TreeName, const int N, char * FileName[N], char * Path, char * NewFileName ){
+void TPlots::MergeFiles( TString TreeName, const int N, char ** FileName, char * Path, char * NewFileName ){
     TFile * OutFile = new TFile(Form("%s.root",NewFileName));
     chain = new TChain(TreeName);
     for (int j = 0; j < N; j++)
@@ -144,7 +144,7 @@ void  TPlots::MultipleHistograms (int N,TH1 ** h,TString * Labels,double Xlow,do
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-TPie * TPlots::Pie(TString Name, TString Title, const int N, Float_t vals[N] , Int_t colors[N], TString * labels , TString option){
+TPie * TPlots::Pie(TString Name, TString Title, const int N, Float_t *vals , Int_t *colors, TString * labels , TString option){
     TPie *pie = new TPie(Name, Title , N , vals , colors);
     pie -> SetAngularOffset(40.);
     pie -> SetRadius(.25);

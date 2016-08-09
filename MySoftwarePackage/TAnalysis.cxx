@@ -251,7 +251,7 @@ TH1F* TAnalysis::GetPartOfHistogram(char * name, TH1F * h, double Xlow, double X
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TAnalysis::PlotGraphDataToFile(TString FileName,const int N,double X[N],double Xerr[N],double Y[N],double Yerr[N]){
+void TAnalysis::PlotGraphDataToFile(TString FileName,const int N,double *X,double *Xerr,double *Y,double *Yerr){
     ofstream OutFile;
     OutFile.open(FileName);
     for (int i = 0; i < N; i++)
@@ -260,7 +260,7 @@ void TAnalysis::PlotGraphDataToFile(TString FileName,const int N,double X[N],dou
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TAnalysis::ReadGraphDataFromFile(TString FileName,const int N,double X[N],double Xerr[N],double Y[N],double Yerr[N]){
+void TAnalysis::ReadGraphDataFromFile(TString FileName,const int N,double *X,double *Xerr,double *Y,double *Yerr){
     ifstream InFile;
     InFile.open(FileName);
     for (int i = 0; i < N; i++){

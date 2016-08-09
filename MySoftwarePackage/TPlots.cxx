@@ -312,7 +312,7 @@ void TPlots::Graphs( const int N, TGraphErrors ** g, TString * Labels, int *PolR
                     , double ** FitPar , double ** FitParErr, double *chi2red
                     , TString Title, TString XTitle, TString YTitle, double mSize, int mStyle
                     , double Xmin, double Xmax, double YMin, double YMax
-                    , bool FitGraphs , int LineColors[N] , bool DoAddLegend , bool AddFitToLegend ){
+                    , bool FitGraphs , int *LineColors , bool DoAddLegend , bool AddFitToLegend ){
     
     TF1 * f[N];
     TString * newLabels = nullptr;

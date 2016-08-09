@@ -110,7 +110,7 @@ public:
                 , TString Title = "", TString XTitle = "", TString YTitle = ""
                 , double mSize = 1., int mStyle = 21
                 , double XMin=0, double Xmax=10, double YMin=0, double Ymax=10
-                , bool FitGraphs = false , int LineColors[N] = 0,  bool DoAddLegend = true, bool addfit2leg = false);
+                , bool FitGraphs = false , int *LineColors = 0,  bool DoAddLegend = true, bool addfit2leg = false);
     
     
     // service to all classes

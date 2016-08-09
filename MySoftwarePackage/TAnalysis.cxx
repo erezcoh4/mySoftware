@@ -96,7 +96,7 @@ TH1F* TAnalysis::RatioOfHistograms(TString name, TH1F * hNum, TH1F * hDen,TStrin
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void TAnalysis::PlotHRefAndHRatios(TString name, TH1F * hRef, int colorRef, const int Nratios, TH1F * h[Nratios] , TString Title , TString XTitle, int colors[Nratios] ){
+void TAnalysis::PlotHRefAndHRatios(TString name, TH1F * hRef, int colorRef, const int Nratios, TH1F ** h , TString Title , TString XTitle, int *colors ){
     float Maximum = 100 ,   Minimum = 100;
     for (int i = 0; i < Nratios ; i++ ){
         h[i] = RatioOfHistograms(Form("%sratio%d",name.Data(),i), h[i] , hRef , Title , XTitle, colors[i]);

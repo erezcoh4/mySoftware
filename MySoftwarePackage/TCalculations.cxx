@@ -15,7 +15,7 @@ Float_t TCalculations::DistanceFromPointToLine( Double_t x0 , Double_t y0 , Doub
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-Float_t TCalculations::Chi2FitStraightLine( const int N ,Double_t yi[N] ,Double_t xi[N] ,Double_t si[N] ,Double_t a[2] ,Double_t aErr[3] ){
+Float_t TCalculations::Chi2FitStraightLine( const int N ,Double_t *yi ,Double_t *xi ,Double_t *si ,Double_t a[2] ,Double_t aErr[3] ){
     // fit y = a[0] + a[1]*x [reference: http://ned.ipac.caltech.edu/level5/Leo/Stats7_2.html]
     // result: a[2] are the parameters: y = a[0] + a[1]x , aErr[2] are the uncertainties in a[2], aErr[3] is the covariance a[0]-a[1]
     Double_t Ri[3] , XiYi[3] ;
@@ -40,7 +40,7 @@ Float_t TCalculations::Chi2FitStraightLine( const int N ,Double_t yi[N] ,Double_
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-Double_t TCalculations::Sum( const int N , Double_t n[N] , Double_t x , Double_t m[N] , Double_t y ){
+Double_t TCalculations::Sum( const int N , Double_t *n , Double_t x , Double_t *m , Double_t y ){
     // return ∑[(n^x)(m^y)]
     Double_t res = 0;
     for (int i = 0 ; i < N ; i++){

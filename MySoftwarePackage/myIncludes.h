@@ -100,6 +100,8 @@
 using namespace std;
 
 // important prints....
+#define EndEventBlock() cout << "\033[32m"<< "....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......" << "\033[0m"<< endl;
+
 #define PrintLine() std::cout << "-------------------------------" << std::endl;
 
 #define SHOW(a) std::cout  << setprecision(2) << fixed << #a << ": " << (a) << std::endl

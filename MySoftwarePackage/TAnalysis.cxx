@@ -9,13 +9,6 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TAnalysis::TAnalysis(){    i_ana = 0;   }
 
-
-
-
-
-
-
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 Double_t TAnalysis::Kolmogorov1D(Int_t Na, Double_t* a, Int_t Nb, Double_t* b, Option_t* option){
     // compare two 1-dim variables of type Double_t and perform Kolomogorov test: are the sets of points  compatible with coming from the same parent distribution
@@ -47,7 +40,6 @@ Double_t TAnalysis::Kolmogorov1DCriticalValue( Double_t alpha , int N1 , int N2 
     return (c_alpha*(sqrt((float)(N1+N2)/(N1*N2))));
 }
 
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void TAnalysis::Sort(Int_t Nv, Double_t* v){
     for (int i = 0; i < Nv; ++i)
@@ -55,15 +47,6 @@ void TAnalysis::Sort(Int_t Nv, Double_t* v){
             if ( v[i] > v[j] )
             {   Double_t a =  v[i];  v[i] = v[j];    v[j] = a;   }
 }
-
-
-
-
-
-
-
-
-
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 Double_t TAnalysis::IntegralH2D(TH2F * h, Double_t Xlow, Double_t Ylow, Double_t Xup, Double_t Yup, bool DoDrawBox, int color){
@@ -83,9 +66,6 @@ Double_t TAnalysis::IntegralH2D(TH2F * h, Double_t Xlow, Double_t Ylow, Double_t
     return integral;
 }
 
-
-
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 Double_t TAnalysis::IntegralH1D(TH1F * h, Double_t Xlow, Double_t Xup){ // integrate [Xlow -> Xup]
     float integral = h -> Integral(h -> GetXaxis() -> FindBin(Xlow),h -> GetXaxis() -> FindBin(Xup) );
@@ -96,11 +76,6 @@ Double_t TAnalysis::IntegralH1D(TH1F * h, Double_t Xlow, Double_t Xup){ // integ
 Double_t TAnalysis::TH1Frac(TH1F * histo , Double_t Xlow, Double_t Xup){
     return IntegralH1D(histo, Xlow, Xup)/histo->Integral();
 }
-
-
-
-
-
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TH1F* TAnalysis::RatioOfHistograms(TString name, TH1F * hNum, TH1F * hDen,TString Title,TString XTitle, int color){
@@ -149,15 +124,12 @@ TH1F* TAnalysis::CombineHistograms(char * name, TH1F * hNum, TH1F * hDen,TString
     return hCombined;
 }
 
-
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TTree * TAnalysis::GetTreeFromAFile(TString filename , TString tree_name){
     TFile * File = new TFile(filename);
     TTree* tree =  (TTree*)File->Get(tree_name);
     return tree;
 }
-
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TH1F * TAnalysis::GetHistoFromAFile(TString filename , TString histoname){
@@ -174,8 +146,6 @@ TH2F * TAnalysis::GetH2FromAFile(TString filename , TString histoname){
     return histo;
 }
 
-
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TProfile * TAnalysis::GetProfileFromFile(TString filename , TString profilename){
     cout << "opening" << filename << ", to get " << profilename << endl;
@@ -184,20 +154,16 @@ TProfile * TAnalysis::GetProfileFromFile(TString filename , TString profilename)
     return prof;
 }
 
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void TAnalysis::NormalizeHistogram(TH1F * h){
     h -> Scale (1./h->Integral());
 }
-
 
 // signal to noise
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 float TAnalysis::GetS2N(TH1 * hSignal, TH1 * hNoise){
     return hSignal->Integral() / hNoise->Integral();
 }
-
-
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 double TAnalysis::GetFWHM(TH1 * h){
@@ -274,10 +240,6 @@ double TAnalysis::GetFWHM(TH1 * h){
 
 
 
-
-
-
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TH1F* TAnalysis::GetPartOfHistogram(char * name, TH1F * h, double Xlow, double Xup){
     TH1F * hPart = new TH1F(name,name,h->GetNbinsX(),h->GetXaxis()->GetBinCenter(1),h->GetXaxis()->GetBinCenter(h->GetNbinsX()+1));
@@ -286,15 +248,6 @@ TH1F* TAnalysis::GetPartOfHistogram(char * name, TH1F * h, double Xlow, double X
     }
     return hPart;
 }
-
-
-
-
-
-
-
-
-
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -306,9 +259,6 @@ void TAnalysis::PlotGraphDataToFile(TString FileName,const int N,double X[N],dou
     OutFile.close();
 }
 
-
-
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void TAnalysis::ReadGraphDataFromFile(TString FileName,const int N,double X[N],double Xerr[N],double Y[N],double Yerr[N]){
     ifstream InFile;
@@ -318,9 +268,6 @@ void TAnalysis::ReadGraphDataFromFile(TString FileName,const int N,double X[N],d
     }
     InFile.close();
 }
-
-
-
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void TAnalysis::ReadGraphFromFile(TString FileName,const int N,double X[N],double Y[N]){
@@ -335,8 +282,6 @@ void TAnalysis::ReadGraphFromFile(TString FileName,const int N,double X[N],doubl
     InFile.close();
 }
 
-
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TGraph * TAnalysis::ReadGraphFromFile(TString FileName,const int N){
     double X[N], Y[N];
@@ -344,11 +289,6 @@ TGraph * TAnalysis::ReadGraphFromFile(TString FileName,const int N){
     TGraph * g = new TGraph( N , X , Y  );
     return g;
 }
-
-
-
-
-
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TH2F* TAnalysis::Assymetry(TTree * Tree , TString vZ
@@ -397,6 +337,11 @@ TH2F* TAnalysis::Assymetry(TTree * Tree , TString vZ
     
     return h2;
 }
+
+
+
+
+
 
 
 //

@@ -212,6 +212,58 @@ TH2F * TPlots::Dalitz ( TString Tp1, TString Tp2, TString Tp3, TCut cut, int Nbi
 }
 
 
+
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+TH1F* TPlots::H1step(TString  Var, TCut cut, TString option
+                                , int Nbins, double Xlow, double Xup
+                                , TString Title, TString XTitle, TString YTitle
+                                , int color, int FillColor, int FillStyle){
+    
+    // return a histogram with 0 or 1 in each bin - if there was an event in each bin or not...
+    
+    TH1F * hVar = H1(Var, cut, option
+                  , Nbins, Xlow, Xup
+                  , Title, XTitle, YTitle
+                  , color, FillColor, FillStyle);
+    
+    TH1F* h1step = (TH1F*)hVar->Clone(Form("%s step",Var.Data()));
+    for (int binX = 0 ; binX < Nbins+1 ; binX++ ){
+        h1step -> SetBinContent( binX, hVar->GetBinContent(binX)>0 ? 1 : 0 );
+    }
+    h1step -> Draw(option);
+    return h1step;
+}
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+TH1F* TPlots::H1stepOfVarX( TString VarX, TString VarY, TCut cut, TString option
+                                    , int NbinX, double Xlow, double Xup, int NbinY, double Ylow, double Yup
+                                    , TString Title , TString XTitle , TString YTitle
+                                    , double Ymin , double Ymax ){
+    
+    // return a histogram with 0 or 1 in each bin - if there were events in each bin from the other variable in the range [Ymin,Ymax]
+    
+    TH2F * h2 = H2( VarX, VarY, cut,  option
+                     , NbinX,  Xlow,  Xup,  NbinY,  Ylow,  Yup
+                     , Title , XTitle ,  YTitle);
+    
+    TH1F* h1step = new TH1F(Form("%s step as a function of %s",VarY.Data(),VarX.Data()),XTitle,NbinX,Xlow,Xup);
+    for (int binX = 0 ; binX < NbinX+1 ; binX++ ){
+        int NeventesInbinX = 0;
+        for (int binY = h2->GetYaxis()->FindBin(Ymin) ; binY < h2->GetYaxis()->FindBin(Ymax)+1 ; binY++ ){
+            NeventesInbinX += h2->GetBinContent(binX,binY);
+        }
+        h1step -> SetBinContent( binX, NeventesInbinX>0 ? 1 : 0 );
+    }
+    SetFrame(h1step,"",XTitle,Form("recorded eventes with %.2f<%s<%.2f",Ymin,YTitle.Data(),Ymax));
+    h1step -> Draw(option);
+    return h1step;
+}
+
+
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 // general graph (with errors!)
 TGraphErrors * TPlots::Graph( TString Name, const int N , double X[N] , double Y[N] , double Xerr[N] , double Yerr[N] , TString Title , TString XTitle , TString YTitle , int color , double mSize , int mStyle , TString option){

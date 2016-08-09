@@ -308,8 +308,8 @@ TGraphErrors * TPlots::Graph( TString Name, const int N , double *X , double *Y 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 // multiple graphs
-void TPlots::Graphs( const int N, TGraphErrors ** g, TString * Labels, int PolRank[N] , double xFitMin[N] , double xFitMax[N]
-                    , double ** FitPar , double ** FitParErr, double chi2red[N]
+void TPlots::Graphs( const int N, TGraphErrors ** g, TString * Labels, int *PolRank , double *xFitMin , double *xFitMax
+                    , double ** FitPar , double ** FitParErr, double *chi2red
                     , TString Title, TString XTitle, TString YTitle, double mSize, int mStyle
                     , double Xmin, double Xmax, double YMin, double YMax
                     , bool FitGraphs , int LineColors[N] , bool DoAddLegend , bool AddFitToLegend ){

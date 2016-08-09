@@ -266,7 +266,7 @@ TH1F* TPlots::H1stepOfVarX( TString VarX, TString VarY, TCut cut, TString option
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 // general graph (with errors!)
-TGraphErrors * TPlots::Graph( TString Name, const int N , double X[N] , double Y[N] , double Xerr[N] , double Yerr[N] , TString Title , TString XTitle , TString YTitle , int color , double mSize , int mStyle , TString option){
+TGraphErrors * TPlots::Graph( TString Name, const int N , double *X , double *Y , double *Xerr , double *Yerr , TString Title , TString XTitle , TString YTitle , int color , double mSize , int mStyle , TString option){
     i_plot++;
     TGraphErrors * g = new TGraphErrors( N , X , Y , Xerr , Yerr );
     g -> SetName(Name);
@@ -301,7 +301,7 @@ TGraph * TPlots::Graph( const int N , double* X , double* Y, TString Title , TSt
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-TGraphErrors * TPlots::Graph( TString Name, const int N , double X[N] , double Y[N] , TString Title , TString XTitle , TString YTitle , int color , double mSize , int mStyle , Option_t * option){
+TGraphErrors * TPlots::Graph( TString Name, const int N , double *X , double *Y , TString Title , TString XTitle , TString YTitle , int color , double mSize , int mStyle , Option_t * option){
     double Xerr[1000] = {0.0} , Yerr[1000] = {0.0};
     return Graph( Name, N , X , Y , Xerr , Yerr , Title , XTitle , YTitle , color , mSize , mStyle , option);
 }

@@ -12,7 +12,7 @@ def get_args():
     parser.add_argument('-A','--atomic_mass', default=12, type=int )
     parser.add_argument('-o','--operation', default=12, type=str )
     parser.add_argument('-var','--variable', default=12, type=str , help='variable to draw...')
-    parser.add_argument('-mc','--MCmode', default='False', type=bool )
+    parser.add_argument('-mc','--MCmode', default='0', type=int )
     parser.add_argument('--cut', default='', type=ROOT.TCut , help='root TCut' )
 
     

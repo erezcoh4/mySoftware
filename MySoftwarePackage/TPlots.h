@@ -152,6 +152,8 @@ public:
     TBox           * Box ( double XMin , double YMin , double XMax , double YMax , int color = 46 , double opacity = 1 , int LineWidth = 1);
     TEllipse    * Circle ( double X , double Y , double R = 1. , int color = 1, double opacity = 1, int LineColor = 1 , int LineWidth = 1 );
     TPolyLine3D * Line3D ( TVector3 , int LineColor = 1 , int LineWidth = 1 , int LineStyle = 1 );
+    void             ROI ( double XMin , double YMin , double XMax , double YMax , int color = 0);
+
     void Plot3DAxesSystem( float size = 0.5 );
     void Frame3D        (TString);
     

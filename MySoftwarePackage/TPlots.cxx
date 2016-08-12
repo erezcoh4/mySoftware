@@ -484,6 +484,18 @@ TBox * TPlots::Box( double XMin , double YMin , double XMax , double YMax , int 
     return box;
 }
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void TPlots::ROI( double XMin , double YMin , double XMax , double YMax , int color){
+    // draw a ROI box around something...
+    int LineWidth = 2;
+    Line( XMin , YMin , XMin , YMax , color , LineWidth );
+    Line( XMax , YMin , XMax , YMax , color , LineWidth );
+    Line( XMin , YMin , XMax , YMin , color , LineWidth );
+    Line( XMin , YMax , XMax , YMax , color , LineWidth );
+    return;
+}
+
+
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TEllipse * TPlots::Circle( double X , double Y , double R , int color, double opacity, int LineColor , int LineWidth ){

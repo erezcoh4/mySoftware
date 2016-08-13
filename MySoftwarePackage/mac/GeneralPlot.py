@@ -3,8 +3,8 @@ from ROOT import TPlots
 
 #from rootpy.interactive import wait
 sys.path.insert(0, '/Users/erezcohen/larlite/UserDev/mySoftware/MySoftwarePackage/mac')
-import Initiation as init
-init.createnewdir()
+#import Initiation as init
+#init.createnewdir()
 ROOT.gStyle.SetOptStat(0000)
 
 

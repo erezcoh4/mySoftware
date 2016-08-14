@@ -10,7 +10,7 @@ def get_args():
     parser.add_argument('-ff','--files_frac', default='0.01', type=float , help='fraction of files to process')
     parser.add_argument('-w','--worker', default='erez', type=str )
     parser.add_argument('-A','--atomic_mass', default=12, type=int )
-    parser.add_argument('-o','--operation', default=12, type=str )
+    parser.add_argument('-o','--option', default=12, type=str )
     parser.add_argument('-var','--variable', default=12, type=str , help='variable to draw...')
     parser.add_argument('-mc','--MCmode', default='0', type=int )
     parser.add_argument('--cut', default='', type=ROOT.TCut , help='root TCut' )
@@ -22,7 +22,7 @@ def get_args():
     atomic_mass = parser.parse_args().atomic_mass
     evnts_frac  = parser.parse_args().evnts_frac
     variable    = parser.parse_args().variable
-    operation   = parser.parse_args().operation
+    operation   = parser.parse_args().option
     MCmode      = parser.parse_args().MCmode
     files_frac  = parser.parse_args().files_frac
     cut         = parser.parse_args().cut

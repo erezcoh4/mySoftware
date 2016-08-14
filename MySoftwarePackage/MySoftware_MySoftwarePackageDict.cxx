@@ -241,7 +241,7 @@ namespace ROOT {
       ::myIncludes *ptr = 0;
       static ::TVirtualIsAProxy* isa_proxy = new ::TIsAProxy(typeid(::myIncludes));
       static ::ROOT::TGenericClassInfo 
-         instance("myIncludes", "myIncludes.h", 130,
+         instance("myIncludes", "myIncludes.h", 133,
                   typeid(::myIncludes), DefineBehavior(ptr, ptr),
                   &myIncludes_Dictionary, isa_proxy, 4,
                   sizeof(::myIncludes) );

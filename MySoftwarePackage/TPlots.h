@@ -147,7 +147,7 @@ public:
     TGaxis        * Axis ( double , double , double , double , double , double , int , TString );
     TLine         * Line ( double , double , double , double , int c = 1 , int w = 1 , int s = 1 , double o = 1 );
     TArrow       * Arrow ( double , double , double , double , int c = 1 , int w = 1 , int s = 1 , double o = 1 , double size = 0.005);
-    TLatex        * Text ( double X , double Y , TString label="" , int color = 1, double size = 0.05 , double Angle = 0 );
+    TLatex        * Text ( double X , double Y , TString label="" , int color = 1, double size = 0.05 , double Angle = 0 , float alpha = 1 );
     TLatex       * Latex ( double X , double Y , TString label="" , int color = 1, double size = 0.05 , double Angle = 0 );
     TBox           * Box ( double XMin , double YMin , double XMax , double YMax , int color = 46 , double opacity = 1 , int LineWidth = 1);
     TEllipse    * Circle ( double X , double Y , double R = 1. , int color = 1, double opacity = 1, int LineColor = 1 , int LineWidth = 1 );

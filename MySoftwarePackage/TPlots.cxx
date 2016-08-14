@@ -449,9 +449,9 @@ TArrow * TPlots::Arrow( double XMin , double YMin , double XMax , double YMax , 
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-TLatex * TPlots::Text( double X, double Y, TString label, int color, double size, double Angle ){
+TLatex * TPlots::Text( double X, double Y, TString label, int color, double size, double Angle , float alpha ){
     TLatex * text = new TLatex( X , Y , label );
-    text -> SetTextColor( color );
+    text -> SetTextColorAlpha( color , alpha );
     text -> SetTextSize( size );
     text -> SetTextAngle( Angle );
     text -> Draw();

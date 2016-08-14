@@ -9,6 +9,7 @@ ROOT.gStyle.SetOptStat(0000)
 
 
 PmissTit        = "|#vec{p}_{miss}| [GeV/c]"
+PrecTit         = "|#vec{p}_{recoil}| [GeV/c]"
 PcmTit          = "|#vec{p} (c.m.)| [GeV/c]"
 Q2Tit           = "Q^{2} (GeV/c) ^{2}"
 XbTit           = "Bjorken x"

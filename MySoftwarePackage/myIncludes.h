@@ -118,9 +118,9 @@ using namespace std;
 
 //#define SHOWvectorInt_t(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<Int_t>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << "\n\t" << *it ; std::cout << '\n';}
 
-//#define SHOWstdTVector3(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<TVector3>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << setprecision(2) << fixed << "\n\t(" << it -> X() << ","  << it -> Y() << "," << it -> Z() << ")\t"; std::cout << '\n';}
+#define SHOWstdTVector3(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<TVector3>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << setprecision(2) << fixed << "\n\t(" << it -> X() << ","  << it -> Y() << "," << it -> Z() << ")\t"; std::cout << '\n';}
 
-//#define SHOWvectorTLorentzVector(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<TLorentzVector>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << setprecision(2) << fixed << "\n\t(" << it -> Px() << ","  << it -> Py() << "," << it -> Pz()  << "," << it -> E() << ")" << ", P = " << it -> P() << ", M = " << it -> M(); std::cout << '\n';}
+#define SHOWvectorTLorentzVector(v) { std::cout << #v << "( " << v.size() << " entries ):\t";     for (std::vector<TLorentzVector>::iterator it=v.begin(); it!=v.end(); ++it) std::cout << setprecision(2) << fixed << "\n\t(" << it -> Px() << ","  << it -> Py() << "," << it -> Pz()  << "," << it -> E() << ")" << ", P = " << it -> P() << ", M = " << it -> M(); std::cout << '\n';}
 
 #define SHOWstdVector(v){ if (v.size()<1) {cout << #v << " is empty" << endl;} else {cout << #v << "( " << v.size() << " entries):\t"; for (auto it:v) cout << it << ",\t"; cout << endl;}}
 #define SHOWTVector3(v){ cout << #v << ": (" << v.X() << "," << v.Y() << "," << v.Z() << "), |" << #v << "| = " << v.Mag() << endl;}

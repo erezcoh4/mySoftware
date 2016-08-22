@@ -60,6 +60,12 @@ TCanvas * TPlots::CreateCanvas(TString Title, TString DoDivide, int Nx, int Ny, 
     c -> Divide(Nx , Ny , 0.01 , 0.01);
     else if (DoDivide=="DivideSquare")
     c -> DivideSquare(Nx);
+    
+    c -> SetRightMargin(0.);
+    c -> SetLeftMargin(0.);
+    c -> SetTopMargin(0.);
+    c -> SetBottomMargin(0.);
+    c -> SetTicks(1,1);
     return c;
 }
 

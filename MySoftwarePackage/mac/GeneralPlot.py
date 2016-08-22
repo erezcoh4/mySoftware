@@ -35,6 +35,8 @@ def cosThetaTit(name):
     return "cos ( #theta_{%s} )"%name
 
 
+
+
 def plot(ana , name, plot_args):
     
     c = ana.CreateCanvas(name)
@@ -49,9 +51,8 @@ def plot(ana , name, plot_args):
     
     print "ploting " + var + " from " + name
     c.Update()
-    wait()
-    c.SaveAs(init.dirname()+"/"+name+".pdf")
+#    c.SaveAs(init.dirname()+"/"+name+".pdf")
 
-    return
+    return c
 
 

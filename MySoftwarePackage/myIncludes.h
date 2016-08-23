@@ -109,6 +109,7 @@ using namespace std;
 
 
 #define SHOW(a) std::cout  << setprecision(2) << fixed << #a << ": " << (a) << std::endl
+#define PrintPhys(a,units) std::cout  << setprecision(2) << fixed << #a << ": " << (a) <<  " " << (units) << std::endl
 
 #define SHOWTLorentzVector(v) std::cout << #v << ": " << "\t(" << setprecision(2) << fixed << v.Px() << ","  << v.Py() << "," << v.Pz()  << "," << v.E() << ")" << ", P = " << v.P() << ", M = " << v.M() << std::endl
 

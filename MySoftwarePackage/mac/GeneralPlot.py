@@ -21,7 +21,7 @@ WmissTit        = "#sqrt{|3M_{N} + q - p_{1} - p_{2}|^{2} } [GeV/c ^{2}]"
 WmCmTit         = "#sqrt{ |(3M_{N},#vec{k}_{cm}) + q - p_{1} - p_{2}|^{2} } [GeV/c ^{2}]"
 WmEpsTit        = "#sqrt{ |(3M_{N}-#varepsilon,#vec{k}_{cm}) + q - p_{1} - p_{2}|^{2} } [GeV/c ^{2}]"
 PmqTit          = "|#vec{p}_{miss} #hat{q}|"
-PrecqTit        = "|#vec{p}_{rec} #hat{q}|"
+PrecqTit        = "#vec{p}_{rec} #hat{q}"
 ThetaPrecTit    = "#theta(#vec{p}_{rec} = #vec{p}_{1} + #vec{p}_{2}) [deg.]"
 ThetaPrctTit    = "#theta(#vec{q} - #vec{p}_{1} - #vec{p}_{2}) [deg.]"
 

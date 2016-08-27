@@ -1,5 +1,9 @@
 import ROOT , sys , os , time
 from ROOT import TPlots
+import seaborn as sns; sns.set(style="white", color_codes=True , font_scale=3)
+from matplotlib import pyplot as plt
+import matplotlib as mpl
+
 
 #from rootpy.interactive import wait
 sys.path.insert(0, '/Users/erezcohen/larlite/UserDev/mySoftware/MySoftwarePackage/mac')
@@ -34,6 +38,8 @@ def ThetaTit(name):
 def cosThetaTit(name):
     return "cos ( #theta_{%s} )"%name
 
+def alphaTit(name):
+    return "#alpha(%s)"%name
 
 
 
@@ -51,8 +57,38 @@ def plot(ana , name, plot_args):
     
     print "ploting " + var + " from " + name
     c.Update()
-#    c.SaveAs(init.dirname()+"/"+name+".pdf")
 
     return c
 
 
+
+
+def sns2d_with_projections( x , y , axes_labels , kind="hex"):
+    cmap = mpl.cm.hot
+    my_hot_cmap = reverse_colourmap(cmap)
+    
+    with sns.axes_style("white"):
+        g = sns.jointplot(x=x, y=y , cmap=my_hot_cmap, kind=kind, stat_func=None, marginal_kws={'color': 'green'})
+    g.set_axis_labels(axes_labels[0],axes_labels[1])
+    plt.colorbar()
+    plt.show()
+    return g
+
+
+
+def reverse_colourmap(cmap, name = 'my_hot_cmap'):
+    reverse = []
+    k = []
+    
+    for key in cmap._segmentdata:
+        k.append(key)
+        channel = cmap._segmentdata[key]
+        data = []
+        
+        for t in channel:
+            data.append((1-t[0],t[2],t[1]))
+        reverse.append(sorted(data))
+
+    LinearL = dict(zip(k,reverse))
+    my_hot_cmap = mpl.colors.LinearSegmentedColormap(name, LinearL)
+    return my_hot_cmap

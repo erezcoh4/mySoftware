@@ -2,6 +2,7 @@ import ROOT , sys , os , time
 from ROOT import TPlots
 import seaborn as sns; sns.set(style="white", color_codes=True , font_scale=3)
 from matplotlib import pyplot as plt
+from root_numpy import root2array, tree2array , hist2array
 import matplotlib as mpl
 
 

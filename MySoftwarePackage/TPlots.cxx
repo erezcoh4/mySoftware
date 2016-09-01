@@ -63,8 +63,8 @@ TCanvas * TPlots::CreateCanvas(TString Title, TString DoDivide, int Nx, int Ny, 
     
     c -> SetRightMargin(0.1);
     c -> SetLeftMargin(0.16);
-    c -> SetTopMargin(0.1);
-    c -> SetBottomMargin(0.14);
+    c -> SetTopMargin(0.05);
+    c -> SetBottomMargin(0.16);
     c -> SetTicks(1,1);
     return c;
 }

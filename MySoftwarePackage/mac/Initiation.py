@@ -17,9 +17,9 @@ def createnewdir( ):
         return
 
 def create_dir( path , dir_name ):
-    dirfmt = path
+    dirname = path + "/" + dir_name
     try:
-        os.makedirs(dir_name)
+        os.makedirs( dirname )
     except OSError, e:
         if e.errno != 17:
             raise # This was not a "directory exist" error..

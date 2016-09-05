@@ -2,12 +2,12 @@
 //  Created by Erez Cohen on 5/15/15.
 #include "TAnalysis.h"
 
-//using namespace RooFit ;
+using namespace RooFit ;
 #define MAX 100000
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-TAnalysis::TAnalysis(){    i_ana = 0;   }
+TAnalysis::TAnalysis(){    i_ana = 0;  i_roofit = 0; }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 Double_t TAnalysis::Kolmogorov1D(Int_t Na, Double_t* a, Int_t Nb, Double_t* b, Option_t* option){
@@ -349,19 +349,28 @@ TH2F* TAnalysis::Assymetry(TTree * Tree , TString vZ
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //----------- unbinned RooFit of 1d Gaussian ----------------------//
 RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t Par[2] , Double_t ParErr[2], bool PlotFit ){
-    
     // Par are input initial parameters (Par[0]=mean,Par[1]=sigma) and are returned as the results
     
-    RooRealVar  var     (name       ,name           ,0      ,-0.8       ,0.8       ) ;
-    RooRealVar  fMean   ("mean"     ,"mean"         ,0      ,-0.8       ,0.8         ) ;
-    RooRealVar  fSigma  ("sigma"    ,"sigma"        ,0.15   ,0          ,0.5         ) ;
-    RooGaussian fGauss  ("gauss"    ,"gauss"        ,var    ,fMean      ,fSigma     ) ;
-    
-    RooPlot* frame = var.frame( RooFit::Bins(50), RooFit::Name(name.Data()) , RooFit::Title(name)) ;
+    // first, reduce the main tree by the desired cut....
     TTree * ReducedTree = Tree -> CopyTree(cut);
-    RooDataSet DataSet("DataSet","Data Set",RooArgSet(var),RooFit::Import(*ReducedTree)) ;
+    
+    i_roofit++;
+    RooRealVar  var     (name       ,name           ,-1     ,1                      ) ;
+    RooRealVar  fMean   ("mean"     ,"gaussian mean",0      ,-0.8       ,0.8        ) ;
+    RooRealVar  fSigma  ("sigma"    ,"gaussian sig.",0.15   ,0          ,0.5        ) ;
+    RooGaussian fGauss  ("gauss"    ,"gaussian"     ,var    ,fMean      ,fSigma     ) ;
+    RooPlot* frame = var.frame( RooFit::Bins(50), RooFit::Name(name) , RooFit::Title(name)) ;
+    RooDataSet DataSet(Form("DataSet_%d",i_roofit),Form("temp. Data Set (%d)",i_roofit),RooArgSet(var),Import(*ReducedTree)) ;
+    
     if(PlotFit) {
+        cout << "\n\n\n" << endl;
+        cut.Print();
+        SHOW(ReducedTree->GetEntries());
+        cout << "data set:" << endl;
+        PrintLine();
+        var.Print();
         DataSet.Print();
+        DataSet.printArgs(std::cout);
         DataSet.plotOn(frame) ;
     }
     fGauss.fitTo(DataSet) ;
@@ -374,4 +383,14 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
     if (PlotFit)    frame -> Draw();
     return frame;
 }
+
+
+
+
+
+
+
+
+
+
 

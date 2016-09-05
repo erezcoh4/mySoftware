@@ -22,7 +22,7 @@ private:
     
 public:
     
-    int     i_ana;
+    int     i_ana , i_roofit;
     TPlots  plot;
     
     // constructor

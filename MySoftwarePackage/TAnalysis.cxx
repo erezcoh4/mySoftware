@@ -344,34 +344,34 @@ TH2F* TAnalysis::Assymetry(TTree * Tree , TString vZ
 
 
 
-//
-//
-////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-////----------- unbinned RooFit of 1d Gaussian ----------------------//
-//RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t Par[2] , Double_t ParErr[2], bool PlotFit ){
-//    
-//    // Par are input initial parameters (Par[0]=mean,Par[1]=sigma) and are returned as the results
-//    
-//    RooRealVar  var     (name       ,name           ,0      ,-0.8       ,0.8       ) ;
-//    RooRealVar  fMean   ("mean"     ,"mean"         ,0      ,-0.8       ,0.8         ) ;
-//    RooRealVar  fSigma  ("sigma"    ,"sigma"        ,0.15   ,0          ,0.5         ) ;
-//    RooGaussian fGauss  ("gauss"    ,"gauss"        ,var    ,fMean      ,fSigma     ) ;
-//    
-//    RooPlot* frame = var.frame( Bins(50), Name(name.Data()) , Title(name)) ;
-//    TTree * ReducedTree = Tree -> CopyTree(cut);
-//    RooDataSet DataSet("DataSet","Data Set",RooArgSet(var),Import(*ReducedTree)) ;
-//    if(PlotFit) {
-//        DataSet.Print();
-//        DataSet.plotOn(frame) ;
-//    }
-//    fGauss.fitTo(DataSet) ;
-//    fGauss.plotOn(frame,LineColor(kRed)) ;
-//    Par[0]      = fMean.getValV();
-//    Par[1]      = fSigma.getValV();
-//    ParErr[0]   = fMean.getError();
-//    ParErr[1]   = fSigma.getError();
-//
-//    if (PlotFit)    frame -> Draw();
-//    return frame;
-//}
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//----------- unbinned RooFit of 1d Gaussian ----------------------//
+RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t Par[2] , Double_t ParErr[2], bool PlotFit ){
+    
+    // Par are input initial parameters (Par[0]=mean,Par[1]=sigma) and are returned as the results
+    
+    RooRealVar  var     (name       ,name           ,0      ,-0.8       ,0.8       ) ;
+    RooRealVar  fMean   ("mean"     ,"mean"         ,0      ,-0.8       ,0.8         ) ;
+    RooRealVar  fSigma  ("sigma"    ,"sigma"        ,0.15   ,0          ,0.5         ) ;
+    RooGaussian fGauss  ("gauss"    ,"gauss"        ,var    ,fMean      ,fSigma     ) ;
+    
+    RooPlot* frame = var.frame( RooFit::Bins(50), RooFit::Name(name.Data()) , RooFit::Title(name)) ;
+    TTree * ReducedTree = Tree -> CopyTree(cut);
+    RooDataSet DataSet("DataSet","Data Set",RooArgSet(var),RooFit::Import(*ReducedTree)) ;
+    if(PlotFit) {
+        DataSet.Print();
+        DataSet.plotOn(frame) ;
+    }
+    fGauss.fitTo(DataSet) ;
+    fGauss.plotOn(frame,RooFit::LineColor(kRed)) ;
+    Par[0]      = fMean.getValV();
+    Par[1]      = fSigma.getValV();
+    ParErr[0]   = fMean.getError();
+    ParErr[1]   = fSigma.getError();
+
+    if (PlotFit)    frame -> Draw();
+    return frame;
+}
 

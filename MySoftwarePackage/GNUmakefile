@@ -1,6 +1,4 @@
-#
-# This is an example GNUmakefile for my packages
-#
+# my software package
 
 # specific names for this package
 DICT  = MySoftware_MySoftwarePackageDict
@@ -22,8 +20,9 @@ OSNAMEMODE      = $(OSNAME)
 include $(LARLITE_BASEDIR)/Makefile/Makefile.${OSNAME}
 
 # set linker flags
-# LDFLAGS += -L$(shell root-config --libdir) -lEG -lRooFit -lRooFitCore -lRooStats -lSpectrum -lHist 
 LDFLAGS += -L$(shell root-config --libdir) -lEG -lSpectrum -lHist 
+# this i had to add since i have RooFit only on root-5 installation, and i don’t want to ruin my root-6 installation by accident when trying to also install RooFit on it…
+LDFLAGS += -L /Users/erezcohen/root-v5-34/lib/root -lRooFit -lRooFitCore -lRooStats
 
 
 # call the common GNUmakefile

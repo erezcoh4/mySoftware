@@ -29,8 +29,8 @@ public:
     TAnalysis                   ();
     ~TAnalysis                  (){};
     
-    //    //Unbinned RooFit of 1d Histogram
-//        RooPlot * RooFit1D          ( TTree * , TString , Double_t *  , Double_t * , Double_t * , TString , bool PlotFit = true , bool DoWeight = false );
+    //Unbinned RooFit of 1d Histogram
+    RooPlot * RooFit1D          ( TTree * , TString , Double_t *  , Double_t * , Double_t * , TString , bool PlotFit = true , bool DoWeight = false );
     Double_t              Kolmogorov1D (Int_t, Double_t*, Int_t, Double_t*, Option_t* option="");
     Double_t Kolmogorov1DCriticalValue ( Double_t , int , int );
     void                          Sort (Int_t, Double_t*);
@@ -70,7 +70,7 @@ public:
     
     
     TH2F               * Assymetry (TTree *, TString, TString, int, Float_t, Float_t, TString , int , Float_t, Float_t , TString, bool DoPrint = false);
-//    RooPlot             * RooFit1D (TTree *, TString, TCut, Double_t*, Double_t*, bool Plot = false );
+    RooPlot             * RooFit1D (TTree *, TString, TCut, Double_t*, Double_t*, bool Plot = false );
 //    RooRealVar  SubtractBackground (TH2F *, float aSig, float axBkg, bool DoPlot = false);
    
     

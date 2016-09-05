@@ -39,6 +39,7 @@ public:
     
     // methods
     void MergeFiles ( TString, const int N, char ** fName, char *, char *);
+    void Close () {File->Close();} ;
     
     //plots
     TCanvas * CreateCanvas(TString Title, TString DoDivide="NoDivision", int Nx=4, int Ny=2, float w=800, float h=800);

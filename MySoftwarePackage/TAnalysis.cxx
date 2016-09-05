@@ -355,7 +355,7 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
     TTree * ReducedTree = Tree -> CopyTree(cut);
     
     i_roofit++;
-    RooRealVar  var     (name       ,name           ,-1     ,1                      ) ;
+    RooRealVar  var     (name       ,name           ,-1.2     ,1.2                  ) ;
     RooRealVar  fMean   ("mean"     ,"gaussian mean",0      ,-0.8       ,0.8        ) ;
     RooRealVar  fSigma  ("sigma"    ,"gaussian sig.",0.15   ,0          ,0.5        ) ;
     RooGaussian fGauss  ("gauss"    ,"gaussian"     ,var    ,fMean      ,fSigma     ) ;

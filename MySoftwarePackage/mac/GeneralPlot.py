@@ -30,6 +30,7 @@ PrecqTit        = "#vec{p}_{rec} #hat{q}"
 ThetaPrecTit    = "#theta(#vec{p}_{rec} = #vec{p}_{1} + #vec{p}_{2}) [deg.]"
 ThetaPrctTit    = "#theta(#vec{q} - #vec{p}_{1} - #vec{p}_{2}) [deg.]"
 
+
 def pTit(i):
     return "|#vec{p}(%d)| [GeV/c]"%i
 
@@ -41,6 +42,14 @@ def cosThetaTit(name):
 
 def alphaTit(name):
     return "#alpha(%s)"%name
+
+
+
+
+
+
+#latex labels for matpyplot
+pmiss_label = r'|$\vec{p}_{miss}$| [GeV/c]'
 
 
 

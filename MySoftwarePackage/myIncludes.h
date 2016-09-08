@@ -104,11 +104,15 @@ using namespace std;
 
 #define PrintLine() std::cout << "-------------------------------" << std::endl;
 
+#define PrintXLine() std::cout << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" << std::endl;
+
+#define SHOW(a) std::cout  << setprecision(2) << fixed << #a << ": " << (a) << std::endl
+
+#define SHOW2(a,b) cout  << "\033[34m"<<#a<<": "<<(a)<<"," << #b <<": "<<(b)<< "\033[0m"<< endl;
 
 #define SHOW3(a,b,c) cout  << "\033[36m"<<#a<<": "<<(a)<<"," << #b <<": "<<(b)<<","<<#c<<": "<<(c)<< "\033[0m"<< endl;
 
 
-#define SHOW(a) std::cout  << setprecision(2) << fixed << #a << ": " << (a) << std::endl
 #define PrintPhys(a,units) std::cout  << setprecision(2) << fixed << #a << ": " << (a) <<  " " << (units) << std::endl
 
 #define SHOWTLorentzVector(v) std::cout << #v << ": " << "\t(" << setprecision(2) << fixed << v.Px() << ","  << v.Py() << "," << v.Pz()  << "," << v.E() << ")" << ", P = " << v.P() << ", M = " << v.M() << std::endl

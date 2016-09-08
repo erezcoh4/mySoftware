@@ -16,6 +16,7 @@ def get_args():
     parser.add_argument('--cut', default='', type=ROOT.TCut , help='root TCut' )
     parser.add_argument('--Nbins', default='50', type=int , help='number of bins' )
     parser.add_argument('--Ev', default='0', type=float , help='neutrino energy [GeV]' )
+    parser.add_argument('-r','--run', default='1', type=int , help='run number' )
 
     
     debug       = parser.parse_args().verbose
@@ -30,6 +31,7 @@ def get_args():
     cut         = parser.parse_args().cut
     Nbins       = parser.parse_args().Nbins
     Ev          = parser.parse_args().Ev
+    run         = parser.parse_args().run
     
     if debug>0: print "flags: ", parser.parse_args()
     

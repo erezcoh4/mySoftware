@@ -9,9 +9,10 @@ using namespace RooFit ;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TAnalysis::TAnalysis(){    i_ana = 0;  i_roofit = 0; }
 
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 Double_t TAnalysis::Kolmogorov1D(Int_t Na, Double_t* a, Int_t Nb, Double_t* b, Option_t* option){
-    // compare two 1-dim variables of type Double_t and perform Kolomogorov test: are the sets of points  compatible with coming from the same parent distribution
+    // compare two 1-dim histograms and perform Kolomogorov test: are the sets of points  compatible with coming from the same parent distribution
     // experimental distributions of unbinned data
     // [https://root.cern.ch/root/htmldoc/TMath.html#TMath:KolmogorovTest]
     // option: "D" = debug , "M" = Maximum Kolmogorov distance instead of prob
@@ -19,6 +20,14 @@ Double_t TAnalysis::Kolmogorov1D(Int_t Na, Double_t* a, Int_t Nb, Double_t* b, O
     Sort(Nb , b);
     return TMath::KolmogorovTest(Na , a , Nb , b , option);
 }
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+Double_t TAnalysis::BinnedKSTest( TH1 * h1 , TH1 * h2 , Option_t* option ){
+    return (h1 -> KolmogorovTest(h2,option));
+}
+
+
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 Double_t TAnalysis::Kolmogorov1DCriticalValue( Double_t alpha , int N1 , int N2 ){

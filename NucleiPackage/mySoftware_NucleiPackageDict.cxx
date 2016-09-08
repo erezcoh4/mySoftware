@@ -45,51 +45,6 @@ namespace std {} using namespace std;
 // Header files passed via #pragma extra_include
 
 namespace ROOT {
-   static TClass *sample_Dictionary();
-   static void sample_TClassManip(TClass*);
-   static void *new_sample(void *p = 0);
-   static void *newArray_sample(Long_t size, void *p);
-   static void delete_sample(void *p);
-   static void deleteArray_sample(void *p);
-   static void destruct_sample(void *p);
-
-   // Function generating the singleton type initializer
-   static TGenericClassInfo *GenerateInitInstanceLocal(const ::sample*)
-   {
-      ::sample *ptr = 0;
-      static ::TVirtualIsAProxy* isa_proxy = new ::TIsAProxy(typeid(::sample));
-      static ::ROOT::TGenericClassInfo 
-         instance("sample", "sample.h", 22,
-                  typeid(::sample), DefineBehavior(ptr, ptr),
-                  &sample_Dictionary, isa_proxy, 4,
-                  sizeof(::sample) );
-      instance.SetNew(&new_sample);
-      instance.SetNewArray(&newArray_sample);
-      instance.SetDelete(&delete_sample);
-      instance.SetDeleteArray(&deleteArray_sample);
-      instance.SetDestructor(&destruct_sample);
-      return &instance;
-   }
-   TGenericClassInfo *GenerateInitInstance(const ::sample*)
-   {
-      return GenerateInitInstanceLocal((::sample*)0);
-   }
-   // Static variable to force the class initialization
-   static ::ROOT::TGenericClassInfo *_R__UNIQUE_(Init) = GenerateInitInstanceLocal((const ::sample*)0x0); R__UseDummy(_R__UNIQUE_(Init));
-
-   // Dictionary for non-ClassDef classes
-   static TClass *sample_Dictionary() {
-      TClass* theClass =::ROOT::GenerateInitInstanceLocal((const ::sample*)0x0)->GetClass();
-      sample_TClassManip(theClass);
-   return theClass;
-   }
-
-   static void sample_TClassManip(TClass* ){
-   }
-
-} // end of namespace ROOT
-
-namespace ROOT {
    static TClass *nucleus_Dictionary();
    static void nucleus_TClassManip(TClass*);
    static void delete_nucleus(void *p);
@@ -145,7 +100,7 @@ namespace ROOT {
       ::nucleon *ptr = 0;
       static ::TVirtualIsAProxy* isa_proxy = new ::TIsAProxy(typeid(::nucleon));
       static ::ROOT::TGenericClassInfo 
-         instance("nucleon", "nucleon.h", 27,
+         instance("nucleon", "nucleon.h", 26,
                   typeid(::nucleon), DefineBehavior(ptr, ptr),
                   &nucleon_Dictionary, isa_proxy, 4,
                   sizeof(::nucleon) );
@@ -174,27 +129,6 @@ namespace ROOT {
    }
 
 } // end of namespace ROOT
-
-namespace ROOT {
-   // Wrappers around operator new
-   static void *new_sample(void *p) {
-      return  p ? new(p) ::sample : new ::sample;
-   }
-   static void *newArray_sample(Long_t nElements, void *p) {
-      return p ? new(p) ::sample[nElements] : new ::sample[nElements];
-   }
-   // Wrapper around operator delete
-   static void delete_sample(void *p) {
-      delete ((::sample*)p);
-   }
-   static void deleteArray_sample(void *p) {
-      delete [] ((::sample*)p);
-   }
-   static void destruct_sample(void *p) {
-      typedef ::sample current_t;
-      ((current_t*)p)->~current_t();
-   }
-} // end of namespace ROOT for class ::sample
 
 namespace ROOT {
    // Wrapper around operator delete
@@ -444,7 +378,6 @@ class __attribute__((annotate("$clingAutoload$nucleon.h")))  TVector3;
 namespace std{inline namespace __1{template <class _Tp> class __attribute__((annotate("$clingAutoload$string")))  allocator;
 }}
 class __attribute__((annotate("$clingAutoload$nucleon.h")))  TLorentzVector;
-class __attribute__((annotate("$clingAutoload$sample.h")))  sample;
 class __attribute__((annotate("$clingAutoload$nucleus.h")))  nucleus;
 class __attribute__((annotate("$clingAutoload$nucleon.h")))  nucleon;
 )DICTFWDDCLS";
@@ -464,7 +397,6 @@ class __attribute__((annotate("$clingAutoload$nucleon.h")))  nucleon;
     static const char* classesHeaders[]={
 "nucleon", payloadCode, "@",
 "nucleus", payloadCode, "@",
-"sample", payloadCode, "@",
 nullptr};
 
     static bool isInitialized = false;

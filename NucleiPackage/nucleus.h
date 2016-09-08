@@ -29,8 +29,21 @@ public:
     /// Default constructor
     nucleus( TString fShortName , Int_t fA );
     ~nucleus(){}
+    
+    
     void          Print ();
-
+    void     AddNucleon ( nucleon N );
+    void  ClearNucleons ();
+    
+    
+    // Getters
+    Int_t       GetNpairs () {return (nucleons.size())*(nucleons.size()-1);};
+    Int_t     GetNppPairs () {return (protons.size())*(protons.size()-1);};
+    Int_t     GetNnnPairs () {return (neutrons.size())*(neutrons.size()-1);};
+    Int_t     GetNpnPairs () {return protons.size()*neutrons.size();};
+    
+    
+    
     Int_t       A;
     
     Float_t     mass;
@@ -39,7 +52,7 @@ public:
     
     TString     ShortName , Name , label;
     
-    std::vector<nucleon> nucleons;
+    std::vector<nucleon> protons , neutrons , nucleons;
 };
 
 #endif

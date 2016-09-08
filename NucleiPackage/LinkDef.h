@@ -9,7 +9,6 @@
 #pragma link off all classes;
 #pragma link off all functions;
 
-#pragma link C++ class sample+;
 #pragma link C++ class nucleus+;
 #pragma link C++ class nucleon+;
 //ADD_NEW_CLASS ... do not change this line

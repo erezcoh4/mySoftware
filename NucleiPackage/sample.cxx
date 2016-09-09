@@ -1,6 +1,0 @@
-#ifndef MYSOFTWARE_NUCLEIPACKAGE_SAMPLE_CXX
-#define MYSOFTWARE_NUCLEIPACKAGE_SAMPLE_CXX
-
-#include "sample.h"
-
-#endif

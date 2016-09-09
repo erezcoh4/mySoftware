@@ -13,6 +13,7 @@ def get_args():
     parser.add_argument('-o','--option', default='', type=str )
     parser.add_argument('-var','--variable', default='', type=str , help='variable to draw...')
     parser.add_argument('-data','--DataType', default='data', type=str , help='mc / data / no ctof' )
+    parser.add_argument('-scheme','--SchemedType', default='SRCPmissXb', type=str )
     parser.add_argument('--cut', default='', type=ROOT.TCut , help='root TCut' )
     parser.add_argument('--Nbins', default='50', type=int , help='number of bins' )
     parser.add_argument('--Ev', default='0', type=float , help='neutrino energy [GeV]' )
@@ -27,6 +28,7 @@ def get_args():
     variable    = parser.parse_args().variable
     operation   = parser.parse_args().option
     DataType    = parser.parse_args().DataType
+    SchemedType = parser.parse_args().SchemedType
     files_frac  = parser.parse_args().files_frac
     cut         = parser.parse_args().cut
     Nbins       = parser.parse_args().Nbins

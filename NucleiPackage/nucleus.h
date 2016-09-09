@@ -53,6 +53,14 @@ public:
     TString     ShortName , Name , label;
     
     std::vector<nucleon> protons , neutrons , nucleons;
+    
+    
+    
+    
+    // service...
+    std::vector<Float_t> GetDistancesBetweenNucleons(std::vector<nucleon> );
+    std::vector<Float_t> GetDistancesBetweenNucleons(std::vector<nucleon>,std::vector<nucleon> );
+
 };
 
 #endif

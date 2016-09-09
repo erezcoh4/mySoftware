@@ -27,9 +27,14 @@ class nucleon{
 
 public:
 
-    nucleon( TString fType="proton" , TVector3  fposition = TVector3() , TLorentzVector fmomentum = TLorentzVector() );
+    nucleon( Int_t fID = 0,
+            TString fType =
+            "proton" ,
+            TVector3  fposition = TVector3() ,
+            TLorentzVector fmomentum = TLorentzVector() );
     ~nucleon(){}
     
+    void          SetID ( Int_t fID )       {ID = fID;};
     void     SetPDGcode ( Int_t _pdg )      {PDGcode = _pdg;};
     void        SetMass ( Float_t m )       {mass = m;};
     void    SetMomentum ( TLorentzVector p ){momentum = p;}
@@ -40,7 +45,7 @@ public:
     void          Print ();
     
     
-    Int_t           PDGcode;
+    Int_t           PDGcode , ID;
     
     
     Float_t         mass;

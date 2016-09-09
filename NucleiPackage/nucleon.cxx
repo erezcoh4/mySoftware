@@ -4,7 +4,8 @@
 #include "nucleon.h"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-nucleon::nucleon( TString ftype , TVector3 fposition , TLorentzVector fmomentum ){
+nucleon::nucleon( Int_t fID, TString ftype , TVector3 fposition , TLorentzVector fmomentum ){
+    SetID(fID);
     SetType(ftype);
     SetPosition(fposition);
     SetMomentum(fmomentum);
@@ -24,15 +25,14 @@ void nucleon::SetType ( TString ftype )
         mass = Mn;
     }
     else mass = 0;
-    
 };
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void nucleon::Print (){
-    SHOW3( type , PDGcode , mass );
-    SHOWTLorentzVector( momentum );
+    SHOW3( type , PDGcode , ID );
     SHOWTVector3( position );
+    SHOWTLorentzVector( momentum );
     PrintLine();
 }
 

@@ -28,9 +28,9 @@ void nucleus::AddNucleon ( nucleon N ) {
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void nucleus::ClearNucleons(){
-    if (!nucleons.empty()) nucleons.clear();
-    if (!protons.empty()) protons.clear();
-    if (!neutrons.empty()) neutrons.clear();
+    if (!nucleons.empty())  nucleons.clear();
+    if (!protons.empty())   protons.clear();
+    if (!neutrons.empty())  neutrons.clear();
 }
 
 
@@ -43,5 +43,35 @@ void nucleus::Print(){
     }
     PrintXLine();
 }
+
+
+// service (not working with THIS nucleus' nucleons.... )
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+std::vector<Float_t> nucleus::GetDistancesBetweenNucleons( std::vector<nucleon> nucs ){
+    std::vector<Float_t> NNdistances;
+    for ( auto n1 : nucs ){
+        for ( auto n2 : nucs ){
+            if ( n1.ID != n2.ID ) {
+                NNdistances.push_back( ( n1.position - n2.position ).Mag() );
+            }
+        }
+    }
+    return NNdistances;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+std::vector<Float_t> nucleus::GetDistancesBetweenNucleons(std::vector<nucleon> nucs1,
+                                                          std::vector<nucleon> nucs2 ){
+    std::vector<Float_t> NNdistances;
+    for ( auto n1 : nucs1 ){
+        for ( auto n2 : nucs2 ){
+            if ( n1.ID != n2.ID ) {
+                NNdistances.push_back( ( n1.position - n2.position ).Mag() );
+            }
+        }
+    }
+    return NNdistances;
+}
+
 
 #endif

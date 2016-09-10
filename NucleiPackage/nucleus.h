@@ -27,6 +27,7 @@ class nucleus{
 public:
 
     /// Default constructor
+    nucleus(){};
     nucleus( TString fShortName , Int_t fA );
     ~nucleus(){}
     

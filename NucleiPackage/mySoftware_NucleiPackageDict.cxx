@@ -46,6 +46,8 @@ namespace std {} using namespace std;
 namespace ROOT {
    static TClass *nucleus_Dictionary();
    static void nucleus_TClassManip(TClass*);
+   static void *new_nucleus(void *p = 0);
+   static void *newArray_nucleus(Long_t size, void *p);
    static void delete_nucleus(void *p);
    static void deleteArray_nucleus(void *p);
    static void destruct_nucleus(void *p);
@@ -60,6 +62,8 @@ namespace ROOT {
                   typeid(::nucleus), ::ROOT::Internal::DefineBehavior(ptr, ptr),
                   &nucleus_Dictionary, isa_proxy, 4,
                   sizeof(::nucleus) );
+      instance.SetNew(&new_nucleus);
+      instance.SetNewArray(&newArray_nucleus);
       instance.SetDelete(&delete_nucleus);
       instance.SetDeleteArray(&deleteArray_nucleus);
       instance.SetDestructor(&destruct_nucleus);
@@ -130,6 +134,13 @@ namespace ROOT {
 } // end of namespace ROOT
 
 namespace ROOT {
+   // Wrappers around operator new
+   static void *new_nucleus(void *p) {
+      return  p ? new(p) ::nucleus : new ::nucleus;
+   }
+   static void *newArray_nucleus(Long_t nElements, void *p) {
+      return p ? new(p) ::nucleus[nElements] : new ::nucleus[nElements];
+   }
    // Wrapper around operator delete
    static void delete_nucleus(void *p) {
       delete ((::nucleus*)p);

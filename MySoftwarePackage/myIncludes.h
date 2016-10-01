@@ -88,6 +88,7 @@
 #include "RooConstVar.h"
 #include "RooFormulaVar.h"
 #include "RooGenericPdf.h"
+#include "RooMsgService.h"
 #include "RooPolynomial.h"
 #include "RooChi2Var.h"
 #include "RooMinuit.h"

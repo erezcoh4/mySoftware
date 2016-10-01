@@ -358,6 +358,9 @@ TH2F* TAnalysis::Assymetry(TTree * Tree , TString vZ
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //----------- unbinned RooFit of 1d Gaussian ----------------------//
 RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t Par[2] , Double_t ParErr[2], bool PlotFit , TVirtualPad * c, TString Title , bool DoWeight ){
+    
+    RooMsgService::instance().setGlobalKillBelow(RooFit::WARNING);
+    
     // Par are input initial parameters (Par[0]=mean,Par[1]=sigma) and are returned as the results
     
     // first, reduce the main tree by the desired cut....

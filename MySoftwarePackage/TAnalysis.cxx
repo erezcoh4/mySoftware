@@ -359,7 +359,11 @@ TH2F* TAnalysis::Assymetry(TTree * Tree , TString vZ
 //----------- unbinned RooFit of 1d Gaussian ----------------------//
 RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t Par[2] , Double_t ParErr[2], bool PlotFit , TVirtualPad * c, TString Title , bool DoWeight ){
     
-    RooMsgService::instance().setGlobalKillBelow(RooFit::WARNING);
+    RooFit::MsgLevel msglevel = RooMsgService::instance().globalKillBelow();
+    RooMsgService::instance().setGlobalKillBelow(RooFit::FATAL);
+    gErrorIgnoreLevel = kFatal;
+//    RooFitResult* rForward = forward.fitTo( *forwardBS, RooFit::PrintLevel(-1) );
+
     
     // Par are input initial parameters (Par[0]=mean,Par[1]=sigma) and are returned as the results
     
@@ -381,11 +385,11 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
 //        cout << "data set:" << endl;
 //        PrintLine();
 //        var.Print();
-//        DataSet.Print();
+        DataSet.Print();
 //        DataSet.printArgs(std::cout);
         DataSet.plotOn(frame) ;
     }
-    fGauss.fitTo(DataSet) ;
+    fGauss.fitTo(DataSet , RooFit::PrintLevel(-1) ) ;
     fGauss.plotOn(frame,RooFit::LineColor(kRed)) ;
     Par[0]      = fMean.getValV();
     Par[1]      = fSigma.getValV();

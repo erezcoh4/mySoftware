@@ -362,8 +362,6 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
     RooFit::MsgLevel msglevel = RooMsgService::instance().globalKillBelow();
     RooMsgService::instance().setGlobalKillBelow(RooFit::FATAL);
     gErrorIgnoreLevel = kFatal;
-//    RooFitResult* rForward = forward.fitTo( *forwardBS, RooFit::PrintLevel(-1) );
-
     
     // Par are input initial parameters (Par[0]=mean,Par[1]=sigma) and are returned as the results
     

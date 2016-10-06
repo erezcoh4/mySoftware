@@ -21,7 +21,7 @@ TPlots::TPlots( TString FileName , TString TreeName , TString Name , bool fQuiet
     Nentries = Tree -> GetEntries();
     fName = Name;
     QuietMode = fQuietMode;
-    if (!QuietMode) printf("TPlots with %s (%s), Nentries = %d\n",Tree->GetName(),fName.Data(),Nentries);
+    if (!QuietMode) printf("Starting TPlots analysis of file \n%s\nwith %s (%s), Nentries = %d\n",FileName.Data(),Tree->GetName(),fName.Data(),Nentries);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -377,7 +377,7 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
     RooDataSet DataSet(Form("DataSet_%d",i_roofit),Form("temp. Data Set (%d)",i_roofit),RooArgSet(var),Import(*ReducedTree)) ;
     
     if(PlotFit) {
-        DataSet.Print();
+        //                DataSet.Print();
         DataSet.plotOn(frame) ;
     }
     fGauss.fitTo(DataSet , RooFit::PrintLevel(-1) ) ;

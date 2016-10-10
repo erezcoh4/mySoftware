@@ -37,7 +37,8 @@ public:
                                         bool PlotFit = true ,
                                         TVirtualPad * c = nullptr,
                                         TString Title = "",
-                                        bool DoWeight = false );
+                                        bool DoWeight = false,
+                                        TString WeightName = "" );
     
     Double_t              BinnedKSTest ( TH1 * h1 , TH1 * h2 , Option_t* option = "" );
     Double_t              Kolmogorov1D ( Int_t, Double_t*, Int_t, Double_t*, Option_t* option="");
@@ -80,7 +81,6 @@ public:
     
     
     TH2F               * Assymetry (TTree *, TString, TString, int, Float_t, Float_t, TString , int , Float_t, Float_t , TString, bool DoPrint = false);
-    RooPlot             * RooFit1D (TTree *, TString, TCut, Double_t*, Double_t*, bool Plot = false );
 //    RooRealVar  SubtractBackground (TH2F *, float aSig, float axBkg, bool DoPlot = false);
    
     

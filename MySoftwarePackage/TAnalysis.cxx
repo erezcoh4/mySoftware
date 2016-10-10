@@ -357,35 +357,43 @@ TH2F* TAnalysis::Assymetry(TTree * Tree , TString vZ
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //----------- unbinned RooFit of 1d Gaussian ----------------------//
-RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t Par[2] , Double_t ParErr[2], bool PlotFit , TVirtualPad * c, TString Title , bool DoWeight ){
+RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t Par[2] , Double_t ParErr[2], bool PlotFit , TVirtualPad * c, TString Title , bool DoWeight , TString WeightName){
+    // Par are input initial parameters (Par[0]=mean,Par[1]=sigma) and are returned as the results
     
     RooFit::MsgLevel msglevel = RooMsgService::instance().globalKillBelow();
     RooMsgService::instance().setGlobalKillBelow(RooFit::FATAL);
     gErrorIgnoreLevel = kFatal;
     
-    // Par are input initial parameters (Par[0]=mean,Par[1]=sigma) and are returned as the results
     
     // first, reduce the main tree by the desired cut....
     TTree * ReducedTree = Tree -> CopyTree(cut);
     
     i_roofit++;
     RooRealVar  var     (name       ,name           ,-1.2     ,1.2                  ) ;
+    RooPlot     * frame = var.frame( RooFit::Bins(50), RooFit::Name(name) , RooFit::Title(Title)) ;
+    
     RooRealVar  fMean   ("mean"     ,"gaussian mean",0      ,-0.8       ,0.8        ) ;
     RooRealVar  fSigma  ("sigma"    ,"gaussian sig.",0.15   ,0          ,0.5        ) ;
     RooGaussian fGauss  ("gauss"    ,"gaussian"     ,var    ,fMean      ,fSigma     ) ;
-    RooPlot* frame = var.frame( RooFit::Bins(50), RooFit::Name(name) , RooFit::Title(Title)) ;
-    RooDataSet DataSet(Form("DataSet_%d",i_roofit),Form("temp. Data Set (%d)",i_roofit),RooArgSet(var),Import(*ReducedTree)) ;
-    
-    if(PlotFit) {
-        //                DataSet.Print();
-        DataSet.plotOn(frame) ;
+
+    if(DoWeight){
+        RooRealVar  weight  (WeightName ,"weight"       ,-1      ,1                      ) ;
+        RooArgSet VarSet( var , weight);
+        RooDataSet DataSet(Form("DataSet_%d",i_roofit),Form("temp. Data Set (%d)",i_roofit),VarSet,Import(*ReducedTree)) ;
+        if(PlotFit) DataSet.plotOn(frame) ;
+        fGauss.fitTo( DataSet , RooFit::PrintLevel(-1) ) ;
     }
-    fGauss.fitTo(DataSet , RooFit::PrintLevel(-1) ) ;
-    fGauss.plotOn(frame,RooFit::LineColor(kRed)) ;
-    Par[0]      = fMean.getValV();
-    Par[1]      = fSigma.getValV();
-    ParErr[0]   = fMean.getError();
-    ParErr[1]   = fSigma.getError();
+    else{
+        RooDataSet DataSet(Form("DataSet_%d",i_roofit),Form("temp. Data Set (%d)",i_roofit),RooArgSet(var),Import(*ReducedTree)) ;
+        if(PlotFit) DataSet.plotOn(frame) ;
+        fGauss.fitTo( DataSet , RooFit::PrintLevel(-1) ) ;
+    }
+
+    fGauss.plotOn( frame , RooFit::LineColor(kRed) ) ;
+    Par[0] = fMean.getValV();
+    Par[1] = fSigma.getValV();
+    ParErr[0] = fMean.getError();
+    ParErr[1] = fSigma.getError();
 
     if (PlotFit){
         c -> cd();

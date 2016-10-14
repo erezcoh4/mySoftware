@@ -279,6 +279,7 @@ TGraphErrors * TPlots::Graph( TString Name, const int N , double *X , double *Y 
     SetFrame( g ,Title , XTitle , YTitle );
     g -> SetMarkerColor(color);
     g -> SetLineColor(color);
+    g -> SetLineStyle(mStyle);
     g -> SetMarkerStyle(mStyle);
     g -> SetMarkerSize(mSize);
     if (option=="goff")

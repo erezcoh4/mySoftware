@@ -12,13 +12,13 @@ def get_args():
     parser.add_argument('-A','--atomic_mass', default=12, type=int )
     parser.add_argument('-o','--option', default='', type=str )
     parser.add_argument('-var','--variable', default='', type=str , help='variable to draw...')
-    parser.add_argument('-data','--DataType', default='data', type=str , help='mc / data / no ctof' )
+    parser.add_argument('-data','--DataType', default='data', type=str )
     parser.add_argument('-scheme','--SchemedType', default='SRCPmissXb', type=str )
     parser.add_argument('--cut', default='', type=ROOT.TCut , help='root TCut' )
     parser.add_argument('--Nbins', default='50', type=int , help='number of bins' )
     parser.add_argument('--Ev', default='0', type=float , help='neutrino energy [GeV]' )
     parser.add_argument('-r','--run', default='0', type=int , help='run number' )
-    parser.add_argument('--DoWeight', default=1, type=int )
+    parser.add_argument('-core','--i_core', default=1, type=int  )
 
     
     debug       = parser.parse_args().verbose
@@ -35,7 +35,7 @@ def get_args():
     Nbins       = parser.parse_args().Nbins
     Ev          = parser.parse_args().Ev
     run         = parser.parse_args().run
-    DoWeight    = parser.parse_args().DoWeight
+    i_core      = parser.parse_args().i_core
     
     if debug>0: print "flags: ", parser.parse_args()
     

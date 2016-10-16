@@ -18,7 +18,7 @@ def get_args():
     parser.add_argument('--Nbins', default='50', type=int , help='number of bins' )
     parser.add_argument('--Ev', default='0', type=float , help='neutrino energy [GeV]' )
     parser.add_argument('-r','--run', default='0', type=int , help='run number' )
-    parser.add_argument('-core','--i_core', default=1, type=int  )
+    parser.add_argument('-core','--i_core', default=0, type=int , help='start the counting from i_core=0' )
 
     
     debug       = parser.parse_args().verbose

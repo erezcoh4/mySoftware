@@ -375,7 +375,6 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
     RooRealVar  fMean   ("mean"     ,"gaussian mean",0      ,-0.8       ,0.8        ) ;
     RooRealVar  fSigma  ("sigma"    ,"gaussian sig.",0.15   ,0          ,0.5        ) ;
     RooGaussian fGauss  ("gauss"    ,"gaussian"     ,var    ,fMean      ,fSigma     ) ;
-
     if(DoWeight){
         RooRealVar  weight  (WeightName ,"weight"       ,-1      ,1                      ) ;
         RooArgSet VarSet( var , weight);

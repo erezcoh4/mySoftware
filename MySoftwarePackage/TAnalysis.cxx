@@ -398,6 +398,7 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
         c -> cd();
         frame -> Draw();
     }
+    delete ReducedTree;
     return frame;
 }
 

@@ -388,13 +388,13 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
         fGauss.fitTo( DataSet , RooFit::PrintLevel(-1) ) ;
     }
 
-    fGauss.plotOn( frame , RooFit::LineColor(kRed) ) ;
     Par[0] = fMean.getValV();
     Par[1] = fSigma.getValV();
     ParErr[0] = fMean.getError();
     ParErr[1] = fSigma.getError();
 
     if (PlotFit){
+        fGauss.plotOn( frame , RooFit::LineColor(kRed) ) ;
         c -> cd();
         frame -> Draw();
     }

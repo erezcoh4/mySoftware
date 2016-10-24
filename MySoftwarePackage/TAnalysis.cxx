@@ -311,9 +311,9 @@ TH2F* TAnalysis::Assymetry(TTree * Tree , TString vZ
     TH2F * Nforw = new TH2F("Nforw","Nforw",NbinsX,XMin,XMax,NbinsY,YMin,YMax);
     TH2F * NBack = new TH2F("NBack","NBack",NbinsX,XMin,XMax,NbinsY,YMin,YMax);
     
-    TLorentzVector *X = 0 , *Y = 0 , *Z = 0;
+    TLorentzVector  *Y = 0 , *Z = 0; // *X = 0 ,
     Double_t weight;
-//    Tree -> SetBranchAddress( vX , &X );
+    //    Tree -> SetBranchAddress( vX , &X );
     Tree -> SetBranchAddress( vY , &Y );
     Tree -> SetBranchAddress( vZ , &Z );
     Tree -> SetBranchAddress( Weight , &weight );
@@ -360,13 +360,16 @@ TH2F* TAnalysis::Assymetry(TTree * Tree , TString vZ
 RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t Par[2] , Double_t ParErr[2], bool PlotFit , TVirtualPad * c, TString Title , bool DoWeight , TString WeightName){
     // Par are input initial parameters (Par[0]=mean,Par[1]=sigma) and are returned as the results
     
-    RooFit::MsgLevel msglevel = RooMsgService::instance().globalKillBelow();
+    //    RooFit::MsgLevel msglevel = RooMsgService::instance().globalKillBelow();
     RooMsgService::instance().setGlobalKillBelow(RooFit::FATAL);
     gErrorIgnoreLevel = kFatal;
     
     
     // first, reduce the main tree by the desired cut....
-    TTree * ReducedTree = Tree -> CopyTree(cut);
+    if (cut != "") {
+        Tree = Tree -> CopyTree(cut);
+//        TTree * ReducedTree = Tree -> CopyTree(cut);
+    }
     
     i_roofit++;
     RooRealVar  var     (name       ,name           ,-1.2     ,1.2                  ) ;
@@ -378,12 +381,12 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
     if(DoWeight){
         RooRealVar  weight  (WeightName ,"weight"       ,-1      ,1                      ) ;
         RooArgSet VarSet( var , weight);
-        RooDataSet DataSet(Form("DataSet_%d",i_roofit),Form("temp. Data Set (%d)",i_roofit),VarSet,Import(*ReducedTree)) ;
+        RooDataSet DataSet(Form("DataSet_%d",i_roofit),Form("temp. Data Set (%d)",i_roofit),VarSet,Import(*Tree)) ;
         if(PlotFit) DataSet.plotOn(frame) ;
         fGauss.fitTo( DataSet , RooFit::PrintLevel(-1) ) ;
     }
     else{
-        RooDataSet DataSet(Form("DataSet_%d",i_roofit),Form("temp. Data Set (%d)",i_roofit),RooArgSet(var),Import(*ReducedTree)) ;
+        RooDataSet DataSet(Form("DataSet_%d",i_roofit),Form("temp. Data Set (%d)",i_roofit),RooArgSet(var),Import(*Tree)) ;
         if(PlotFit) DataSet.plotOn(frame) ;
         fGauss.fitTo( DataSet , RooFit::PrintLevel(-1) ) ;
     }
@@ -398,7 +401,7 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
         c -> cd();
         frame -> Draw();
     }
-    delete ReducedTree;
+    //    delete ReducedTree;
     return frame;
 }
 

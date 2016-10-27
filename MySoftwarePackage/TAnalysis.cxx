@@ -359,17 +359,15 @@ TH2F* TAnalysis::Assymetry(TTree * Tree , TString vZ
 //----------- unbinned RooFit of 1d Gaussian ----------------------//
 RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t Par[2] , Double_t ParErr[2], bool PlotFit , TVirtualPad * c, TString Title , bool DoWeight , TString WeightName){
     // Par are input initial parameters (Par[0]=mean,Par[1]=sigma) and are returned as the results
-    
-    //    RooFit::MsgLevel msglevel = RooMsgService::instance().globalKillBelow();
+
+    // quiet mode
+    RooMsgService::instance().setStreamStatus(1,false);
+    RooMsgService::instance().setSilentMode(true);
     RooMsgService::instance().setGlobalKillBelow(RooFit::FATAL);
     gErrorIgnoreLevel = kFatal;
     
-    
     // first, reduce the main tree by the desired cut....
-    if (cut != "") {
-        Tree = Tree -> CopyTree(cut);
-//        TTree * ReducedTree = Tree -> CopyTree(cut);
-    }
+    Tree = Tree -> CopyTree(cut);
     
     i_roofit++;
     RooRealVar  var     (name       ,name           ,-1.2     ,1.2                  ) ;
@@ -379,7 +377,7 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
     RooRealVar  fSigma  ("sigma"    ,"gaussian sig.",0.15   ,0          ,0.5        ) ;
     RooGaussian fGauss  ("gauss"    ,"gaussian"     ,var    ,fMean      ,fSigma     ) ;
     if(DoWeight){
-        RooRealVar  weight  (WeightName ,"weight"       ,-1      ,1                      ) ;
+        RooRealVar  weight  (WeightName ,"weight"       ,-1      ,1                 ) ;
         RooArgSet VarSet( var , weight);
         RooDataSet DataSet(Form("DataSet_%d",i_roofit),Form("temp. Data Set (%d)",i_roofit),VarSet,Import(*Tree)) ;
         if(PlotFit) DataSet.plotOn(frame) ;
@@ -401,7 +399,6 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
         c -> cd();
         frame -> Draw();
     }
-    //    delete ReducedTree;
     return frame;
 }
 

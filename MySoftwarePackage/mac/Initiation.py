@@ -25,7 +25,8 @@ def create_dated_dir( name ):
     return dirname
 
 
-def create_dir( path , dir_name ):
-    generate_directory(dirname)
+def create_dir( path , particular_dir_name ):
+    dirname = path + "/" + particular_dir_name
+    generate_directory( dirname )
     return dirname
 

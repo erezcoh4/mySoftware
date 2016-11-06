@@ -10,6 +10,8 @@ import argparse ,os, sys , math
 #import input_flags
 #flags = input_flags.get_args()
 
+print 'usage:\n-------\nEnergy2Momentum -particle=proton -KE=0.1'
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--particle', default='proton', type=str , help='particle type')
 parser.add_argument('-p','--Momentum', default=-1, type=float , help='in GeV/c')

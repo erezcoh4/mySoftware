@@ -126,6 +126,8 @@ using namespace std;
 #define SHOWstdVector(v){ if (v.size()<1) {cout << #v << " is empty" << endl;} else {cout << #v << "( " << v.size() << " entries):\t"; for (auto it:v) cout << it << ",\t"; cout << endl;}}
 #define SHOWTVector3(v){ cout << #v << ": (" << v.X() << "," << v.Y() << "," << v.Z() << "), |" << #v << "| = " << v.Mag() << endl;}
 
+//#define Debug( debug , verbosity , text ){ if (verbosity > debug) std::cout << text << std::endl; }
+
 /**
    \class myIncludes
    User defined class myIncludes ... these comments are used to generate

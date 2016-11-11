@@ -77,7 +77,6 @@
 #include <typeinfo>       // operator typeid
 
 
-
 #ifndef __CINT__
 #include "RooGlobalFunc.h"
 #endif

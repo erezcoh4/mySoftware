@@ -358,7 +358,7 @@ TH2F* TAnalysis::Assymetry(TTree * Tree , TString vZ
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //----------- unbinned RooFit of 1d Gaussian ----------------------//
 // last edit: Nov 10, 2016
-RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t Par[2] , Double_t ParErr[2], bool PlotFit , TVirtualPad * c, TString Title , bool DoWeight , TString WeightName){
+RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t Par[2] , Double_t ParErr[2], bool PlotFit, int debug , TVirtualPad * c, TString Title , bool DoWeight , TString WeightName){
     // Par are input initial parameters (Par[0]=mean,Par[1]=sigma) and are returned as the results
 
     // quiet mode
@@ -387,15 +387,18 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
         }
         Float_t AverageWeightValue = SumWeights / Tree->GetEntries();
         Printf("Average Weight (%s) Value: %f",WeightName.Data(),AverageWeightValue);
-        RooRealVar  weight  (Form("%s/%f",WeightName.Data(),AverageWeightValue) ,"weight"       ,-1      ,1                 ) ;
-        RooArgSet VarSet( var , weight);
-        RooDataSet DataSet(Form("DataSet_%d",i_roofit),Form("temp. Data Set (%d)",i_roofit),VarSet,Import(*Tree)) ;
+        //        RooRealVar  weight  (Form("%s/%f",WeightName.Data(),AverageWeightValue) ,"weight"       ,-1      ,10                 ) ;
+        RooRealVar  weight  (WeightName ,"weight"       ,0      ,10                 ) ;
+        RooArgSet   VarSet( var , weight );
+        RooDataSet  DataSet(Form("DataSet_%d",i_roofit),Form("temp. Data Set (%d)",i_roofit),VarSet,Import(*Tree)) ;
         if(PlotFit) DataSet.plotOn(frame) ;
+        if(debug>1) DataSet.Print();
         fGauss.fitTo( DataSet , RooFit::PrintLevel(-1) ) ;
     }
     else{
         RooDataSet DataSet(Form("DataSet_%d",i_roofit),Form("temp. Data Set (%d)",i_roofit),RooArgSet(var),Import(*Tree)) ;
         if(PlotFit) DataSet.plotOn(frame) ;
+        if(debug>1) DataSet.Print();
         fGauss.fitTo( DataSet , RooFit::PrintLevel(-1) ) ;
     }
 

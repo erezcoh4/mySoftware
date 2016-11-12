@@ -35,6 +35,7 @@ public:
                                         TCut cut,
                                         Double_t * Par, Double_t * ParErr,
                                         bool PlotFit = true ,
+                                        int debug = 0,
                                         TVirtualPad * c = nullptr,
                                         TString Title = "",
                                         bool DoWeight = false,

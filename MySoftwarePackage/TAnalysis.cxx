@@ -386,19 +386,19 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
             SumWeights += w;
         }
         Float_t AverageWeightValue = SumWeights / Tree->GetEntries();
-        Printf("Average Weight (%s) Value: %f",WeightName.Data(),AverageWeightValue);
         //        RooRealVar  weight  (Form("%s/%f",WeightName.Data(),AverageWeightValue) ,"weight"       ,-1      ,10                 ) ;
         RooRealVar  weight  (WeightName ,"weight"       ,0      ,10                 ) ;
         RooArgSet   VarSet( var , weight );
         RooDataSet  DataSet(Form("DataSet_%d",i_roofit),Form("temp. Data Set (%d)",i_roofit),VarSet,Import(*Tree)) ;
         if(PlotFit) DataSet.plotOn(frame) ;
-        if(debug>1) DataSet.Print();
+        if(debug>2) {DataSet.Print();         Printf("Average Weight (%s) Value: %f",WeightName.Data(),AverageWeightValue);
+        }
         fGauss.fitTo( DataSet , RooFit::PrintLevel(-1) ) ;
     }
     else{
         RooDataSet DataSet(Form("DataSet_%d",i_roofit),Form("temp. Data Set (%d)",i_roofit),RooArgSet(var),Import(*Tree)) ;
         if(PlotFit) DataSet.plotOn(frame) ;
-        if(debug>1) DataSet.Print();
+        if(debug>2) DataSet.Print();
         fGauss.fitTo( DataSet , RooFit::PrintLevel(-1) ) ;
     }
 

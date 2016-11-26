@@ -3,7 +3,7 @@ from math import sqrt , exp
 import scipy.integrate as integrate
 import numpy as np
 sqrt2pi = sqrt(2*3.1415)
-
+infty = np.inf
 
 
 # ------------------------------------------------------------------------------- #
@@ -19,7 +19,7 @@ def GaussianIntegral( xmin , xmax , args=(0,1)):
 
 
 # ------------------------------------------------------------------------------- #
-def Pval2varsAssumeGausDist( v1 , v1Err , v2 , v2Err ):
+def Pval2varsAssumeGausDist( v1 , v1Err , v2 , v2Err , debug=0):
     '''
         assume v1 was sampled from a Gaussian distribution of mean v1 and width v1Err
         and ask what is the probability of v2 to be sampled from the same distribution:
@@ -29,17 +29,18 @@ def Pval2varsAssumeGausDist( v1 , v1Err , v2 , v2Err ):
         else, if v2+v2Err > v1, take the integral in the range [v2+v2Err , infty]
         else, v2+v2Err < v1, take the integral in the range [-infty , v2+v2Err]
     '''
-    if v2-v2Err > v1:
-        xmin , xmax = v2-v2Err , numpy.inf
-    elif v2+v2Err > v1:
-        xmin , xmax = v2+v2Err , numpy.inf
-    elif v2+v2Err < v1:
-        xmin , xmax = -numpy.inf , v2+v2Err
+    if (v2-v2Err > v1):
+        xmin , xmax = v2-v2Err , infty
+    elif (v2+v2Err > v1):
+        xmin , xmax = v2+v2Err , infty
+    elif (v2+v2Err < v1):
+        xmin , xmax = -infty , v2+v2Err
     else:
         print 'not sure how to integrate...'
         exit(0)
 
     integral , integral_err = GaussianIntegral( xmin , xmax , args=(v1,v1Err) )
+    if (debug>1): print "comparing %f+/-%f and %f+/-%f - got Pval=%f"%(v1 , v1Err , v2 , v2Err , integral)
     return integral
 
 

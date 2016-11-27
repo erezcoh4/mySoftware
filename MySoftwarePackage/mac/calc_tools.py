@@ -51,8 +51,9 @@ def Pval2varsAssumeGausDist( v1 , v1Err , v2 , v2Err , debug=0):
 
 
 # ------------------------------------------------------------------------------- #
-# p(val) combination - Fischer method by Arie Shaus 
-def fisher_combination(pvalues_array):
+# p(val) combination - Fisher method [https://en.wikipedia.org/wiki/Fisher's_method]
+# (written by Arie Shaus, Nov 2016)
+def Fisher_combination_Pvals(pvalues_array):
     if not pvalues_array:
         return 1.0
     pvalues_array = np.array(pvalues_array)

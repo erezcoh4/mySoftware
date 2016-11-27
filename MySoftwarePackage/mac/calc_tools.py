@@ -1,7 +1,11 @@
-from my_tools import *
-from math import sqrt , exp
+# imports...
 import scipy.integrate as integrate
 import numpy as np
+from my_tools import *
+from math import sqrt , exp
+from scipy.stats import chisqprob
+
+# globals
 sqrt2pi = sqrt(2*3.1415)
 infty = np.inf
 
@@ -46,9 +50,20 @@ def Pval2varsAssumeGausDist( v1 , v1Err , v2 , v2Err , debug=0):
 
 
 
+# ------------------------------------------------------------------------------- #
+# p(val) combination - Fischer method by Arie Shaus 
+def fisher_combination(pvalues_array):
+    if not pvalues_array:
+        return 1.0
+    pvalues_array = np.array(pvalues_array)
+    k = len(pvalues_array)
+    z = -2*sum(np.log(pvalues_array))
+    p = chisqprob(z,2*k)
+    return p
 
-        
-        
+
+
+
         
         
         

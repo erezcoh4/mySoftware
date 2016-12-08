@@ -51,4 +51,4 @@ print 'particle type: ', particle
 print 'momentum = %.3f GeV/c'%Momentum
 print 'kinetic energy = %.3f GeV'%KineticEnergy
 print 'energy = %.3f GeV'%energy
-print 'mass = %.3f GeV/c²'%mass
+print 'mass = %.3f GeV/c2'%mass

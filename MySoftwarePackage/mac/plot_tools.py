@@ -3,17 +3,24 @@ import matplotlib.pyplot as plt
 import ROOT
 import matplotlib as mpl , seaborn as sns; sns.set(style="white", color_codes=True , font_scale=1)
 import GeneralPlot as gp , Initiation as init
-dirname = init.createnewdir()
+#dirname = init.createnewdir()
 
 
 # --------------------------------
-def set_axes(ax , xlabel , ylabel , fontsize=20):
+def set_axes(ax , xlabel , ylabel , fontsize=25):
     ax.set_xlabel(xlabel,fontsize=fontsize)
     ax.set_ylabel(ylabel,fontsize=fontsize)
     for tick in ax.xaxis.get_major_ticks():
         tick.label.set_fontsize(fontsize)
     for tick in ax.yaxis.get_major_ticks():
         tick.label.set_fontsize(fontsize)
+
+# --------------------------------
+def plot_1d_hist( x , bins , histtype=histtype, xlabel='' , ylabel='' , figsize=(10,10) , fontsize=25 ):
+    fig,ax = plt.subplots(figsize=figsize)
+    plt.hist( x , bins=bins , histtype=histtype )
+    set_axes( ax , xlabel , ylabel , fontsize=fontsize )
+
 
 
 # --------------------------------

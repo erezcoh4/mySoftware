@@ -2,8 +2,10 @@ import sys, pandas as pd, numpy as np
 import matplotlib.pyplot as plt
 import ROOT
 import matplotlib as mpl , seaborn as sns; sns.set(style="white", color_codes=True , font_scale=1)
-import GeneralPlot as gp , Initiation as init
-#dirname = init.createnewdir()
+import GeneralPlot as gp , Initiation as init 
+from math import sqrt , exp
+generic = lambda x: ast.literal_eval(x)
+
 
 
 # --------------------------------
@@ -16,10 +18,18 @@ def set_axes(ax , xlabel , ylabel , fontsize=25):
         tick.label.set_fontsize(fontsize)
 
 # --------------------------------
-def plot_1d_hist( x , bins , histtype=histtype, xlabel='' , ylabel='' , figsize=(10,10) , fontsize=25 ):
+def plot_1d_hist( x , bins=50 , histtype='bar', xlabel='' , ylabel='' , figsize=(10,10) , fontsize=25 ):
     fig,ax = plt.subplots(figsize=figsize)
-    plt.hist( x , bins=bins , histtype=histtype )
+    h , bins , patches = plt.hist( x , bins=bins , histtype=histtype )
     set_axes( ax , xlabel , ylabel , fontsize=fontsize )
+    return h , bins , patches
+
+# --------------------------------
+def plot_2d_hist( x , y , bins=(50,50) , cmap='hot_r', xlabel='' , ylabel='' , figsize=(10,10) , fontsize=25 ):
+    fig,ax = plt.subplots( figsize=figsize )
+    counts, xedges, yedges, Image = plt.hist2d( x , y , bins=bins , cmap=cmap )
+    set_axes( ax , xlabel , ylabel , fontsize=fontsize )
+    return counts, xedges, yedges, Image
 
 
 

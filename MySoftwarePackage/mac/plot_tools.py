@@ -18,16 +18,16 @@ def set_axes(ax , xlabel , ylabel , fontsize=25):
         tick.label.set_fontsize(fontsize)
 
 # --------------------------------
-def plot_1d_hist( x , bins=50 , histtype='bar', xlabel='' , ylabel='' , figsize=(10,10) , fontsize=25 ):
+def plot_1d_hist( x , bins=50 , histtype='bar', xlabel='' , ylabel='' , figsize=(10,10) , fontsize=25 , weights=None):
     fig,ax = plt.subplots(figsize=figsize)
-    h , bins , patches = plt.hist( x , bins=bins , histtype=histtype )
+    h , bins , patches = plt.hist( x , bins=bins , histtype=histtype , weights=weights)
     set_axes( ax , xlabel , ylabel , fontsize=fontsize )
     return h , bins , patches
 
 # --------------------------------
-def plot_2d_hist( x , y , bins=(50,50) , cmap='hot_r', xlabel='' , ylabel='' , figsize=(10,10) , fontsize=25 ):
+def plot_2d_hist( x , y , bins=(50,50) , cmap='hot_r', xlabel='' , ylabel='' , figsize=(10,10) , fontsize=25 , weights=None)):
     fig,ax = plt.subplots( figsize=figsize )
-    counts, xedges, yedges, Image = plt.hist2d( x , y , bins=bins , cmap=cmap )
+    counts, xedges, yedges, Image = plt.hist2d( x , y , bins=bins , cmap=cmap , weights=weights)
     set_axes( ax , xlabel , ylabel , fontsize=fontsize )
     return counts, xedges, yedges, Image
 

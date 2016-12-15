@@ -1,5 +1,7 @@
 import sys, pandas as pd, numpy as np
 import matplotlib.pyplot as plt
+from scipy.stats import norm
+import matplotlib.mlab as mlab
 import ROOT
 import matplotlib as mpl , seaborn as sns; sns.set(style="white", color_codes=True , font_scale=1)
 import GeneralPlot as gp , Initiation as init 
@@ -18,16 +20,55 @@ def set_axes(ax , xlabel , ylabel , fontsize=25):
         tick.label.set_fontsize(fontsize)
 
 # --------------------------------
+def normed_hist( x , bins=50 , weights=None ,
+                label = None,
+                histtype='bar',alpha = 0.5):
+    h , edges = np.histogram( x , bins=bins , weights=weights );
+    integral = sum(h)
+    if weights is None:
+        integral_weights = [1./integral for i in range(len(x))]
+    else:
+        integral_weights = [weights[i]/integral for i in range(len(x))]
+    print "integral:",integral
+    h , bins , patches = plt.hist( x , bins=bins , histtype=histtype ,
+                                  weights = integral_weights,
+                                  label=label , alpha=alpha );
+    return h , bins , patches
+
+
+# --------------------------------
 def plot_1d_hist( x , bins=50 , histtype='bar', xlabel='' , ylabel='' , figsize=(10,10) , fontsize=25 , weights=None):
     fig,ax = plt.subplots(figsize=figsize)
-    h , bins , patches = plt.hist( x , bins=bins , histtype=histtype , weights=weights)
+    h , bins , patches = plt.hist( x , bins=bins , histtype=histtype , weights=weights);
     set_axes( ax , xlabel , ylabel , fontsize=fontsize )
+    ax.set_ylim(0,1.05*h.max())
     return h , bins , patches
 
 # --------------------------------
-def plot_2d_hist( x , y , bins=(50,50) , cmap='hot_r', xlabel='' , ylabel='' , figsize=(10,10) , fontsize=25 , weights=None)):
+def plot_1d_withoutandwithweight( x, weights, label, weighting_label,
+                                 bins = 50 , histtype='bar', xlabel='', ylabel='', figsize=(10,10) , fontsize=25,
+                                 alpha = 0.5,legend_loc='upper left',
+                                 x_range=None):
+    fig,ax = plt.subplots(figsize=figsize)
+    h , bins , patches = normed_hist( x , bins=bins , weights=None , label = label,
+                                     histtype=histtype, alpha = 0.5 )
+    hw , bins , patches = normed_hist( x , bins=bins , weights=weights , label = weighting_label,
+                                      histtype=histtype, alpha = 0.5 )
+
+    set_axes( ax , xlabel , ylabel , fontsize=fontsize )
+    ymax = 1.05*(np.max([h.max(),hw.max()]))
+    print 'ymax :',ymax
+    ax.set_ylim(0,ymax)
+    if x_range is not None:
+        ax.set_xlim(x_range)
+    plt.legend(fontsize=fontsize,loc=legend_loc)
+    return hw , bins , patches
+
+
+# --------------------------------
+def plot_2d_hist( x , y , bins=(50,50) , cmap='hot_r', xlabel='' , ylabel='' , figsize=(10,10) , fontsize=25 , weights=None):
     fig,ax = plt.subplots( figsize=figsize )
-    counts, xedges, yedges, Image = plt.hist2d( x , y , bins=bins , cmap=cmap , weights=weights)
+    counts, xedges, yedges, Image = plt.hist2d( x , y , bins=bins , cmap=cmap , weights=weights);
     set_axes( ax , xlabel , ylabel , fontsize=fontsize )
     return counts, xedges, yedges, Image
 

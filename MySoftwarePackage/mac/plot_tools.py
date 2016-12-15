@@ -42,7 +42,7 @@ def plot_1d_hist( x , bins=50 , histtype='bar', xlabel='' , ylabel='' , figsize=
     h , bins , patches = plt.hist( x , bins=bins , histtype=histtype , weights=weights);
     set_axes( ax , xlabel , ylabel , fontsize=fontsize )
     ax.set_ylim(0,1.05*h.max())
-    return h , bins , patches
+    return ax , h , bins , patches
 
 # --------------------------------
 def plot_1d_withoutandwithweight( x, weights, label, weighting_label,

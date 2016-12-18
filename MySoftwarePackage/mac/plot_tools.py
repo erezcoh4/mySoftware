@@ -45,24 +45,30 @@ def plot_1d_hist( x , bins=50 , histtype='bar', xlabel='' , ylabel='' , figsize=
     return ax , h , bins , patches
 
 # --------------------------------
-def plot_1d_withoutandwithweight( x, weights, label, weighting_label,
+def plot_1d_withoutandwithweight( x, weights, weighting_labels,
                                  bins = 50 , histtype='bar', xlabel='', ylabel='', figsize=(10,10) , fontsize=25,
                                  alpha = 0.5,legend_loc='upper left',
                                  x_range=None):
     fig,ax = plt.subplots(figsize=figsize)
-    h , bins , patches = normed_hist( x , bins=bins , weights=None , label = label,
-                                     histtype=histtype, alpha = 0.5 )
-    hw , bins , patches = normed_hist( x , bins=bins , weights=weights , label = weighting_label,
-                                      histtype=histtype, alpha = 0.5 )
+#    histograms , ymax = [] , 0
+#    for weight,weighting_label in zip(weights,weighting_labels):
+#        hw , bins , patches = normed_hist( x , bins=bins ,
+#                                          weights=weight , label = weighting_label,
+#                                          histtype=histtype, alpha = 0.5 )
+#        ymax = np.max([ymax,hw.max()])
+#        histograms.append(hw)
+#    ymax = 1.05*np.max(histograms.tolist())
+#    print 'ymax :',ymax
+#    ax.set_ylim(0,ymax)
 
+    vars = [x for i in range(len(weights))]
+    histograms, bins, patches = plt.hist( vars, bins=bins, weights=weights, label=weighting_labels , histtype='bar' , normed=1)
     set_axes( ax , xlabel , ylabel , fontsize=fontsize )
-    ymax = 1.05*(np.max([h.max(),hw.max()]))
-    print 'ymax :',ymax
-    ax.set_ylim(0,ymax)
     if x_range is not None:
         ax.set_xlim(x_range)
-    plt.legend(fontsize=fontsize,loc=legend_loc)
-    return hw , bins , patches
+    if legend_loc!='none':
+        plt.legend(fontsize=fontsize,loc=legend_loc)
+    return histograms , bins
 
 
 # --------------------------------
@@ -71,6 +77,50 @@ def plot_2d_hist( x , y , bins=(50,50) , cmap='hot_r', xlabel='' , ylabel='' , f
     counts, xedges, yedges, Image = plt.hist2d( x , y , bins=bins , cmap=cmap , weights=weights);
     set_axes( ax , xlabel , ylabel , fontsize=fontsize )
     return counts, xedges, yedges, Image
+
+
+
+
+# --------------------------------
+def acceptace_1d( xgen , xrec , x_label='momentum [GeV/c]',
+                 bins=np.linspace(0,2,30) ,
+                 figsize=(10,10),fontsize=20,
+                 legend_loc='lower left',
+                 y_label='reconstructed fraction',
+                 y_lim=None,
+                 do_print=False):
+    
+    x = [bins[i] for i in range(len(bins)-1)]
+    if do_print: print 'x:',x
+    fig = plt.figure(figsize=figsize)
+    ax=fig.add_subplot(211)
+    h_gen,edges=np.histogram(xgen,bins=bins)
+    h_gen_err = np.sqrt(h_gen)
+    h_rec,edges=np.histogram(xrec,bins=bins)
+    h_rec_err = np.sqrt(h_rec)
+    plt.errorbar(x, h_gen, yerr=h_gen_err, fmt='o',markersize=4,label='generated')
+    plt.errorbar(x, h_rec, yerr=h_rec_err, fmt='s',markersize=4,label='reconstructed')
+    if do_print:
+        print 'h_gen:\n',h_gen
+        print 'h_rec:\n',h_rec
+
+    plt.legend(fontsize=fontsize,loc=legend_loc)
+    set_axes(ax,'','')
+    acceptance = [float(h_rec[i])/h_gen[i] if h_gen[i]>0 else 0 for i in range(len(h_gen))]
+    acceptance_err = [sqrt(1./h_rec[i]+1./h_gen[i]) if h_gen[i]>50 and h_rec[i]>50 else 0 for i in range(len(h_gen))]
+    
+    ax=fig.add_subplot(212)
+    plt.errorbar(x, acceptance, yerr=acceptance_err, fmt='o')
+    plt.plot(x,acceptance,color='r',marker='s')
+    if do_print:
+        print 'acceptance:\n',acceptance
+
+    if y_lim is None:
+        ax.set_ylim(0,np.max([1.,1.2*np.max(acceptance+acceptance_err)]))
+    else:
+        ax.set_ylim(y_lim)
+    set_axes(ax,x_label,y_label)
+    return x , acceptance
 
 
 

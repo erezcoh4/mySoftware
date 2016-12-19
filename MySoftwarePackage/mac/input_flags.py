@@ -18,7 +18,7 @@ def get_args():
     parser.add_argument('--Nbins', default='50', type=int , help='number of bins' )
     parser.add_argument('--Ev', default='0', type=float , help='neutrino energy [GeV]' )
     parser.add_argument('-r','--run', default='0', type=int , help='run number' )
-    parser.add_argument('-Nruns', default='0', type=int , help='number of runs to run...' )
+    parser.add_argument('-Nruns', '--NumberOfRuns', default='0', type=int , help='number of runs to run...' )
     parser.add_argument('-core','--i_core', default=0, type=int , help='start the counting from i_core=0' )
 
     
@@ -37,7 +37,7 @@ def get_args():
     Ev          = parser.parse_args().Ev
     run         = parser.parse_args().run
     i_core      = parser.parse_args().i_core
-    Nruns       = parser.parse_args().Nruns
+    Nruns       = parser.parse_args().NumberOfRuns
     
     if debug>0: print "flags: ", parser.parse_args()
     

@@ -48,7 +48,7 @@ def plot_1d_hist( x , bins=50 , histtype='bar', xlabel='' , ylabel='' , figsize=
 def plot_1d_withoutandwithweight( x, weights, weighting_labels,
                                  bins = 50 , histtype='bar', xlabel='', ylabel='', figsize=(10,10) , fontsize=25,
                                  alpha = 0.5,legend_loc='upper left',
-                                 x_range=None):
+                                 x_range=None , y_range=None):
     fig,ax = plt.subplots(figsize=figsize)
 #    histograms , ymax = [] , 0
 #    for weight,weighting_label in zip(weights,weighting_labels):
@@ -66,8 +66,13 @@ def plot_1d_withoutandwithweight( x, weights, weighting_labels,
     set_axes( ax , xlabel , ylabel , fontsize=fontsize )
     if x_range is not None:
         ax.set_xlim(x_range)
+    if y_range is not None:
+        ax.set_ylim(y_range)
     if legend_loc!='none':
-        plt.legend(fontsize=fontsize,loc=legend_loc)
+        if legend_loc=='bbox':
+            plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0. )
+        else:
+            plt.legend(fontsize=fontsize,loc=legend_loc)
     return histograms , bins
 
 

@@ -13,12 +13,12 @@ def print_filename(filename,action_on_file=""):
 
 
 # ------------------------------------------------------------------------------- #
-def stream_dataframe_to_file( df , filename ):
+def stream_dataframe_to_file( df , filename , float_format='%g' ):
     # if file does not exist write header
     if not os.path.isfile(filename):
-        df.to_csv(filename,header ='column_names' , index = False)
+        df.to_csv(filename,header ='column_names' , index = False , float_format=float_format )
     else: # else it exists so append without writing the header
-        df.to_csv(filename,mode = 'a', header=False , index = False)
+        df.to_csv(filename,mode = 'a', header=False , index = False , float_format=float_format )
 
 
 

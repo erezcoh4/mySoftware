@@ -7,17 +7,9 @@ import matplotlib as mpl , seaborn as sns; sns.set(style="white", color_codes=Tr
 import GeneralPlot as gp , Initiation as init 
 from math import sqrt , exp
 generic = lambda x: ast.literal_eval(x)
+from my_tools import *
 
 
-
-# --------------------------------
-def set_axes(ax , xlabel , ylabel , fontsize=25):
-    ax.set_xlabel(xlabel,fontsize=fontsize)
-    ax.set_ylabel(ylabel,fontsize=fontsize)
-    for tick in ax.xaxis.get_major_ticks():
-        tick.label.set_fontsize(fontsize)
-    for tick in ax.yaxis.get_major_ticks():
-        tick.label.set_fontsize(fontsize)
 
 # --------------------------------
 def normed_hist( x , bins=50 , weights=None ,
@@ -43,6 +35,14 @@ def plot_1d_hist( x , bins=50 , histtype='bar', xlabel='' , ylabel='' , figsize=
     set_axes( ax , xlabel , ylabel , fontsize=fontsize )
     ax.set_ylim(0,1.05*h.max())
     return ax , h , bins , patches
+
+def plot_1d_hist( x , bins=50 , histtype='bar', xlabel='' , ylabel='' , figsize=(10,10) , fontsize=25 , weights=None):
+    fig,ax = plt.subplots(figsize=figsize)
+    h , bins , patches = plt.hist( x , bins=bins , histtype=histtype , weights=weights);
+    set_axes( ax , xlabel , ylabel , fontsize=fontsize )
+    ax.set_ylim(0,1.05*h.max())
+    return ax , h , bins , patches
+
 
 # --------------------------------
 def plot_1d_withoutandwithweight( x, weights, weighting_labels,

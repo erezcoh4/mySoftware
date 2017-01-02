@@ -23,7 +23,7 @@ def GaussianIntegral( xmin , xmax , args=(0,1)):
 
 
 # ------------------------------------------------------------------------------- #
-def Pval2varsAssumeGausDist( v1 , v1Err , v2 , v2Err , debug=0):
+def Pval2varsAssumeGausDist( v1 , v1Err , v2 , v2Err , debug=0 , name=''):
     '''
         assume v1 was sampled from a Gaussian distribution of mean v1 and width v1Err
         and ask what is the probability of v2 to be sampled from the same distribution:
@@ -40,11 +40,11 @@ def Pval2varsAssumeGausDist( v1 , v1Err , v2 , v2Err , debug=0):
     elif (v2+v2Err < v1):
         xmin , xmax = -infty , v2+v2Err
     else:
-        print 'Pval2varsAssumeGausDist on not v1:',v1,' and v2:',v2,'sure how to integrate...'
+        if debug>3: print 'Pval2varsAssumeGausDist on ',name,' v1:',v1,' and v2:',v2,' - not sure how to integrate...'
         exit(0)
 
     integral , integral_err = GaussianIntegral( xmin , xmax , args=(v1,v1Err) )
-    if (debug>3): print "comparing %f+/-%f and %f+/-%f - got Pval=%f"%(v1 , v1Err , v2 , v2Err , integral)
+    if (debug>3): print "Pval(%s) comparing %f+/-%f and %f+/-%f - got Pval=%f"%(name,v1 , v1Err , v2 , v2Err , integral)
     return integral
 
 

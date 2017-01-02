@@ -36,12 +36,6 @@ def plot_1d_hist( x , bins=50 , histtype='bar', xlabel='' , ylabel='' , figsize=
     ax.set_ylim(0,1.05*h.max())
     return ax , h , bins , patches
 
-def plot_1d_hist( x , bins=50 , histtype='bar', xlabel='' , ylabel='' , figsize=(10,10) , fontsize=25 , weights=None):
-    fig,ax = plt.subplots(figsize=figsize)
-    h , bins , patches = plt.hist( x , bins=bins , histtype=histtype , weights=weights);
-    set_axes( ax , xlabel , ylabel , fontsize=fontsize )
-    ax.set_ylim(0,1.05*h.max())
-    return ax , h , bins , patches
 
 
 # --------------------------------
@@ -50,17 +44,6 @@ def plot_1d_withoutandwithweight( x, weights, weighting_labels,
                                  alpha = 0.5,legend_loc='upper left',
                                  x_range=None , y_range=None):
     fig,ax = plt.subplots(figsize=figsize)
-#    histograms , ymax = [] , 0
-#    for weight,weighting_label in zip(weights,weighting_labels):
-#        hw , bins , patches = normed_hist( x , bins=bins ,
-#                                          weights=weight , label = weighting_label,
-#                                          histtype=histtype, alpha = 0.5 )
-#        ymax = np.max([ymax,hw.max()])
-#        histograms.append(hw)
-#    ymax = 1.05*np.max(histograms.tolist())
-#    print 'ymax :',ymax
-#    ax.set_ylim(0,ymax)
-
     vars = [x for i in range(len(weights))]
     histograms, bins, patches = plt.hist( vars, bins=bins, weights=weights, label=weighting_labels , histtype='bar' , normed=1)
     set_axes( ax , xlabel , ylabel , fontsize=fontsize )
@@ -70,7 +53,7 @@ def plot_1d_withoutandwithweight( x, weights, weighting_labels,
         ax.set_ylim(y_range)
     if legend_loc!='none':
         if legend_loc=='bbox':
-            plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0. )
+            plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0. , fontsize=fontsize)
         else:
             plt.legend(fontsize=fontsize,loc=legend_loc)
     return histograms , bins

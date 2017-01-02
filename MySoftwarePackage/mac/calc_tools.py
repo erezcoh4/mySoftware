@@ -40,11 +40,11 @@ def Pval2varsAssumeGausDist( v1 , v1Err , v2 , v2Err , debug=0):
     elif (v2+v2Err < v1):
         xmin , xmax = -infty , v2+v2Err
     else:
-        print 'not sure how to integrate...'
+        print 'Pval2varsAssumeGausDist on not v1:',v1,' and v2:',v2,'sure how to integrate...'
         exit(0)
 
     integral , integral_err = GaussianIntegral( xmin , xmax , args=(v1,v1Err) )
-    if (debug>1): print "comparing %f+/-%f and %f+/-%f - got Pval=%f"%(v1 , v1Err , v2 , v2Err , integral)
+    if (debug>3): print "comparing %f+/-%f and %f+/-%f - got Pval=%f"%(v1 , v1Err , v2 , v2Err , integral)
     return integral
 
 

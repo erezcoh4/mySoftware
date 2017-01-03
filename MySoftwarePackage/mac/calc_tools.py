@@ -57,10 +57,15 @@ def Fisher_combination_Pvals(pvalues_array):
     if not pvalues_array:
         return 1.0
     pvalues_array = np.array(pvalues_array)
-    k = len(pvalues_array)
-    z = -2*sum(np.log(pvalues_array))
-    p = chisqprob(z,2*k)
-    return p
+    # check if pvalues are too small
+    Pval_arr = []
+    for pval in pvalues_array:
+        if pval > 0.0000001:
+            Pval_arr.append(pval)
+    k = len(Pval_arr)
+    z = -2*sum(np.log(Pval_arr))
+    combined_Pval = chisqprob(z,2*k)
+    return combined_Pval
 
 
 

@@ -29,9 +29,12 @@ def normed_hist( x , bins=50 , weights=None ,
 
 
 # --------------------------------
-def plot_1d_hist( x , bins=50 , histtype='bar', xlabel='' , ylabel='' , figsize=(10,10) , fontsize=25 , weights=None , label=None):
+def plot_1d_hist( x , bins=50 ,
+                 histtype='bar', xlabel='' , ylabel='' ,
+                 figsize=(10,10) , fontsize=25 , weights=None , label=None ,
+                 normed=None ):
     fig,ax = plt.subplots(figsize=figsize)
-    h , bins , patches = plt.hist( x , bins=bins , histtype=histtype , weights=weights , label=label);
+    h , bins , patches = plt.hist( x , bins=bins , histtype=histtype , weights=weights , label=label , normed=normed );
     set_axes( ax , xlabel , ylabel , fontsize=fontsize )
     ax.set_ylim(0,1.05*h.max())
     return ax , h , bins , patches

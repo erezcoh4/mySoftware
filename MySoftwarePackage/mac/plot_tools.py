@@ -10,6 +10,15 @@ generic = lambda x: ast.literal_eval(x)
 from my_tools import *
 
 
+# --------------------------------
+def hist_with_errors( x , bins=30 ,
+                     xlabel=None , figsize=(16,10), label=None):
+
+    ax , h , bins , patches = plot_1d_hist( x , bins=bins , xlabel=xlabel , figsize=figsize);
+    mid = 0.5*(bins[1:] + bins[:-1])
+    ax.bar( mid , h, yerr=np.sqrt(h), linewidth=0,error_kw=dict(ecolor='black', lw=2, capsize=5, capthick=2),label=label)
+    ax.set_ylim(0,1.02*np.max(h+np.sqrt(h)))
+    return ax , h , bins , mid
 
 # --------------------------------
 def normed_hist( x , bins=50 , weights=None ,

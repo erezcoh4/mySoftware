@@ -23,7 +23,7 @@ def stream_dataframe_to_file( df , filename , float_format='%g' ):
 
 
 # ------------------------------------------------------------------------------- #
-def set_axes(ax , x_label , y_label='' , fontsize = 25 ):
+def set_axes(ax , x_label , y_label='' , fontsize = 25 , ticks_color='black'):
     ax.set_xlabel(x_label,fontsize=fontsize)
     ax.set_ylabel(y_label,fontsize=fontsize)
     for tick in ax.xaxis.get_major_ticks():
@@ -31,6 +31,11 @@ def set_axes(ax , x_label , y_label='' , fontsize = 25 ):
     for tick in ax.yaxis.get_major_ticks():
         tick.label.set_fontsize(fontsize)
     ax.set_aspect('auto')
+    ax.tick_params(axis='x', colors=ticks_color)
+    ax.xaxis.label.set_color(ticks_color)
+    ax.tick_params(axis='y', colors=ticks_color)
+    ax.yaxis.label.set_color(ticks_color)
+
     return ax
 
 

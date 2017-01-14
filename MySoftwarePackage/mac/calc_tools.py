@@ -58,7 +58,7 @@ def Fisher_combination_Pvals(pvalues_array):
     if not pvalues_array:
         return 1.0
     for pval in pvalues_array:
-        if pval > 1e-5:
+        if pval > 1e-50:
             Pval_arr.append(pval)
     Pval_arr = np.array(Pval_arr)
     # check if pvalues are too small

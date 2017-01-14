@@ -8,13 +8,14 @@ import GeneralPlot as gp , Initiation as init
 from math import sqrt , exp
 generic = lambda x: ast.literal_eval(x)
 from my_tools import *
+from matplotlib.colors import LogNorm
 
 
 # --------------------------------
 def hist_with_errors( x , bins=30 ,
-                     xlabel=None , figsize=(16,10), label=None):
+                     xlabel=None , figsize=(16,10), label=None, ticks_color='black'):
 
-    ax , h , bins , patches = plot_1d_hist( x , bins=bins , xlabel=xlabel , figsize=figsize);
+    ax , h , bins , patches = plot_1d_hist( x , bins=bins , xlabel=xlabel , figsize=figsize, ticks_color=ticks_color);
     mid = 0.5*(bins[1:] + bins[:-1])
     ax.bar( mid , h, yerr=np.sqrt(h), linewidth=0,error_kw=dict(ecolor='black', lw=2, capsize=5, capthick=2),label=label)
     ax.set_ylim(0,1.02*np.max(h+np.sqrt(h)))
@@ -41,10 +42,10 @@ def normed_hist( x , bins=50 , weights=None ,
 def plot_1d_hist( x , bins=50 ,
                  histtype='bar', xlabel='' , ylabel='' ,
                  figsize=(10,10) , fontsize=25 , weights=None , label=None ,
-                 normed=None ):
+                 normed=None , ticks_color='black'):
     fig,ax = plt.subplots(figsize=figsize)
     h , bins , patches = plt.hist( x , bins=bins , histtype=histtype , weights=weights , label=label , normed=normed );
-    set_axes( ax , xlabel , ylabel , fontsize=fontsize )
+    set_axes( ax , xlabel , ylabel , fontsize=fontsize , ticks_color=ticks_color)
     ax.set_ylim(0,1.05*h.max())
     return ax , h , bins , patches
 
@@ -72,10 +73,14 @@ def plot_1d_withoutandwithweight( x, weights, weighting_labels,
 
 
 # --------------------------------
-def plot_2d_hist( x , y , bins=(50,50) , cmap='hot_r', xlabel='' , ylabel='' , figsize=(10,10) , fontsize=25 , weights=None):
+def plot_2d_hist( x , y , bins=(50,50) , cmap='hot_r', xlabel='' , ylabel='' , figsize=(10,10) , fontsize=25 , weights=None, ticks_color='black', norm='log'):
     fig,ax = plt.subplots( figsize=figsize )
-    counts, xedges, yedges, Image = plt.hist2d( x , y , bins=bins , cmap=cmap , weights=weights);
-    set_axes( ax , xlabel , ylabel , fontsize=fontsize )
+    if 'log' not in norm and 'Log' not in norm:
+        counts, xedges, yedges, Image = plt.hist2d( x , y , bins=bins , cmap=cmap , weights=weights);
+    else:
+        counts, xedges, yedges, Image = plt.hist2d( x , y , bins=bins , cmap=cmap , weights=weights, norm=LogNorm());
+    set_axes( ax , xlabel , ylabel , fontsize=fontsize, ticks_color=ticks_color )
+
     return counts, xedges, yedges, Image
 
 

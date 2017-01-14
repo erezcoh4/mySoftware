@@ -54,13 +54,17 @@ def Pval2varsAssumeGausDist( v1 , v1Err , v2 , v2Err , debug=0 , name=''):
 # p(val) combination - Fisher method [https://en.wikipedia.org/wiki/Fisher's_method]
 # (adopted from a code by Arie Shaus, Nov 2016)
 def Fisher_combination_Pvals(pvalues_array):
-    Pval_arr = []
     if not pvalues_array:
         return 1.0
-    for pval in pvalues_array:
-        if pval > 1e-50:
-            Pval_arr.append(pval)
-    Pval_arr = np.array(Pval_arr)
+    if len(pvalues_array[pvalues_array<1.e-10] > 3):
+        return 0.0
+
+    pvalues_array = pvalues_array[pvalues_array>1.e-10]
+#    Pval_arr = []
+#    for pval in pvalues_array:
+#        if pval > 1e-10:
+#            Pval_arr.append(pval)
+    Pval_arr = np.array(pvalues_array)
     # check if pvalues are too small
     k = len(Pval_arr)
     z = -2*sum(np.log(Pval_arr))

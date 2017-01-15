@@ -60,12 +60,12 @@ def Fisher_combination_Pvals(pvalues_array):
 
     Pval_arr , NPval0 = [] , 0
     for pval in pvalues_array:
-        if pval > 1e-10:
+        if pval > 1e-8:
             Pval_arr.append(pval)
         else:
             NPval0 = NPval0+1
 
-    if NPval0>3:
+    if NPval0>(len(pvalues_array)-2):
         return 0.0
 
     Pval_arr = np.array(Pval_arr)

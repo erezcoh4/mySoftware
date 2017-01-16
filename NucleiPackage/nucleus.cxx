@@ -33,6 +33,12 @@ void nucleus::ClearNucleons(){
     if (!neutrons.empty())  neutrons.clear();
 }
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void nucleus::PrintNoNucleons(){
+    SHOW3( Name , A , mass );
+    SHOW2( protons.size() , neutrons.size() );
+    PrintXLine();
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void nucleus::Print(){
@@ -42,6 +48,22 @@ void nucleus::Print(){
         nucleon.Print();
     }
     PrintXLine();
+}
+
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void nucleus::CalcNNDistances( Int_t debug ){
+    
+    ppDistances = GetDistancesBetweenNucleons( protons  );
+    if (debug > 3) SHOWstdVector(ppDistances);
+    nnDistances = GetDistancesBetweenNucleons( neutrons );
+    if (debug > 3) SHOWstdVector(nnDistances);
+    pnDistances = GetDistancesBetweenNucleons( protons , neutrons );
+    if (debug > 3) SHOWstdVector(pnDistances);
+    NNDistances = GetDistancesBetweenNucleons( nucleons );
+    if (debug > 3) SHOWstdVector(NNDistances);
+
 }
 
 

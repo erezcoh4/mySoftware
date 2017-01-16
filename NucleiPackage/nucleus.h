@@ -32,10 +32,11 @@ public:
     ~nucleus(){}
     
     
-    void          Print ();
-    void     AddNucleon ( nucleon N );
-    void  ClearNucleons ();
-    
+    void              Print ();
+    void    PrintNoNucleons ();
+    void         AddNucleon ( nucleon N );
+    void      ClearNucleons ();
+    void    CalcNNDistances ( Int_t debug = 0 );
     
     // Getters
     Int_t       GetNpairs () {return (nucleons.size())*(nucleons.size()-1);};
@@ -56,7 +57,8 @@ public:
     std::vector<nucleon> protons , neutrons , nucleons;
     
     
-    
+    std::vector<Float_t> ppDistances , nnDistances , pnDistances , NNDistances;
+
     
     // service...
     std::vector<Float_t> GetDistancesBetweenNucleons(std::vector<nucleon> );

@@ -58,6 +58,10 @@ def Fisher_combination_Pvals(pvalues_array):
     if not pvalues_array:
         return 1.0
 
+# the green is what is currently running (shape on the 28%)
+# but I want to remove it and check if its ok (used to make a lot of problems in Fe56 and Al27 so I am not sure its a wise thing to do?)....
+#    Pval_arr = np.array(pvalues_array)
+
     Pval_arr , NPval0 = [] , 0
     for pval in pvalues_array:
         if pval > 1e-8:
@@ -67,8 +71,9 @@ def Fisher_combination_Pvals(pvalues_array):
 
     if NPval0>(len(pvalues_array)-2):
         return 0.0
-
     Pval_arr = np.array(Pval_arr)
+
+
     # check if pvalues are too small
     k = len(Pval_arr)
     z = -2*sum(np.log(Pval_arr))

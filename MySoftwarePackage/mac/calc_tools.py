@@ -33,18 +33,29 @@ def Pval2varsAssumeGausDist( v1 , v1Err , v2 , v2Err , debug=0 , name=''):
         else, if v2+v2Err > v1, take the integral in the range [v2+v2Err , infty]
         else, v2+v2Err < v1, take the integral in the range [-infty , v2+v2Err]
     '''
-    if (v2-v2Err > v1):
+#    if (v2-v2Err > v1 or v2+v2Err > v1):
+#        xmin , xmax = v2-v2Err , infty
+#    elif (v2+v2Err > v1):
+#        xmin , xmax = v2+v2Err , infty
+#    elif (v2+v2Err < v1):
+#        xmin , xmax = -infty , v2+v2Err
+#    else:
+#        if debug>3: print 'Pval2varsAssumeGausDist on ',name,' v1:',v1,' and v2:',v2,' - not sure how to integrate...'
+#        exit(0)
+    if v2>v1:
         xmin , xmax = v2-v2Err , infty
-    elif (v2+v2Err > v1):
-        xmin , xmax = v2+v2Err , infty
-    elif (v2+v2Err < v1):
-        xmin , xmax = -infty , v2+v2Err
     else:
-        if debug>3: print 'Pval2varsAssumeGausDist on ',name,' v1:',v1,' and v2:',v2,' - not sure how to integrate...'
-        exit(0)
+        xmin , xmax = -infty , v2+v2Err
 
     integral , integral_err = GaussianIntegral( xmin , xmax , args=(v1,v1Err) )
-    if (debug>3): print "Pval(%s) comparing %f+/-%f and %f+/-%f - got Pval=%g"%(name,v1 , v1Err , v2 , v2Err , integral)
+
+#    if v2 - v2Err > v1:
+#        integral_r , integral_r_err = GaussianIntegral( v2-v2Err , infty , args=(v1,v1Err) )
+#        integral_l , integral_l_err = GaussianIntegral( -infty , v2+v2Err , args=(v1,v1Err) )
+#
+    if debug>3:
+        print 'Pval(%s) comparing %f+/-%f and %f+/-%f'%(name,v1 , v1Err , v2 , v2Err)
+        print "Pval = integral (",xmin,"to",xmax,") = ", integral
     return integral
 
 

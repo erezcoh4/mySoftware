@@ -65,7 +65,7 @@ def Fisher_combination_Pvals(pvalues_array):
         else:
             NPval0 = NPval0+1
 
-    if NPval0>(len(pvalues_array)-3):
+    if NPval0>1:
         return 0.0
     Pval_arr = np.array(Pval_arr)
 

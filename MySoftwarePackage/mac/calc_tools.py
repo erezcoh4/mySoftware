@@ -58,9 +58,6 @@ def Fisher_combination_Pvals(pvalues_array):
     if not pvalues_array:
         return 1.0
 
-# I want to remove it and check if its ok (used to make a lot of problems in Fe56 and Al27 so I am not sure its a wise thing to do?)....
-#    Pval_arr = np.array(pvalues_array)
-
     Pval_arr , NPval0 = [] , 0
     for pval in pvalues_array:
         if pval > 1e-8:
@@ -86,7 +83,6 @@ def Fisher_combination_Pvals_pandas(pvalues_array):
     if not pvalues_array:
         return 1.0
     pvalues_array = np.array(pvalues_array)
-    # check if pvalues are too small
     k = len(pvalues_array)
     z = -2*sum(np.log(pvalues_array))
     combined_Pval = chisqprob(z,2*k)

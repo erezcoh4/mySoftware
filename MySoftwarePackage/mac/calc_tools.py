@@ -44,15 +44,40 @@ def Pval2varsAssumeGausDist( v1 , v1Err , v2 , v2Err , debug=0 , name=''):
         exit(0)
 
     integral , integral_err = GaussianIntegral( xmin , xmax , args=(v1,v1Err) )
-    if (debug>3): print "Pval(%s) comparing %f+/-%f and %f+/-%f - got Pval=%f"%(name,v1 , v1Err , v2 , v2Err , integral)
+    if (debug>3): print "Pval(%s) comparing %f+/-%f and %f+/-%f - got Pval=%g"%(name,v1 , v1Err , v2 , v2Err , integral)
     return integral
 
 
 
+# ------------------------------------------------------------------------------- #
+# p(val) combination - Fisher method
+# [https://en.wikipedia.org/wiki/Fisher's_method]
+def FisherMethodPvals(pvalues_array):
+    # (adopted from a code by Arie Shaus, Nov 2016)
+    pvalues_array = np.array(pvalues_array)
+    k = len(pvalues_array)
+    z = -2*sum(np.log(pvalues_array))
+    combined_Pval = chisqprob(z,2*k)
+    return combined_Pval
+
+
 
 # ------------------------------------------------------------------------------- #
-# p(val) combination - Fisher method [https://en.wikipedia.org/wiki/Fisher's_method]
-# (adopted from a code by Arie Shaus, Nov 2016)
+# p(val) combination - only large Pvals
+def FisherCombinationLargePvals(pvalues_array):
+    
+    if not pvalues_array: return 1.0
+    
+    Pval_arr = []
+    for pval in pvalues_array:
+        if pval > 1e-8:
+            Pval_arr.append(pval)
+
+    # check if pvalues are too small
+    return FisherMethodPvals(Pval_arr)
+
+
+# ------------------------------------------------------------------------------- #
 def Fisher_combination_Pvals(pvalues_array):
 
     if not pvalues_array:
@@ -67,26 +92,16 @@ def Fisher_combination_Pvals(pvalues_array):
 
     if NPval0>1:
         return 0.0
-    Pval_arr = np.array(Pval_arr)
-
 
     # check if pvalues are too small
-    k = len(Pval_arr)
-    z = -2*sum(np.log(Pval_arr))
-    combined_Pval = chisqprob(z,2*k)
-    return combined_Pval
+    return FisherMethodPvals(Pval_arr)
 
 
 
 # ------------------------------------------------------------------------------- #
 def Fisher_combination_Pvals_pandas(pvalues_array):
-    if not pvalues_array:
-        return 1.0
-    pvalues_array = np.array(pvalues_array)
-    k = len(pvalues_array)
-    z = -2*sum(np.log(pvalues_array))
-    combined_Pval = chisqprob(z,2*k)
-    return combined_Pval
+    if not pvalues_array: return 1.0
+    return FisherMethodPvals(pvalues_array)
 
 
 

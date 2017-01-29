@@ -5,10 +5,8 @@ from matplotlib import pyplot as plt
 from root_numpy import root2array, tree2array , hist2array
 import matplotlib as mpl
 
-
 #from rootpy.interactive import wait
 sys.path.insert(0, '/Users/erezcohen/larlite/UserDev/mySoftware/MySoftwarePackage/mac')
-#import Initiation as init
 #init.createnewdir()
 ROOT.gStyle.SetOptStat(0000)
 

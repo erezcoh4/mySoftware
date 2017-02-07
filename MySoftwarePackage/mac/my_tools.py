@@ -13,6 +13,12 @@ def print_filename(filename,action_on_file=""):
 
 
 # ------------------------------------------------------------------------------- #
+def filesize_in_MB(filename):
+    return float(os.path.getsize(filename)/1048576.0))
+# ------------------------------------------------------------------------------- #
+
+
+# ------------------------------------------------------------------------------- #
 def stream_dataframe_to_file( df , filename , float_format='%g' ):
     df.fillna(0, inplace=True)
     # if file does not exist write header

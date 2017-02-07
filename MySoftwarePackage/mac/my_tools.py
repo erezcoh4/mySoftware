@@ -14,7 +14,7 @@ def print_filename(filename,action_on_file=""):
 
 # ------------------------------------------------------------------------------- #
 def filesize_in_MB(filename):
-    return float(os.path.getsize(filename)/1048576.0))
+    return float(os.path.getsize(filename)/1048576.0)
 # ------------------------------------------------------------------------------- #
 
 

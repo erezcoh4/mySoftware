@@ -1,14 +1,14 @@
-import sys, pandas as pd, numpy as np
+import sys, pandas as pd, numpy as np, ast
 import matplotlib.pyplot as plt
 from scipy.stats import norm
 import matplotlib.mlab as mlab
-import ROOT
+#import ROOT
 import matplotlib as mpl , seaborn as sns; sns.set(style="white", color_codes=True , font_scale=1)
-import GeneralPlot as gp , Initiation as init 
+#import GeneralPlot as gp , Initiation as init 
 from math import sqrt , exp
-generic = lambda x: ast.literal_eval(x)
 from my_tools import *
 from matplotlib.colors import LogNorm
+generic = lambda x: ast.literal_eval(x)
 
 
 # --------------------------------

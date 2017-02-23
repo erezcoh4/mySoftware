@@ -101,16 +101,13 @@ using namespace std;
 
 // important prints....
 #define EndEventBlock() cout << "\033[32m"<< "....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......" << "\033[0m"<< endl;
-
 #define PrintLine() std::cout << "-------------------------------" << std::endl;
-
 #define PrintXLine() std::cout << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" << std::endl;
+#define SHOW(a) cout << setprecision(2) << fixed << #a << ": " << (a) << endl
+#define SHOW2(a,b) cout <<"\033[34m"<<#a<<": "<<(a)<<"," << #b <<": "<<(b)<< "\033[0m"<< endl;
+#define SHOW3(a,b,c) cout <<"\033[36m"<<#a<<": "<<(a)<<"," << #b <<": "<<(b)<<","<<#c<<": "<<(c)<< "\033[0m"<< endl;
+#define SHOW4(a,b,c,d) cout <<"\033[31m"<<#a<<": "<<(a)<<"," << #b <<": "<<(b)<<","<<#c<<": "<<(c)<<","<<#d<<": "<<(d)<< "\033[0m"<< endl;
 
-#define SHOW(a) std::cout  << setprecision(2) << fixed << #a << ": " << (a) << std::endl
-
-#define SHOW2(a,b) cout  << "\033[34m"<<#a<<": "<<(a)<<"," << #b <<": "<<(b)<< "\033[0m"<< endl;
-
-#define SHOW3(a,b,c) cout  << "\033[36m"<<#a<<": "<<(a)<<"," << #b <<": "<<(b)<<","<<#c<<": "<<(c)<< "\033[0m"<< endl;
 
 
 #define PrintPhys(a,units) std::cout  << setprecision(2) << fixed << #a << ": " << (a) <<  " " << (units) << std::endl
@@ -124,8 +121,6 @@ using namespace std;
 
 #define SHOWstdVector(v){ if (v.size()<1) {cout << #v << " is empty" << endl;} else {cout << #v << "( " << v.size() << " entries):\t"; for (auto it:v) cout << it << ",\t"; cout << endl;}}
 #define SHOWTVector3(v){ cout << #v << ": (" << v.X() << "," << v.Y() << "," << v.Z() << "), |" << #v << "| = " << v.Mag() << endl;}
-
-//#define Debug( debug , verbosity , text ){ if (verbosity > debug) std::cout << text << std::endl; }
 
 /**
    \class myIncludes
@@ -141,7 +136,17 @@ public:
 
   /// Default destructor
   ~myIncludes(){}
+    
 
+    
+    void    SetDebug (int _debug_)  {debug = _debug_;};
+    
+    void Debug (Int_t verobosity_level, std::string text){
+        if ( debug > verobosity_level ) cout << text << endl;
+    }
+
+
+    Int_t debug;
 };
 
 #endif

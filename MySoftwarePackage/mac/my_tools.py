@@ -13,9 +13,24 @@ def print_filename(filename,action_on_file=""):
 
 
 # ------------------------------------------------------------------------------- #
+# Feb-23,2017
+def delete_file(filename,debug=0):
+    # if file does not existreturn
+    if not os.path.isfile(filename):
+        if debug: print filename,"does not exist, there is nothing to delete"
+    else
+        os.remove( filename )
+        if debug: print "removed",filename
+# ------------------------------------------------------------------------------- #
+
+
+# ------------------------------------------------------------------------------- #
 def filesize_in_MB(filename):
     return float(os.path.getsize(filename)/1048576.0)
 # ------------------------------------------------------------------------------- #
+
+
+
 
 
 # ------------------------------------------------------------------------------- #
@@ -29,6 +44,7 @@ def stream_dataframe_to_file( df , filename , float_format='%g' ):
 
     del [ df ]
     gc.collect()
+# ------------------------------------------------------------------------------- #
 
 
 

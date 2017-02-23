@@ -10,6 +10,15 @@ sqrt2pi = sqrt(2*3.1415)
 infty = np.inf
 
 
+
+# ------------------------------------------------------------------------------- #
+def set_float_precision(a,precision): #{
+    exponent = np.power(10,precision)
+    return np.ceil(a*exponent)/exponent
+#}
+# ------------------------------------------------------------------------------- #
+
+
 # ------------------------------------------------------------------------------- #
 def Gaussian( x , mean , sigma ):
     power = -0.5*((x - mean)*(x - mean))/(sigma*sigma)
@@ -57,6 +66,25 @@ def Pval2varsAssumeGausDist( v1 , v1Err , v2 , v2Err , debug=0 , name=''):
         print 'Pval(%s) comparing %f+/-%f and %f+/-%f'%(name,v1 , v1Err , v2 , v2Err)
         print "Pval = integral (",xmin,"to",xmax,") = ", integral
     return integral
+
+
+# ------------------------------------------------------------------------------- #
+def Pval2varsAssumeGausDist_pandas( v1 , v1Err , v2 , v2Err , debug=0 , name=''):
+    '''
+        assume v1 was sampled from a Gaussian distribution of mean v1 and width v1Err
+        and ask what is the probability of v2 to be sampled from the same distribution:
+        the answer is the integral of the v1,v1Err Gaussian in the range [v2 , infty].
+        In order to account for v2Err, we ask how v2Err influences v2' vicinity to v1' mean
+        if v2-v2Err > v1, take the integral in the range [v2-v2Err , infty]
+        else, if v2+v2Err > v1, take the integral in the range [v2+v2Err , infty]
+        else, v2+v2Err < v1, take the integral in the range [-infty , v2+v2Err]
+        '''
+    xmin , xmax = v2-v2Err , infty
+    
+    integral , integral_err = GaussianIntegral( xmin , xmax , args=(v1,v1Err) )
+    return integral
+
+
 
 
 

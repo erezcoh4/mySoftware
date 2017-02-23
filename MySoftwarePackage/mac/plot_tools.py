@@ -5,7 +5,7 @@ import matplotlib.mlab as mlab
 #import ROOT
 import matplotlib as mpl , seaborn as sns; sns.set(style="white", color_codes=True , font_scale=1)
 #import GeneralPlot as gp , Initiation as init 
-from math import sqrt , exp
+from math import sqrt , exp , ceil
 from my_tools import *
 from matplotlib.colors import LogNorm
 generic = lambda x: ast.literal_eval(x)
@@ -73,7 +73,7 @@ def plot_1d_withoutandwithweight( x, weights, weighting_labels,
 
 
 # --------------------------------
-def plot_2d_hist( x , y , bins=(50,50) , cmap='hot_r', xlabel='' , ylabel='' , figsize=(10,10) , fontsize=25 , weights=None, ticks_color='black', norm='log',ax=None):
+def plot_2d_hist( x , y , bins=(50,50) , cmap='hot_r', xlabel='' , ylabel='' , figsize=(10,10) , fontsize=25 , weights=None, ticks_color='black', norm='non',ax=None):
     
     if ax is None:
         fig,ax = plt.subplots( figsize=figsize )

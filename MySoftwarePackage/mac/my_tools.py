@@ -18,7 +18,7 @@ def delete_file(filename,debug=0):
     # if file does not existreturn
     if not os.path.isfile(filename):
         if debug: print filename,"does not exist, there is nothing to delete"
-    else
+    else:
         os.remove( filename )
         if debug: print "removed",filename
 # ------------------------------------------------------------------------------- #

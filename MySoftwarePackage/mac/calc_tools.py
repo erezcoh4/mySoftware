@@ -118,22 +118,31 @@ def FisherCombinationLargePvals(pvalues_array):
 
 # ------------------------------------------------------------------------------- #
 def Fisher_combination_Pvals(pvalues_array):
-
-    if not pvalues_array:
-        return 1.0
-
-    Pval_arr , NPval0 = [] , 0
+    pvalues_array = np.array(pvalues_array)
     for pval in pvalues_array:
-        if pval > 1e-8:
-            Pval_arr.append(pval)
+        if pval > 1.e-20:
+            z += -2*np.log(pval)
         else:
-            NPval0 = NPval0+1
-
-    if NPval0>1:
-        return 0.0
-
-    # check if pvalues are too small
-    return FisherMethodPvals(Pval_arr)
+            z += -2*np.log(1.e-20)
+    k = len(pvalues_array)
+    combined_Pval = chisqprob(z,2*k)
+    return combined_Pval
+#
+#    if not pvalues_array:
+#        return 1.0
+#
+#    Pval_arr , NPval0 = [] , 0
+#    for pval in pvalues_array:
+#        if pval > 1e-8:
+#            Pval_arr.append(pval)
+#        else:
+#            NPval0 = NPval0+1
+#
+#    if NPval0>1:
+#        return 0.0
+#
+#    # check if pvalues are too small
+#    return FisherMethodPvals(Pval_arr)
 
 
 

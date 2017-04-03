@@ -119,6 +119,7 @@ def FisherCombinationLargePvals(pvalues_array):
 # ------------------------------------------------------------------------------- #
 def Fisher_combination_Pvals(pvalues_array):
     pvalues_array = np.array(pvalues_array)
+    z=0
     for pval in pvalues_array:
         if pval > 1.e-20:
             z += -2*np.log(pval)

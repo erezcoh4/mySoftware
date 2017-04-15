@@ -50,7 +50,7 @@ def stream_dataframe_to_file( df , filename , float_format='%g' ):
 
 
 # ------------------------------------------------------------------------------- #
-def set_axes(ax , x_label , y_label='' , fontsize = 25 , ticks_color='black'):
+def set_axes(ax , x_label , y_label='' , fontsize = 25 , ticks_color='black' , nticklabels=4 ):
     ax.set_xlabel(x_label,fontsize=fontsize)
     ax.set_ylabel(y_label,fontsize=fontsize)
     for tick in ax.xaxis.get_major_ticks():
@@ -62,7 +62,7 @@ def set_axes(ax , x_label , y_label='' , fontsize = 25 , ticks_color='black'):
     ax.xaxis.label.set_color(ticks_color)
     ax.tick_params(axis='y', colors=ticks_color)
     ax.yaxis.label.set_color(ticks_color)
-
+    ax.xaxis.set_major_locator(LinearLocator(nticklabels));ax.yaxis.set_major_locator(LinearLocator(nticklabels))
     return ax
 
 

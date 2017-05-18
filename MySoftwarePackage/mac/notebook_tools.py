@@ -20,4 +20,3 @@ from scipy.signal import savgol_filter
 from scipy.stats import norm
 from scipy import stats
 
-my_hot_cmap = gp.reverse_colourmap(mpl.cm.hot)

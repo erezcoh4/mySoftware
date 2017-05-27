@@ -51,7 +51,7 @@ def stream_dataframe_to_file( df , filename , float_format='%g' ):
 
 
 # ------------------------------------------------------------------------------- #
-def set_axes(ax , x_label , y_label='' , fontsize = 25 , ticks_color='black' , nticklabels=4 ):
+def set_axes(ax , x_label , y_label='' , fontsize = 25 , ticks_color='black' , nticklabels=4 , xticks=None, yticks=None , do_add_grid=False , title=None ):
     ax.set_xlabel(x_label,fontsize=fontsize)
     ax.set_ylabel(y_label,fontsize=fontsize)
     for tick in ax.xaxis.get_major_ticks():
@@ -64,6 +64,14 @@ def set_axes(ax , x_label , y_label='' , fontsize = 25 , ticks_color='black' , n
     ax.tick_params(axis='y', colors=ticks_color)
     ax.yaxis.label.set_color(ticks_color)
     ax.xaxis.set_major_locator(LinearLocator(nticklabels));ax.yaxis.set_major_locator(LinearLocator(nticklabels))
+    if xticks is not None:
+        ax.xaxis.set_ticks(xticks)
+    if yticks is not None:
+        ax.yaxis.set_ticks(yticks)
+    if do_add_grid:
+        ax.grid(linestyle='--',alpha=0.8)
+    if title is not None:
+        ax.set_title(title,y=1.02,fontsize=fontsize)
     return ax
 
 

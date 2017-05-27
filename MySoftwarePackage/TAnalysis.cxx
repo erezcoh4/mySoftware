@@ -378,24 +378,21 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
     RooRealVar  fSigma  ("sigma"    ,"gaussian sig.",0.15   ,0          ,0.5        ) ;
     RooGaussian fGauss  ("gauss"    ,"gaussian"     ,var    ,fMean      ,fSigma     ) ;
     if(DoWeight){
+        if (debug>1) Printf("USING WEIGHT for RooFit");
         // get the mean weight, and divide all events by it, to normalize weighting
         Float_t w , SumWeights = 0;
         Tree -> SetBranchAddress( WeightName , &w );
-        for (Int_t i = 0; i < Tree->GetEntries() ; i++) {
-            Tree -> GetEntry(i);
-            SumWeights += w;
-        }
-        Float_t AverageWeightValue = SumWeights / Tree->GetEntries();
-        //        RooRealVar  weight  (Form("%s/%f",WeightName.Data(),AverageWeightValue) ,"weight"       ,-1      ,10                 ) ;
         RooRealVar  weight  (WeightName ,"weight"       ,0      ,10                 ) ;
-        RooArgSet   VarSet( var , weight );
-        RooDataSet  DataSet(Form("DataSet_%d",i_roofit),Form("temp. Data Set (%d)",i_roofit),VarSet,Import(*Tree)) ;
+        RooArgSet   VarSet;
+        VarSet.add( var );
+        VarSet.add( weight );
+                RooDataSet  DataSet(Form("DataSet_%d",i_roofit),Form("temp. weighted data-Set (%d)",i_roofit),VarSet,WeightVar(weight),Import(*Tree)) ;
         if(PlotFit) DataSet.plotOn(frame) ;
-        if(debug>2) {DataSet.Print();         Printf("Average Weight (%s) Value: %f",WeightName.Data(),AverageWeightValue);
-        }
+        if(debug>2) {DataSet.Print();}
         fGauss.fitTo( DataSet , RooFit::PrintLevel(-1) ) ;
     }
     else{
+        if (debug>1) Printf("not using weight for RooFit");
         RooDataSet DataSet(Form("DataSet_%d",i_roofit),Form("temp. Data Set (%d)",i_roofit),RooArgSet(var),Import(*Tree)) ;
         if(PlotFit) DataSet.plotOn(frame) ;
         if(debug>2) DataSet.Print();

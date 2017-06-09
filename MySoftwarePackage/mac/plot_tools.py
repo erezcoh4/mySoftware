@@ -9,6 +9,7 @@ from math import sqrt , exp , ceil
 from my_tools import *
 from matplotlib.colors import LogNorm
 generic = lambda x: ast.literal_eval(x)
+from matplotlib.ticker import LinearLocator
 
 
 # --------------------------------

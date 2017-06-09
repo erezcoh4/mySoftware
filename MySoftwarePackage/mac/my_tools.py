@@ -1,5 +1,4 @@
 import os , gc
-from matplotlib.ticker import LinearLocator
 
 # prints
 def print_line():

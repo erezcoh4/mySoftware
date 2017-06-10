@@ -62,7 +62,7 @@ def set_axes(ax , x_label , y_label='' , fontsize = 25 , ticks_color='black' , n
     ax.xaxis.label.set_color(ticks_color)
     ax.tick_params(axis='y', colors=ticks_color)
     ax.yaxis.label.set_color(ticks_color)
-    ax.xaxis.set_major_locator(LinearLocator(nticklabels));ax.yaxis.set_major_locator(LinearLocator(nticklabels))
+#    ax.xaxis.set_major_locator(LinearLocator(nticklabels));ax.yaxis.set_major_locator(LinearLocator(nticklabels))
     if xticks is not None:
         ax.xaxis.set_ticks(xticks)
     if yticks is not None:

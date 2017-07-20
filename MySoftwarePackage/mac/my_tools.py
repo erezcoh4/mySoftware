@@ -4,6 +4,9 @@ import os , gc
 def print_line():
     print '\033[92m' + '--------------------------------------------------------------' + '\033[0m'
 
+def print_xline():
+    print '\033[96m' + 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' + '\033[0m'
+
 def print_important(string):
     print '\033[94m' + '\033[1m' + string + '\033[0m' ; print_line
 

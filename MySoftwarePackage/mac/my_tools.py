@@ -53,7 +53,9 @@ def stream_dataframe_to_file( df , filename , float_format='%g' ):
 
 
 # ------------------------------------------------------------------------------- #
-def set_axes(ax , x_label , y_label='' , fontsize = 25 , ticks_color='black' , nticklabels=4 , xticks=None, yticks=None , do_add_grid=False , title=None ):
+def set_axes(ax , x_label , y_label='' , fontsize = 25 , ticks_color='black' , nticklabels=4 , xticks=None, yticks=None
+             , do_add_grid=False , title=None
+             , z_label=None , zticks=None ):
     ax.set_xlabel(x_label,fontsize=fontsize)
     ax.set_ylabel(y_label,fontsize=fontsize)
     for tick in ax.xaxis.get_major_ticks():
@@ -74,6 +76,11 @@ def set_axes(ax , x_label , y_label='' , fontsize = 25 , ticks_color='black' , n
         ax.grid(linestyle='--',alpha=0.8)
     if title is not None:
         ax.set_title(title,y=1.02,fontsize=fontsize)
+    if z_label is not None: #{
+        ax.set_zlabel(z_label,fontsize=fontsize)
+        for tick in ax.zaxis.get_major_ticks(): tick.label.set_fontsize(fontsize)
+    if zticks is not None: ax.zaxis.set_ticks(zticks)
+    #}
     return ax
 
 

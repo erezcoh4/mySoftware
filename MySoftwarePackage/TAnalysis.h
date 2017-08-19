@@ -7,7 +7,10 @@
 //
 #include "myIncludes.h"
 #include "TPlots.h"
-
+#include "RooFitResult.h"
+#include "RooChi2Var.h"
+#include "RooAbsPdf.h"
+#include "RooGaussModel.h"
 
 
 
@@ -39,7 +42,8 @@ public:
                                         TVirtualPad * c = nullptr,
                                         TString Title = "",
                                         bool DoWeight = false,
-                                        TString WeightName = "" );
+                                        TString WeightName = "" ,
+                                        Double_t * chi2_ndof=nullptr);
     
     Double_t              BinnedKSTest ( TH1 * h1 , TH1 * h2 , Option_t* option = "" );
     Double_t              Kolmogorov1D ( Int_t, Double_t*, Int_t, Double_t*, Option_t* option="");

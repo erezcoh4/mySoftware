@@ -358,9 +358,12 @@ TH2F* TAnalysis::Assymetry(TTree * Tree , TString vZ
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //----------- unbinned RooFit of 1d Gaussian ----------------------//
 // last edit: Nov 10, 2016
-RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t Par[2] , Double_t ParErr[2], bool PlotFit, int debug , TVirtualPad * c, TString Title , bool DoWeight , TString WeightName){
+RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t Par[2] , Double_t ParErr[2],
+                              bool PlotFit, int debug , TVirtualPad * c, TString Title ,
+                              bool DoWeight , TString WeightName,
+                              Double_t chi2_ndof[2] ){
     // Par are input initial parameters (Par[0]=mean,Par[1]=sigma) and are returned as the results
-
+    RooFitResult * fitResult;
     // quiet mode
     RooMsgService::instance().setStreamStatus(1,false);
     RooMsgService::instance().setSilentMode(true);
@@ -377,6 +380,9 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
     RooRealVar  fMean   ("mean"     ,"gaussian mean",0      ,-0.8       ,0.8        ) ;
     RooRealVar  fSigma  ("sigma"    ,"gaussian sig.",0.15   ,0          ,0.5        ) ;
     RooGaussian fGauss  ("gauss"    ,"gaussian"     ,var    ,fMean      ,fSigma     ) ;
+    
+    RooGaussModel gm1("gm1","gauss model 1",var,fMean,fSigma) ;
+    
     if(DoWeight){
         if (debug>1) Printf("USING WEIGHT for RooFit");
         // get the mean weight, and divide all events by it, to normalize weighting
@@ -394,10 +400,10 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
     else{
         if (debug>1) Printf("not using weight for RooFit");
         RooDataSet DataSet(Form("DataSet_%d",i_roofit),Form("temp. Data Set (%d)",i_roofit),RooArgSet(var),Import(*Tree)) ;
-        if(PlotFit) DataSet.plotOn(frame) ;
+        if(PlotFit) DataSet.plotOn(frame , Name("data")) ;
         if(debug>2) DataSet.Print();
-        fGauss.fitTo( DataSet , RooFit::PrintLevel(-1) ) ;
-    }
+        fitResult = (RooFitResult *)fGauss.fitTo( DataSet , RooFit::PrintLevel(-1) , Save() ) ;
+     }
 
     Par[0] = fMean.getValV();
     Par[1] = fSigma.getValV();
@@ -405,10 +411,25 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
     ParErr[1] = fSigma.getError();
 
     if (PlotFit){
-        fGauss.plotOn( frame , RooFit::LineColor(kRed) ) ;
+        fGauss.plotOn( frame , RooFit::LineColor(kRed) , Name("model") ) ;
         c -> cd();
         frame -> Draw();
     }
+    
+    // Aug-19,2017
+    // the goodness of the fit is returned as well
+    int nFitParam = 2;
+    int ndof = (Tree->GetEntries()) - nFitParam;
+    chi2_ndof[0] = frame->chiSquare(nFitParam);
+    chi2_ndof[1] = ndof;
+    
+    if (debug>-1){ // change to 2
+        fitResult->Print("v");
+        SHOW(frame->chiSquare());
+        SHOW4( frame->chiSquare() , frame->chiSquare(nFitParam) , frame->chiSquare("model","data"), frame->chiSquare("model","data",nFitParam) );
+        SHOW2( chi2_ndof[0] , chi2_ndof[1] );
+    }
+    
     return frame;
 }
 

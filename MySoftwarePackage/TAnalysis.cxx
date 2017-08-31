@@ -423,7 +423,7 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
     chi2_ndof[0] = frame->chiSquare(nFitParam);
     chi2_ndof[1] = ndof;
     
-    if (debug>-1){ // change to 2
+    if (debug>2){ // change to 2
         fitResult->Print("v");
         SHOW(frame->chiSquare());
         SHOW4( frame->chiSquare() , frame->chiSquare(nFitParam) , frame->chiSquare("model","data"), frame->chiSquare("model","data",nFitParam) );

@@ -400,7 +400,8 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
     else{
         if (debug>1) Printf("not using weight for RooFit");
         RooDataSet DataSet(Form("DataSet_%d",i_roofit),Form("temp. Data Set (%d)",i_roofit),RooArgSet(var),Import(*Tree)) ;
-        if(PlotFit) DataSet.plotOn(frame , Name("data")) ;
+        DataSet.plotOn(frame , Name("data")) ;
+//        if(PlotFit) DataSet.plotOn(frame , Name("data")) ;
         if(debug>2) DataSet.Print();
         fitResult = (RooFitResult *)fGauss.fitTo( DataSet , RooFit::PrintLevel(-1) , Save() ) ;
      }
@@ -410,8 +411,9 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
     ParErr[0] = fMean.getError();
     ParErr[1] = fSigma.getError();
 
+    fGauss.plotOn( frame , RooFit::LineColor(kRed) , Name("model") ) ;
     if (PlotFit){
-        fGauss.plotOn( frame , RooFit::LineColor(kRed) , Name("model") ) ;
+//        fGauss.plotOn( frame , RooFit::LineColor(kRed) , Name("model") ) ;
         c -> cd();
         frame -> Draw();
     }
@@ -420,17 +422,23 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
     // the goodness of the fit is returned as well
     int nFitParam = 2;
     int ndof = (Tree->GetEntries()) - nFitParam;
-    chi2_ndof[0] = frame->chiSquare(nFitParam);
+    // RooPlot::chiSquare() calculated the reduced chi^2, assuming zero floating parameters.
+    // for floating parameters in your fit, you need to pass the number to RooPlot::chiSquare() to adjust nDOF appropriately
+    chi2_ndof[0] = frame->chiSquare(nFitParam); // this is reduced chi^2
     chi2_ndof[1] = ndof;
     
-    if (debug>2){ // change to 2
+    if (debug>2){
         fitResult->Print("v");
         SHOW(frame->chiSquare());
         SHOW4( frame->chiSquare() , frame->chiSquare(nFitParam) , frame->chiSquare("model","data"), frame->chiSquare("model","data",nFitParam) );
         SHOW2( chi2_ndof[0] , chi2_ndof[1] );
     }
-    
-    return frame;
+    if (PlotFit){
+        return frame;
+    }
+    else {
+        delete frame;
+    }
 }
 
 

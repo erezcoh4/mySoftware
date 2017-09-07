@@ -434,10 +434,12 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
         SHOW2( chi2_ndof[0] , chi2_ndof[1] );
     }
     if (PlotFit){
+        delete Tree;
         return frame;
     }
     else {
         delete frame;
+        delete Tree;
         return nullptr;
     }
 }

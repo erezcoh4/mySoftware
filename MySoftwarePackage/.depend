@@ -385,7 +385,8 @@ TAnalysis.o: TAnalysis.cxx TAnalysis.h myIncludes.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/sstream \
   /Users/erezcohen/root6/root-6.04.10/include/RooResolutionModel.h \
   /Users/erezcohen/root6/root-6.04.10/include/RooMath.h \
-  /Users/erezcohen/root6/root-6.04.10/include/RooComplex.h
+  /Users/erezcohen/root6/root-6.04.10/include/RooComplex.h \
+  /Users/erezcohen/root6/root-6.04.10/include/TMinuit.h
 TCalculations.o: TCalculations.cxx TCalculations.h myIncludes.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iostream \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__config \
@@ -773,7 +774,8 @@ TCalculations.o: TCalculations.cxx TCalculations.h myIncludes.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/sstream \
   /Users/erezcohen/root6/root-6.04.10/include/RooResolutionModel.h \
   /Users/erezcohen/root6/root-6.04.10/include/RooMath.h \
-  /Users/erezcohen/root6/root-6.04.10/include/RooComplex.h
+  /Users/erezcohen/root6/root-6.04.10/include/RooComplex.h \
+  /Users/erezcohen/root6/root-6.04.10/include/TMinuit.h
 TPlots.o: TPlots.cxx TPlots.h myIncludes.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iostream \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__config \

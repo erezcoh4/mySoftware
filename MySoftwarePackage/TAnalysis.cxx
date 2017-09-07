@@ -429,7 +429,7 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
     
     if (debug>2){
         fitResult->Print("v");
-        SHOW(frame->chiSquare());
+        SHOW( frame->chiSquare());
         SHOW4( frame->chiSquare() , frame->chiSquare(nFitParam) , frame->chiSquare("model","data"), frame->chiSquare("model","data",nFitParam) );
         SHOW2( chi2_ndof[0] , chi2_ndof[1] );
     }
@@ -438,11 +438,64 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
     }
     else {
         delete frame;
+        return nullptr;
     }
 }
 
 
 
+
+
+
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//----------- unbinned RooFit of 1d Gaussian ----------------------//
+// last edit: Nov 10, 2016
+void TAnalysis::FastRooFit1D( TTree * Tree , TString name , TCut cut , Double_t Par[2] , Double_t ParErr[2],
+                              Double_t chi2_ndof[2] ){
+    // no weight, no plot
+    // Par are input initial parameters (Par[0]=mean,Par[1]=sigma) and are returned as the results
+    RooFitResult * fitResult;
+    // quiet mode
+    RooMsgService::instance().setStreamStatus(1,false);
+    RooMsgService::instance().setSilentMode(true);
+    RooMsgService::instance().setGlobalKillBelow(RooFit::FATAL);
+    gErrorIgnoreLevel = kFatal;
+    
+    // first, reduce the main tree by the desired cut....
+    Tree = Tree -> CopyTree(cut);
+    
+    i_roofit++;
+    RooRealVar  var     (name       ,name           ,-1.2     ,1.2                  ) ;
+    RooPlot     * frame = var.frame( RooFit::Bins(50), RooFit::Name(name) , RooFit::Title(name)) ;
+    
+    RooRealVar  fMean   ("mean"     ,"gaussian mean",0      ,-0.8       ,0.8        ) ;
+    RooRealVar  fSigma  ("sigma"    ,"gaussian sig.",0.15   ,0          ,0.5        ) ;
+    RooGaussian fGauss  ("gauss"    ,"gaussian"     ,var    ,fMean      ,fSigma     ) ;
+    
+    RooGaussModel gm1("gm1","gauss model 1",var,fMean,fSigma) ;
+    
+    RooDataSet DataSet(Form("DataSet_%d",i_roofit),Form("temp. Data Set (%d)",i_roofit),RooArgSet(var),Import(*Tree)) ;
+    DataSet.plotOn(frame , Name("data")) ;
+    fitResult = (RooFitResult *)fGauss.fitTo( DataSet , RooFit::PrintLevel(-1) , Save() ) ;
+    
+    Par[0] = fMean.getValV();
+    Par[1] = fSigma.getValV();
+    ParErr[0] = fMean.getError();
+    ParErr[1] = fSigma.getError();
+    
+    fGauss.plotOn( frame , RooFit::LineColor(kRed) , Name("model") ) ;
+    int nFitParam = 2;
+    int ndof = (Tree->GetEntries()) - nFitParam;
+    // RooPlot::chiSquare() calculated the reduced chi^2, assuming zero floating parameters.
+    // for floating parameters in your fit, you need to pass the number to RooPlot::chiSquare() to adjust nDOF appropriately
+    chi2_ndof[0] = frame->chiSquare(nFitParam); // this is reduced chi^2
+    chi2_ndof[1] = ndof;
+    
+    delete frame;
+    delete Tree;
+}
 
 
 

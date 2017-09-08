@@ -12,6 +12,7 @@
 #include "RooAbsPdf.h"
 #include "RooGaussModel.h"
 #include "TMinuit.h"
+#include "RooChi2Var.h"
 
 
 #ifndef __TANALYSIS_H__
@@ -45,7 +46,7 @@ public:
                                         TString WeightName = "" ,
                                         Double_t * chi2_ndof=nullptr);
     
-    void                  FastRooFit1D ( TTree * Tree,
+    Double_t             FastRooFit1D ( TTree * Tree,
                                         TString name,
                                         TCut cut,
                                         Double_t * Par, Double_t * ParErr,

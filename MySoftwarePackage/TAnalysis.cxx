@@ -453,8 +453,8 @@ RooPlot * TAnalysis::RooFit1D( TTree * Tree , TString name , TCut cut , Double_t
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //----------- unbinned RooFit of 1d Gaussian ----------------------//
-// last edit: Nov 10, 2016
-void TAnalysis::FastRooFit1D( TTree * Tree , TString name , TCut cut , Double_t Par[2] , Double_t ParErr[2],
+// last edit: Sep 7, 2017
+Double_t TAnalysis::FastRooFit1D( TTree * Tree , TString name , TCut cut , Double_t Par[2] , Double_t ParErr[2],
                               Double_t chi2_ndof[2] ){
     // no weight, no plot
     // Par are input initial parameters (Par[0]=mean,Par[1]=sigma) and are returned as the results
@@ -495,8 +495,17 @@ void TAnalysis::FastRooFit1D( TTree * Tree , TString name , TCut cut , Double_t 
     chi2_ndof[0] = frame->chiSquare(nFitParam); // this is reduced chi^2
     chi2_ndof[1] = ndof;
     
+    
+//    // the total chi2, not to d.o.f.
+//    RooDataHist hist("hist", "hist", RooArgSet(var), *DataSet);
+//    RooChi2Var chi2("chi2","chi2", fGauss ,hist) ;
+//    Double_t chi2_val = chi2.getVal() ;
+    
+
+    
     delete frame;
     delete Tree;
+    return chi2_val;
 }
 
 

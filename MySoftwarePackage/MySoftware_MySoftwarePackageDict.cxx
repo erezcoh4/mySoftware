@@ -106,7 +106,7 @@ namespace ROOT {
       ::TAnalysis *ptr = 0;
       static ::TVirtualIsAProxy* isa_proxy = new ::TIsAProxy(typeid(::TAnalysis));
       static ::ROOT::TGenericClassInfo 
-         instance("TAnalysis", "TAnalysis.h", 20,
+         instance("TAnalysis", "TAnalysis.h", 21,
                   typeid(::TAnalysis), DefineBehavior(ptr, ptr),
                   &TAnalysis_Dictionary, isa_proxy, 4,
                   sizeof(::TAnalysis) );

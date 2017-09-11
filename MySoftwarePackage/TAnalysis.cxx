@@ -460,7 +460,6 @@ Double_t TAnalysis::FastRooFit1D( TTree * Tree , TString name , TCut cut , Doubl
     // return:
     // (Double_t) minNLogLikelihood
     
-    
     // no weight, no plot
     // Par are input initial parameters (Par[0]=mean,Par[1]=sigma) and are returned as the results
     RooFitResult * fitResult;
@@ -477,9 +476,9 @@ Double_t TAnalysis::FastRooFit1D( TTree * Tree , TString name , TCut cut , Doubl
     RooRealVar  var     (name       ,name           ,-1.2     ,1.2                  ) ;
     RooPlot     * frame = var.frame( RooFit::Bins(50), RooFit::Name(name) , RooFit::Title(name)) ;
     
-    RooRealVar  fMean   ("mean"     ,"gaussian mean",0      ,-0.8       ,0.8        ) ;
-    RooRealVar  fSigma  ("sigma"    ,"gaussian sig.",0.15   ,0          ,0.5        ) ;
-    RooGaussian fGauss  ("gauss"    ,"gaussian"     ,var    ,fMean      ,fSigma     ) ;
+    RooRealVar  fMean   ("mean"     ,"gaussian mean",Par[0]     ,Par[0]-0.5     ,Par[0]+0.5 ) ;
+    RooRealVar  fSigma  ("sigma"    ,"gaussian sig.",Par[1]     ,0              ,0.4        ) ;
+    RooGaussian fGauss  ("gauss"    ,"gaussian"     ,var        ,fMean          ,fSigma     ) ;
     
     RooGaussModel gm1("gm1","gauss model 1",var,fMean,fSigma) ;
     
@@ -499,12 +498,6 @@ Double_t TAnalysis::FastRooFit1D( TTree * Tree , TString name , TCut cut , Doubl
     // for floating parameters in your fit, you need to pass the number to RooPlot::chiSquare() to adjust nDOF appropriately
     chi2_ndof[0] = frame->chiSquare(nFitParam); // this is reduced chi^2
     chi2_ndof[1] = ndof;
-    
-    
-//    // the total chi2, not to d.o.f.
-//    RooDataHist hist("hist", "hist", RooArgSet(var), *DataSet);
-//    RooChi2Var chi2("chi2","chi2", fGauss ,hist) ;
-//    Double_t chi2_val = chi2.getVal() ;
     
     Double_t minNLogLikelihood = fitResult->minNll(); // Return minimized -log(L) value
     

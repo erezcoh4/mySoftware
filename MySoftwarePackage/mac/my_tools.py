@@ -55,8 +55,11 @@ def stream_dataframe_to_file( df , filename , float_format='%g' ):
 # ------------------------------------------------------------------------------- #
 def set_axes(ax , x_label , y_label='' , fontsize = 25 , ticks_color='black' , nticklabels=4
              , xticks=None, yticks=None, xlim=None, ylim=None
-             , do_add_grid=False , title=None
+             , do_add_grid=False, alpha_grid=0.75
+             , title=None
+             , do_add_legend=False, legend_loc='best'
              , z_label=None , zticks=None ):
+    
     ax.set_xlabel(x_label,fontsize=fontsize)
     ax.set_ylabel(y_label,fontsize=fontsize)
     for tick in ax.xaxis.get_major_ticks():
@@ -74,7 +77,7 @@ def set_axes(ax , x_label , y_label='' , fontsize = 25 , ticks_color='black' , n
     if yticks is not None:
         ax.yaxis.set_ticks(yticks)
     if do_add_grid:
-        ax.grid(linestyle='--',alpha=0.8)
+        ax.grid(linestyle='--',alpha=alpha_grid)
     if title is not None:
         ax.set_title(title,y=1.02,fontsize=fontsize)
     if z_label is not None: #{
@@ -84,6 +87,9 @@ def set_axes(ax , x_label , y_label='' , fontsize = 25 , ticks_color='black' , n
     #}
     if xlim is not None: ax.set_xlim(xlim)
     if ylim is not None: ax.set_ylim(ylim)
+    if do_add_legend==True:#{
+        ax.legend(loc=legend_loc,fontsize=fontsize)
+    #}
     return ax
 
 

@@ -38,6 +38,7 @@
 namespace std {} using namespace std;
 
 // Header files passed as explicit arguments
+#include "ReadDatFile.h"
 #include "TAnalysis.h"
 #include "TCalculations.h"
 #include "TPlots.h"
@@ -272,6 +273,51 @@ namespace ROOT {
 } // end of namespace ROOT
 
 namespace ROOT {
+   static TClass *ReadDatFile_Dictionary();
+   static void ReadDatFile_TClassManip(TClass*);
+   static void *new_ReadDatFile(void *p = 0);
+   static void *newArray_ReadDatFile(Long_t size, void *p);
+   static void delete_ReadDatFile(void *p);
+   static void deleteArray_ReadDatFile(void *p);
+   static void destruct_ReadDatFile(void *p);
+
+   // Function generating the singleton type initializer
+   static TGenericClassInfo *GenerateInitInstanceLocal(const ::ReadDatFile*)
+   {
+      ::ReadDatFile *ptr = 0;
+      static ::TVirtualIsAProxy* isa_proxy = new ::TIsAProxy(typeid(::ReadDatFile));
+      static ::ROOT::TGenericClassInfo 
+         instance("ReadDatFile", "ReadDatFile.h", 24,
+                  typeid(::ReadDatFile), DefineBehavior(ptr, ptr),
+                  &ReadDatFile_Dictionary, isa_proxy, 4,
+                  sizeof(::ReadDatFile) );
+      instance.SetNew(&new_ReadDatFile);
+      instance.SetNewArray(&newArray_ReadDatFile);
+      instance.SetDelete(&delete_ReadDatFile);
+      instance.SetDeleteArray(&deleteArray_ReadDatFile);
+      instance.SetDestructor(&destruct_ReadDatFile);
+      return &instance;
+   }
+   TGenericClassInfo *GenerateInitInstance(const ::ReadDatFile*)
+   {
+      return GenerateInitInstanceLocal((::ReadDatFile*)0);
+   }
+   // Static variable to force the class initialization
+   static ::ROOT::TGenericClassInfo *_R__UNIQUE_(Init) = GenerateInitInstanceLocal((const ::ReadDatFile*)0x0); R__UseDummy(_R__UNIQUE_(Init));
+
+   // Dictionary for non-ClassDef classes
+   static TClass *ReadDatFile_Dictionary() {
+      TClass* theClass =::ROOT::GenerateInitInstanceLocal((const ::ReadDatFile*)0x0)->GetClass();
+      ReadDatFile_TClassManip(theClass);
+   return theClass;
+   }
+
+   static void ReadDatFile_TClassManip(TClass* ){
+   }
+
+} // end of namespace ROOT
+
+namespace ROOT {
    // Wrappers around operator new
    static void *new_TPlots(void *p) {
       return  p ? new(p) ::TPlots : new ::TPlots;
@@ -375,6 +421,27 @@ namespace ROOT {
       ((current_t*)p)->~current_t();
    }
 } // end of namespace ROOT for class ::myIncludes
+
+namespace ROOT {
+   // Wrappers around operator new
+   static void *new_ReadDatFile(void *p) {
+      return  p ? new(p) ::ReadDatFile : new ::ReadDatFile;
+   }
+   static void *newArray_ReadDatFile(Long_t nElements, void *p) {
+      return p ? new(p) ::ReadDatFile[nElements] : new ::ReadDatFile[nElements];
+   }
+   // Wrapper around operator delete
+   static void delete_ReadDatFile(void *p) {
+      delete ((::ReadDatFile*)p);
+   }
+   static void deleteArray_ReadDatFile(void *p) {
+      delete [] ((::ReadDatFile*)p);
+   }
+   static void destruct_ReadDatFile(void *p) {
+      typedef ::ReadDatFile current_t;
+      ((current_t*)p)->~current_t();
+   }
+} // end of namespace ROOT for class ::ReadDatFile
 
 namespace ROOT {
    static TClass *vectorlEdoublegR_Dictionary();
@@ -568,6 +635,7 @@ namespace ROOT {
 namespace {
   void TriggerDictionaryInitialization_libMySoftware_MySoftwarePackage_Impl() {
     static const char* headers[] = {
+"ReadDatFile.h",
 "TAnalysis.h",
 "TCalculations.h",
 "TPlots.h",
@@ -595,6 +663,7 @@ class __attribute__((annotate("$clingAutoload$TAnalysis.h")))  TAnalysis;
 class __attribute__((annotate("$clingAutoload$TCalculations.h")))  TCalculations;
 class __attribute__((annotate("$clingAutoload$ppElastic.h")))  ppElastic;
 class __attribute__((annotate("$clingAutoload$TAnalysis.h")))  myIncludes;
+class __attribute__((annotate("$clingAutoload$ReadDatFile.h")))  ReadDatFile;
 )DICTFWDDCLS";
     static const char* payloadCode = R"DICTPAYLOAD(
 
@@ -603,6 +672,7 @@ class __attribute__((annotate("$clingAutoload$TAnalysis.h")))  myIncludes;
 #endif
 
 #define _BACKWARD_BACKWARD_WARNING_H
+#include "ReadDatFile.h"
 #include "TAnalysis.h"
 #include "TCalculations.h"
 #include "TPlots.h"
@@ -612,6 +682,7 @@ class __attribute__((annotate("$clingAutoload$TAnalysis.h")))  myIncludes;
 #undef  _BACKWARD_BACKWARD_WARNING_H
 )DICTPAYLOAD";
     static const char* classesHeaders[]={
+"ReadDatFile", payloadCode, "@",
 "TAnalysis", payloadCode, "@",
 "TCalculations", payloadCode, "@",
 "TPlots", payloadCode, "@",

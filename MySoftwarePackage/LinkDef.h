@@ -15,7 +15,9 @@
 #pragma link C++ class ppElastic+;
 #pragma link C++ class myIncludes+;
 
+#pragma link C++ class ReadDatFile+;
 //ADD_NEW_CLASS ... do not change this line
 #endif
+
 
 

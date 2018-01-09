@@ -32,7 +32,7 @@ public:
     ReadDatFile (std::string fInFileName, std::string fOutFileName);
     
     void              Print () const;
-    void    ReadDatFromFile (const int Nlines);
+    void    ReadDatFromFile (const int Nlines, int debug=0);
     void      HeaderCSVfile ();
     /// SETters
     void             SetInFileName (std::string fname)      {InFileName = fname;};

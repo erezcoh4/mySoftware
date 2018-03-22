@@ -63,7 +63,7 @@ namespace ROOT {
       static ::TVirtualIsAProxy* isa_proxy = new ::TIsAProxy(typeid(::TPlots));
       static ::ROOT::TGenericClassInfo 
          instance("TPlots", "TPlots.h", 8,
-                  typeid(::TPlots), ::ROOT::Internal::DefineBehavior(ptr, ptr),
+                  typeid(::TPlots), DefineBehavior(ptr, ptr),
                   &TPlots_Dictionary, isa_proxy, 4,
                   sizeof(::TPlots) );
       instance.SetNew(&new_TPlots);
@@ -108,7 +108,7 @@ namespace ROOT {
       static ::TVirtualIsAProxy* isa_proxy = new ::TIsAProxy(typeid(::TAnalysis));
       static ::ROOT::TGenericClassInfo 
          instance("TAnalysis", "TAnalysis.h", 21,
-                  typeid(::TAnalysis), ::ROOT::Internal::DefineBehavior(ptr, ptr),
+                  typeid(::TAnalysis), DefineBehavior(ptr, ptr),
                   &TAnalysis_Dictionary, isa_proxy, 4,
                   sizeof(::TAnalysis) );
       instance.SetNew(&new_TAnalysis);
@@ -153,7 +153,7 @@ namespace ROOT {
       static ::TVirtualIsAProxy* isa_proxy = new ::TIsAProxy(typeid(::TCalculations));
       static ::ROOT::TGenericClassInfo 
          instance("TCalculations", "TCalculations.h", 55,
-                  typeid(::TCalculations), ::ROOT::Internal::DefineBehavior(ptr, ptr),
+                  typeid(::TCalculations), DefineBehavior(ptr, ptr),
                   &TCalculations_Dictionary, isa_proxy, 4,
                   sizeof(::TCalculations) );
       instance.SetNew(&new_TCalculations);
@@ -198,7 +198,7 @@ namespace ROOT {
       static ::TVirtualIsAProxy* isa_proxy = new ::TIsAProxy(typeid(::ppElastic));
       static ::ROOT::TGenericClassInfo 
          instance("ppElastic", "ppElastic.h", 27,
-                  typeid(::ppElastic), ::ROOT::Internal::DefineBehavior(ptr, ptr),
+                  typeid(::ppElastic), DefineBehavior(ptr, ptr),
                   &ppElastic_Dictionary, isa_proxy, 4,
                   sizeof(::ppElastic) );
       instance.SetNew(&new_ppElastic);
@@ -243,7 +243,7 @@ namespace ROOT {
       static ::TVirtualIsAProxy* isa_proxy = new ::TIsAProxy(typeid(::myIncludes));
       static ::ROOT::TGenericClassInfo 
          instance("myIncludes", "myIncludes.h", 130,
-                  typeid(::myIncludes), ::ROOT::Internal::DefineBehavior(ptr, ptr),
+                  typeid(::myIncludes), DefineBehavior(ptr, ptr),
                   &myIncludes_Dictionary, isa_proxy, 4,
                   sizeof(::myIncludes) );
       instance.SetNew(&new_myIncludes);
@@ -288,7 +288,7 @@ namespace ROOT {
       static ::TVirtualIsAProxy* isa_proxy = new ::TIsAProxy(typeid(::ReadDatFile));
       static ::ROOT::TGenericClassInfo 
          instance("ReadDatFile", "ReadDatFile.h", 26,
-                  typeid(::ReadDatFile), ::ROOT::Internal::DefineBehavior(ptr, ptr),
+                  typeid(::ReadDatFile), DefineBehavior(ptr, ptr),
                   &ReadDatFile_Dictionary, isa_proxy, 4,
                   sizeof(::ReadDatFile) );
       instance.SetNew(&new_ReadDatFile);
@@ -458,8 +458,8 @@ namespace ROOT {
       vector<double> *ptr = 0;
       static ::TVirtualIsAProxy* isa_proxy = new ::TIsAProxy(typeid(vector<double>));
       static ::ROOT::TGenericClassInfo 
-         instance("vector<double>", -2, "vector", 477,
-                  typeid(vector<double>), ::ROOT::Internal::DefineBehavior(ptr, ptr),
+         instance("vector<double>", -2, "vector", 457,
+                  typeid(vector<double>), DefineBehavior(ptr, ptr),
                   &vectorlEdoublegR_Dictionary, isa_proxy, 0,
                   sizeof(vector<double>) );
       instance.SetNew(&new_vectorlEdoublegR);
@@ -488,10 +488,10 @@ namespace ROOT {
 namespace ROOT {
    // Wrappers around operator new
    static void *new_vectorlEdoublegR(void *p) {
-      return  p ? ::new((::ROOT::Internal::TOperatorNewHelper*)p) vector<double> : new vector<double>;
+      return  p ? ::new((::ROOT::TOperatorNewHelper*)p) vector<double> : new vector<double>;
    }
    static void *newArray_vectorlEdoublegR(Long_t nElements, void *p) {
-      return p ? ::new((::ROOT::Internal::TOperatorNewHelper*)p) vector<double>[nElements] : new vector<double>[nElements];
+      return p ? ::new((::ROOT::TOperatorNewHelper*)p) vector<double>[nElements] : new vector<double>[nElements];
    }
    // Wrapper around operator delete
    static void delete_vectorlEdoublegR(void *p) {
@@ -521,8 +521,8 @@ namespace ROOT {
       vector<TVector3> *ptr = 0;
       static ::TVirtualIsAProxy* isa_proxy = new ::TIsAProxy(typeid(vector<TVector3>));
       static ::ROOT::TGenericClassInfo 
-         instance("vector<TVector3>", -2, "vector", 477,
-                  typeid(vector<TVector3>), ::ROOT::Internal::DefineBehavior(ptr, ptr),
+         instance("vector<TVector3>", -2, "vector", 457,
+                  typeid(vector<TVector3>), DefineBehavior(ptr, ptr),
                   &vectorlETVector3gR_Dictionary, isa_proxy, 4,
                   sizeof(vector<TVector3>) );
       instance.SetNew(&new_vectorlETVector3gR);
@@ -551,10 +551,10 @@ namespace ROOT {
 namespace ROOT {
    // Wrappers around operator new
    static void *new_vectorlETVector3gR(void *p) {
-      return  p ? ::new((::ROOT::Internal::TOperatorNewHelper*)p) vector<TVector3> : new vector<TVector3>;
+      return  p ? ::new((::ROOT::TOperatorNewHelper*)p) vector<TVector3> : new vector<TVector3>;
    }
    static void *newArray_vectorlETVector3gR(Long_t nElements, void *p) {
-      return p ? ::new((::ROOT::Internal::TOperatorNewHelper*)p) vector<TVector3>[nElements] : new vector<TVector3>[nElements];
+      return p ? ::new((::ROOT::TOperatorNewHelper*)p) vector<TVector3>[nElements] : new vector<TVector3>[nElements];
    }
    // Wrapper around operator delete
    static void delete_vectorlETVector3gR(void *p) {
@@ -584,8 +584,8 @@ namespace ROOT {
       vector<TLorentzVector> *ptr = 0;
       static ::TVirtualIsAProxy* isa_proxy = new ::TIsAProxy(typeid(vector<TLorentzVector>));
       static ::ROOT::TGenericClassInfo 
-         instance("vector<TLorentzVector>", -2, "vector", 477,
-                  typeid(vector<TLorentzVector>), ::ROOT::Internal::DefineBehavior(ptr, ptr),
+         instance("vector<TLorentzVector>", -2, "vector", 457,
+                  typeid(vector<TLorentzVector>), DefineBehavior(ptr, ptr),
                   &vectorlETLorentzVectorgR_Dictionary, isa_proxy, 4,
                   sizeof(vector<TLorentzVector>) );
       instance.SetNew(&new_vectorlETLorentzVectorgR);
@@ -614,10 +614,10 @@ namespace ROOT {
 namespace ROOT {
    // Wrappers around operator new
    static void *new_vectorlETLorentzVectorgR(void *p) {
-      return  p ? ::new((::ROOT::Internal::TOperatorNewHelper*)p) vector<TLorentzVector> : new vector<TLorentzVector>;
+      return  p ? ::new((::ROOT::TOperatorNewHelper*)p) vector<TLorentzVector> : new vector<TLorentzVector>;
    }
    static void *newArray_vectorlETLorentzVectorgR(Long_t nElements, void *p) {
-      return p ? ::new((::ROOT::Internal::TOperatorNewHelper*)p) vector<TLorentzVector>[nElements] : new vector<TLorentzVector>[nElements];
+      return p ? ::new((::ROOT::TOperatorNewHelper*)p) vector<TLorentzVector>[nElements] : new vector<TLorentzVector>[nElements];
    }
    // Wrapper around operator delete
    static void delete_vectorlETLorentzVectorgR(void *p) {
@@ -644,12 +644,12 @@ namespace {
 0
     };
     static const char* includePaths[] = {
-"/usr/local/Cellar/root6/6.06.02/include/root",
+"/Users/erezcohen/root6/root-6.04.10/include",
 "/Users/erezcohen/larlite/UserDev/mySoftware/MySoftwarePackage/",
 0
     };
-    static const char* fwdDeclCode = R"DICTFWDDCLS(
-#line 1 "libMySoftware_MySoftwarePackage dictionary forward declarations' payload"
+    static const char* fwdDeclCode = 
+R"DICTFWDDCLS(
 #pragma clang diagnostic ignored "-Wkeyword-compat"
 #pragma clang diagnostic ignored "-Wignored-attributes"
 #pragma clang diagnostic ignored "-Wreturn-type-c-linkage"
@@ -666,7 +666,6 @@ class __attribute__((annotate("$clingAutoload$ReadDatFile.h")))  myIncludes;
 class __attribute__((annotate("$clingAutoload$ReadDatFile.h")))  ReadDatFile;
 )DICTFWDDCLS";
     static const char* payloadCode = R"DICTPAYLOAD(
-#line 1 "libMySoftware_MySoftwarePackage dictionary payload"
 
 #ifndef G__VECTOR_HAS_CLASS_ITERATOR
   #define G__VECTOR_HAS_CLASS_ITERATOR 1

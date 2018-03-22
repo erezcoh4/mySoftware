@@ -58,7 +58,8 @@ def set_axes(ax , x_label , y_label='' , fontsize = 25 , ticks_color='black' , n
              , do_add_grid=False, alpha_grid=0.75
              , title=None
              , do_add_legend=False, legend_loc='best'
-             , z_label=None , zticks=None ):
+             , z_label=None , zticks=None
+             , remove_ticks_x=False, remove_ticks_y=False):
     
     ax.set_xlabel(x_label,fontsize=fontsize)
     ax.set_ylabel(y_label,fontsize=fontsize)
@@ -90,6 +91,12 @@ def set_axes(ax , x_label , y_label='' , fontsize = 25 , ticks_color='black' , n
     if do_add_legend==True:#{
         ax.legend(loc=legend_loc,fontsize=fontsize)
     #}
+    if remove_ticks_x:
+        from matplotlib.ticker import NullFormatter
+        ax.get_xaxis().set_major_formatter(NullFormatter())
+    if remove_ticks_y:
+        from matplotlib.ticker import NullFormatter
+        ax.get_yaxis().set_major_formatter(NullFormatter())
     return ax
 
 

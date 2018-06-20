@@ -16,6 +16,14 @@ def print_filename(filename,action_on_file=""):
 
 
 # ------------------------------------------------------------------------------- #
+# May-29,2018
+def save_figure(filename=''):
+    import matplotlib.pyplot as plt
+    plt.savefig(filename)
+    print 'saved',filename
+# ------------------------------------------------------------------------------- #
+
+# ------------------------------------------------------------------------------- #
 # Feb-23,2017
 def delete_file(filename,debug=0):
     # if file does not existreturn
@@ -98,6 +106,7 @@ def set_axes(ax , x_label , y_label='' , fontsize = 25 , ticks_color='black' , n
         from matplotlib.ticker import NullFormatter
         ax.get_yaxis().set_major_formatter(NullFormatter())
     return ax
+# ------------------------------------------------------------------------------- #
 
 
 

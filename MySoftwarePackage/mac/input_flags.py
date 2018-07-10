@@ -22,6 +22,7 @@ def get_args():
     parser.add_argument('-core','--i_core', default=0, type=int , help='start the counting from i_core=0' )
     parser.add_argument('-mccv','--MCCversion', default=7, type=int , help='MCC version 7/8/...' )
     parser.add_argument('-mA', default=0.99, type=float , help='QE axial mass' )
+    parser.add_argument('--nskip', default=0, type=int , help='number of events to skip' )
 
     
     debug       = parser.parse_args().verbose
@@ -42,6 +43,7 @@ def get_args():
     Nruns       = parser.parse_args().NumberOfRuns
     MCCversion  = parser.parse_args().MCCversion
     mA          = parser.parse_args().mA
+    nskip       = parser.parse_args().nskip
     
     if debug>0: print "flags: ", parser.parse_args()
     

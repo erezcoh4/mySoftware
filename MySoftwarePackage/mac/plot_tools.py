@@ -11,8 +11,17 @@ from my_tools import *
 from matplotlib.colors import LogNorm
 generic = lambda x: ast.literal_eval(x)
 from matplotlib.ticker import LinearLocator, NullFormatter, MultipleLocator, FormatStrFormatter
+from matplotlib import rcParams
+rcParams['font.family'] = 'STIXGeneral'
 
 
+# --------------------------------
+def plot_discrete_histogram(data=None,histtype='step',linewidth=3,color='black',label=''):
+    d = np.diff(np.unique(data)).min()
+    left_of_first_bin = data.min() - float(d)/2
+    right_of_last_bin = data.max() + float(d)/2
+    plt.hist(data, np.arange(left_of_first_bin, right_of_last_bin + d, d),histtype=histtype,linewidth=linewidth,color=color,label=label)
+# --------------------------------
 
 # --------------------------------
 def hist_with_errors( x , bins=30 ,
